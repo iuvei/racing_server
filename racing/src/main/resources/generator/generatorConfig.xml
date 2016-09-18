@@ -20,10 +20,10 @@
 		</table>
 		<table schema="" tableName="common_stake" >
 		</table> -->
-		<table schema="" tableName="day_count_stake" >
-		</table>
-		<table schema="" tableName="record_result" >
-		</table>
+		<!-- <table schema="" tableName="day_count_stake" >
+		</table> -->
+		<!-- <table schema="" tableName="record_result" >
+		</table> -->
 		<!-- <table schema="" tableName="ranking_stake" >
 		</table> -->
 	</context>
