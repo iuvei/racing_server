@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry location="/Users/leon/.m2/repository/mysql/mysql-connector-java/5.1.26/mysql-connector-java-5.1.26.jar" />
+	<context id="member">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://120.26.75.31:3306/racing" userId="root"
+			password="leonRemoteDB" />
+		<javaModelGenerator targetPackage="com.racing.model.po"
+			targetProject="racing" />
+		<sqlMapGenerator targetPackage="com.racing.model.mapper.xml"
+			targetProject="racing" />
+		<javaClientGenerator targetPackage="com.racing.model.mapper"
+			targetProject="racing" type="XMLMAPPER" />
+			
+		<!-- <table schema="" tableName="appoint_stake" >
+		</table>
+		<table schema="" tableName="common_stake" >
+		</table> -->
+		<table schema="" tableName="day_count_stake" >
+		</table>
+		<table schema="" tableName="record_result" >
+		</table>
+		<!-- <table schema="" tableName="ranking_stake" >
+		</table> -->
+	</context>
+
+</generatorConfiguration>
