@@ -27,6 +27,8 @@ public class SingTestController {
   @RequestMapping(value = "/sign/check", method = RequestMethod.POST)
   public Object checkSign(HttpServletRequest request) {
 
+    String source = "";
+
     String accesskey = "098oiujklmnb";// 暂时写死，需要通过头部Accesskey的值获取
 
     String requestSign = request.getHeader("Authorization");

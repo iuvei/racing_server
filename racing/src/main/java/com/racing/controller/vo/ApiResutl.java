@@ -6,6 +6,8 @@ public class ApiResutl {
 
   private static final String ERROR = "ERROR";
 
+  private static final String NO_LOGIN = "NO_LOGIN";
+
   private String result;
 
   private Object data;
@@ -61,6 +63,10 @@ public class ApiResutl {
 
   public void setMessage(String message) {
     this.message = message;
+  }
+
+  public static String getNoLogin() {
+    return NO_LOGIN;
   }
 
 }
