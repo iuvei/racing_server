@@ -1,29 +1,20 @@
 package com.racing.service.timetask;
 
+import com.racing.model.po.*;
+import com.racing.model.repo.*;
+import com.racing.service.calc.CalculationService;
+import com.racing.util.DateUtil;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
-
-import com.racing.model.po.AppointStake;
-import com.racing.model.po.CommonStake;
-import com.racing.model.po.DayCountStake;
-import com.racing.model.po.RankingStake;
-import com.racing.model.po.RecordResult;
-import com.racing.model.repo.AppointStakeRepo;
-import com.racing.model.repo.CommonStakeRepo;
-import com.racing.model.repo.DayCountStakeRepo;
-import com.racing.model.repo.RankingStakeRepo;
-import com.racing.model.repo.RecordResultRepo;
-import com.racing.service.calc.CalculationService;
-import com.racing.util.DateUtil;
 
 @Component
 public class ScheduledRandomService {
@@ -110,7 +101,7 @@ public class ScheduledRandomService {
     }
   }
 
-  @Scheduled(cron = "7 6/5 0-23 * * ?")
+//  @Scheduled(cron = "7 6/5 0-23 * * ?")
   public void invokeCalculation() {
     Date nowDate = new Date();
     RecordResult recordResult = repo.getNowNextRecordResult(nowDate);
@@ -127,7 +118,7 @@ public class ScheduledRandomService {
     calculationService.calculation(recordResult.getRacingNum(), appointStakeList, commonStake, rankingStakeList);
   }
 
-  @Scheduled(cron = "55 6/5 0-23 * * ?")
+//  @Scheduled(cron = "55 6/5 0-23 * * ?")
   public void invokeDayCountStake() throws ParseException {
     Date nowDate = new Date();
     List<RecordResult> recordResultList = repo.getRecordResultByStartTime(DateUtil.getBeginOfDay(nowDate), DateUtil.getEndOfDay(nowDate));
