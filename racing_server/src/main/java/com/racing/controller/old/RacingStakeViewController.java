@@ -1,4 +1,4 @@
-package com.racing.controller;
+package com.racing.controller.old;
 
 import javax.servlet.http.HttpSession;
 

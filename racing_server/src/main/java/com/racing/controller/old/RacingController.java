@@ -1,4 +1,4 @@
-package com.racing.controller;
+package com.racing.controller.old;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
