@@ -1,6 +1,5 @@
 package com.racing.model.po;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -1376,186 +1375,6 @@ public class RecordResultExample {
             return (Criteria) this;
         }
 
-        public Criteria andTotalStakeAmountIsNull() {
-            addCriterion("total_stake_amount is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeAmountIsNotNull() {
-            addCriterion("total_stake_amount is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeAmountEqualTo(BigDecimal value) {
-            addCriterion("total_stake_amount =", value, "totalStakeAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeAmountNotEqualTo(BigDecimal value) {
-            addCriterion("total_stake_amount <>", value, "totalStakeAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeAmountGreaterThan(BigDecimal value) {
-            addCriterion("total_stake_amount >", value, "totalStakeAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeAmountGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("total_stake_amount >=", value, "totalStakeAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeAmountLessThan(BigDecimal value) {
-            addCriterion("total_stake_amount <", value, "totalStakeAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeAmountLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("total_stake_amount <=", value, "totalStakeAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeAmountIn(List<BigDecimal> values) {
-            addCriterion("total_stake_amount in", values, "totalStakeAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeAmountNotIn(List<BigDecimal> values) {
-            addCriterion("total_stake_amount not in", values, "totalStakeAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeAmountBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("total_stake_amount between", value1, value2, "totalStakeAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeAmountNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("total_stake_amount not between", value1, value2, "totalStakeAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalDeficitAmountIsNull() {
-            addCriterion("total_deficit_amount is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalDeficitAmountIsNotNull() {
-            addCriterion("total_deficit_amount is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalDeficitAmountEqualTo(BigDecimal value) {
-            addCriterion("total_deficit_amount =", value, "totalDeficitAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalDeficitAmountNotEqualTo(BigDecimal value) {
-            addCriterion("total_deficit_amount <>", value, "totalDeficitAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalDeficitAmountGreaterThan(BigDecimal value) {
-            addCriterion("total_deficit_amount >", value, "totalDeficitAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalDeficitAmountGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("total_deficit_amount >=", value, "totalDeficitAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalDeficitAmountLessThan(BigDecimal value) {
-            addCriterion("total_deficit_amount <", value, "totalDeficitAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalDeficitAmountLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("total_deficit_amount <=", value, "totalDeficitAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalDeficitAmountIn(List<BigDecimal> values) {
-            addCriterion("total_deficit_amount in", values, "totalDeficitAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalDeficitAmountNotIn(List<BigDecimal> values) {
-            addCriterion("total_deficit_amount not in", values, "totalDeficitAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalDeficitAmountBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("total_deficit_amount between", value1, value2, "totalDeficitAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalDeficitAmountNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("total_deficit_amount not between", value1, value2, "totalDeficitAmount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeCountIsNull() {
-            addCriterion("total_stake_count is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeCountIsNotNull() {
-            addCriterion("total_stake_count is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeCountEqualTo(Integer value) {
-            addCriterion("total_stake_count =", value, "totalStakeCount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeCountNotEqualTo(Integer value) {
-            addCriterion("total_stake_count <>", value, "totalStakeCount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeCountGreaterThan(Integer value) {
-            addCriterion("total_stake_count >", value, "totalStakeCount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeCountGreaterThanOrEqualTo(Integer value) {
-            addCriterion("total_stake_count >=", value, "totalStakeCount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeCountLessThan(Integer value) {
-            addCriterion("total_stake_count <", value, "totalStakeCount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeCountLessThanOrEqualTo(Integer value) {
-            addCriterion("total_stake_count <=", value, "totalStakeCount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeCountIn(List<Integer> values) {
-            addCriterion("total_stake_count in", values, "totalStakeCount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeCountNotIn(List<Integer> values) {
-            addCriterion("total_stake_count not in", values, "totalStakeCount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeCountBetween(Integer value1, Integer value2) {
-            addCriterion("total_stake_count between", value1, value2, "totalStakeCount");
-            return (Criteria) this;
-        }
-
-        public Criteria andTotalStakeCountNotBetween(Integer value1, Integer value2) {
-            addCriterion("total_stake_count not between", value1, value2, "totalStakeCount");
-            return (Criteria) this;
-        }
-
         public Criteria andIsComplateCalculationIsNull() {
             addCriterion("is_complate_calculation is null");
             return (Criteria) this;
@@ -1613,6 +1432,66 @@ public class RecordResultExample {
 
         public Criteria andIsComplateCalculationNotBetween(Boolean value1, Boolean value2) {
             addCriterion("is_complate_calculation not between", value1, value2, "isComplateCalculation");
+            return (Criteria) this;
+        }
+
+        public Criteria andComplateCalculationTimeIsNull() {
+            addCriterion("complate_calculation_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComplateCalculationTimeIsNotNull() {
+            addCriterion("complate_calculation_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andComplateCalculationTimeEqualTo(Date value) {
+            addCriterion("complate_calculation_time =", value, "complateCalculationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComplateCalculationTimeNotEqualTo(Date value) {
+            addCriterion("complate_calculation_time <>", value, "complateCalculationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComplateCalculationTimeGreaterThan(Date value) {
+            addCriterion("complate_calculation_time >", value, "complateCalculationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComplateCalculationTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("complate_calculation_time >=", value, "complateCalculationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComplateCalculationTimeLessThan(Date value) {
+            addCriterion("complate_calculation_time <", value, "complateCalculationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComplateCalculationTimeLessThanOrEqualTo(Date value) {
+            addCriterion("complate_calculation_time <=", value, "complateCalculationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComplateCalculationTimeIn(List<Date> values) {
+            addCriterion("complate_calculation_time in", values, "complateCalculationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComplateCalculationTimeNotIn(List<Date> values) {
+            addCriterion("complate_calculation_time not in", values, "complateCalculationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComplateCalculationTimeBetween(Date value1, Date value2) {
+            addCriterion("complate_calculation_time between", value1, value2, "complateCalculationTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andComplateCalculationTimeNotBetween(Date value1, Date value2) {
+            addCriterion("complate_calculation_time not between", value1, value2, "complateCalculationTime");
             return (Criteria) this;
         }
     }

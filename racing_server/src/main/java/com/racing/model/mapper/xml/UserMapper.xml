@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.racing.model.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.racing.model.po.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="total_points" property="totalPoints" jdbcType="DECIMAL" />
+    <result column="user_points" property="userPoints" jdbcType="DECIMAL" />
+    <result column="members_points" property="membersPoints" jdbcType="DECIMAL" />
+    <result column="last_login_ip" property="lastLoginIp" jdbcType="VARCHAR" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="is_enable" property="isEnable" jdbcType="VARCHAR" />
+    <result column="web_security_key" property="webSecurityKey" jdbcType="VARCHAR" />
+    <result column="web_access_key" property="webAccessKey" jdbcType="VARCHAR" />
+    <result column="web_out_time" property="webOutTime" jdbcType="TIMESTAMP" />
+    <result column="client_security_key" property="clientSecurityKey" jdbcType="VARCHAR" />
+    <result column="client_access_key" property="clientAccessKey" jdbcType="VARCHAR" />
+    <result column="client_out_time" property="clientOutTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_name, password, nick_name, total_points, user_points, members_points, last_login_ip, 
+    last_login_time, create_time, is_enable, web_security_key, web_access_key, web_out_time, 
+    client_security_key, client_access_key, client_out_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.racing.model.po.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.racing.model.po.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.racing.model.po.User" useGeneratedKeys="true" keyProperty="id" >
+    insert into user (id, user_name, password, 
+      nick_name, total_points, user_points, 
+      members_points, last_login_ip, last_login_time, 
+      create_time, is_enable, web_security_key, 
+      web_access_key, web_out_time, client_security_key, 
+      client_access_key, client_out_time)
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{nickName,jdbcType=VARCHAR}, #{totalPoints,jdbcType=DECIMAL}, #{userPoints,jdbcType=DECIMAL}, 
+      #{membersPoints,jdbcType=DECIMAL}, #{lastLoginIp,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{isEnable,jdbcType=VARCHAR}, #{webSecurityKey,jdbcType=VARCHAR}, 
+      #{webAccessKey,jdbcType=VARCHAR}, #{webOutTime,jdbcType=TIMESTAMP}, #{clientSecurityKey,jdbcType=VARCHAR}, 
+      #{clientAccessKey,jdbcType=VARCHAR}, #{clientOutTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.racing.model.po.User" useGeneratedKeys="true" keyProperty="id" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="totalPoints != null" >
+        total_points,
+      </if>
+      <if test="userPoints != null" >
+        user_points,
+      </if>
+      <if test="membersPoints != null" >
+        members_points,
+      </if>
+      <if test="lastLoginIp != null" >
+        last_login_ip,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="webSecurityKey != null" >
+        web_security_key,
+      </if>
+      <if test="webAccessKey != null" >
+        web_access_key,
+      </if>
+      <if test="webOutTime != null" >
+        web_out_time,
+      </if>
+      <if test="clientSecurityKey != null" >
+        client_security_key,
+      </if>
+      <if test="clientAccessKey != null" >
+        client_access_key,
+      </if>
+      <if test="clientOutTime != null" >
+        client_out_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPoints != null" >
+        #{totalPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="userPoints != null" >
+        #{userPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="membersPoints != null" >
+        #{membersPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="lastLoginIp != null" >
+        #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=VARCHAR},
+      </if>
+      <if test="webSecurityKey != null" >
+        #{webSecurityKey,jdbcType=VARCHAR},
+      </if>
+      <if test="webAccessKey != null" >
+        #{webAccessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="webOutTime != null" >
+        #{webOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientSecurityKey != null" >
+        #{clientSecurityKey,jdbcType=VARCHAR},
+      </if>
+      <if test="clientAccessKey != null" >
+        #{clientAccessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="clientOutTime != null" >
+        #{clientOutTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.racing.model.po.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickName != null" >
+        nick_name = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalPoints != null" >
+        total_points = #{record.totalPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="record.userPoints != null" >
+        user_points = #{record.userPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="record.membersPoints != null" >
+        members_points = #{record.membersPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="record.lastLoginIp != null" >
+        last_login_ip = #{record.lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastLoginTime != null" >
+        last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isEnable != null" >
+        is_enable = #{record.isEnable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.webSecurityKey != null" >
+        web_security_key = #{record.webSecurityKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.webAccessKey != null" >
+        web_access_key = #{record.webAccessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.webOutTime != null" >
+        web_out_time = #{record.webOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.clientSecurityKey != null" >
+        client_security_key = #{record.clientSecurityKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientAccessKey != null" >
+        client_access_key = #{record.clientAccessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientOutTime != null" >
+        client_out_time = #{record.clientOutTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set id = #{record.id,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      nick_name = #{record.nickName,jdbcType=VARCHAR},
+      total_points = #{record.totalPoints,jdbcType=DECIMAL},
+      user_points = #{record.userPoints,jdbcType=DECIMAL},
+      members_points = #{record.membersPoints,jdbcType=DECIMAL},
+      last_login_ip = #{record.lastLoginIp,jdbcType=VARCHAR},
+      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      is_enable = #{record.isEnable,jdbcType=VARCHAR},
+      web_security_key = #{record.webSecurityKey,jdbcType=VARCHAR},
+      web_access_key = #{record.webAccessKey,jdbcType=VARCHAR},
+      web_out_time = #{record.webOutTime,jdbcType=TIMESTAMP},
+      client_security_key = #{record.clientSecurityKey,jdbcType=VARCHAR},
+      client_access_key = #{record.clientAccessKey,jdbcType=VARCHAR},
+      client_out_time = #{record.clientOutTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.racing.model.po.User" >
+    update user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPoints != null" >
+        total_points = #{totalPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="userPoints != null" >
+        user_points = #{userPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="membersPoints != null" >
+        members_points = #{membersPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="lastLoginIp != null" >
+        last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=VARCHAR},
+      </if>
+      <if test="webSecurityKey != null" >
+        web_security_key = #{webSecurityKey,jdbcType=VARCHAR},
+      </if>
+      <if test="webAccessKey != null" >
+        web_access_key = #{webAccessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="webOutTime != null" >
+        web_out_time = #{webOutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientSecurityKey != null" >
+        client_security_key = #{clientSecurityKey,jdbcType=VARCHAR},
+      </if>
+      <if test="clientAccessKey != null" >
+        client_access_key = #{clientAccessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="clientOutTime != null" >
+        client_out_time = #{clientOutTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.racing.model.po.User" >
+    update user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      total_points = #{totalPoints,jdbcType=DECIMAL},
+      user_points = #{userPoints,jdbcType=DECIMAL},
+      members_points = #{membersPoints,jdbcType=DECIMAL},
+      last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      is_enable = #{isEnable,jdbcType=VARCHAR},
+      web_security_key = #{webSecurityKey,jdbcType=VARCHAR},
+      web_access_key = #{webAccessKey,jdbcType=VARCHAR},
+      web_out_time = #{webOutTime,jdbcType=TIMESTAMP},
+      client_security_key = #{clientSecurityKey,jdbcType=VARCHAR},
+      client_access_key = #{clientAccessKey,jdbcType=VARCHAR},
+      client_out_time = #{clientOutTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

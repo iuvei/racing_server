@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.racing.model.mapper.TotalCommonStakeMapper" >
+  <resultMap id="BaseResultMap" type="com.racing.model.po.TotalCommonStake" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="racing_num" property="racingNum" jdbcType="VARCHAR" />
+    <result column="first_up" property="firstUp" jdbcType="DECIMAL" />
+    <result column="first_dowm" property="firstDowm" jdbcType="DECIMAL" />
+    <result column="second_up" property="secondUp" jdbcType="DECIMAL" />
+    <result column="second_dowm" property="secondDowm" jdbcType="DECIMAL" />
+    <result column="third_up" property="thirdUp" jdbcType="DECIMAL" />
+    <result column="third_dowm" property="thirdDowm" jdbcType="DECIMAL" />
+    <result column="fourth_up" property="fourthUp" jdbcType="DECIMAL" />
+    <result column="fourth_dowm" property="fourthDowm" jdbcType="DECIMAL" />
+    <result column="fifth_up" property="fifthUp" jdbcType="DECIMAL" />
+    <result column="fifth_dowm" property="fifthDowm" jdbcType="DECIMAL" />
+    <result column="first_second_odd" property="firstSecondOdd" jdbcType="DECIMAL" />
+    <result column="first_second_even" property="firstSecondEven" jdbcType="DECIMAL" />
+    <result column="first_second_big" property="firstSecondBig" jdbcType="DECIMAL" />
+    <result column="first_second_small" property="firstSecondSmall" jdbcType="DECIMAL" />
+    <result column="first_second_3" property="firstSecond3" jdbcType="DECIMAL" />
+    <result column="first_second_4" property="firstSecond4" jdbcType="DECIMAL" />
+    <result column="first_second_5" property="firstSecond5" jdbcType="DECIMAL" />
+    <result column="first_second_6" property="firstSecond6" jdbcType="DECIMAL" />
+    <result column="first_second_7" property="firstSecond7" jdbcType="DECIMAL" />
+    <result column="first_second_8" property="firstSecond8" jdbcType="DECIMAL" />
+    <result column="first_second_9" property="firstSecond9" jdbcType="DECIMAL" />
+    <result column="first_second_10" property="firstSecond10" jdbcType="DECIMAL" />
+    <result column="first_second_11" property="firstSecond11" jdbcType="DECIMAL" />
+    <result column="first_second_12" property="firstSecond12" jdbcType="DECIMAL" />
+    <result column="first_second_13" property="firstSecond13" jdbcType="DECIMAL" />
+    <result column="first_second_14" property="firstSecond14" jdbcType="DECIMAL" />
+    <result column="first_second_15" property="firstSecond15" jdbcType="DECIMAL" />
+    <result column="first_second_16" property="firstSecond16" jdbcType="DECIMAL" />
+    <result column="first_second_17" property="firstSecond17" jdbcType="DECIMAL" />
+    <result column="first_second_18" property="firstSecond18" jdbcType="DECIMAL" />
+    <result column="first_second_19" property="firstSecond19" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, racing_num, first_up, first_dowm, second_up, second_dowm, third_up, third_dowm, 
+    fourth_up, fourth_dowm, fifth_up, fifth_dowm, first_second_odd, first_second_even, 
+    first_second_big, first_second_small, first_second_3, first_second_4, first_second_5, 
+    first_second_6, first_second_7, first_second_8, first_second_9, first_second_10, 
+    first_second_11, first_second_12, first_second_13, first_second_14, first_second_15, 
+    first_second_16, first_second_17, first_second_18, first_second_19
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.racing.model.po.TotalCommonStakeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from total_common_stake
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from total_common_stake
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from total_common_stake
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.racing.model.po.TotalCommonStakeExample" >
+    delete from total_common_stake
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.racing.model.po.TotalCommonStake" useGeneratedKeys="true" keyProperty="id" >
+    insert into total_common_stake (id, racing_num, first_up, 
+      first_dowm, second_up, second_dowm, 
+      third_up, third_dowm, fourth_up, 
+      fourth_dowm, fifth_up, fifth_dowm, 
+      first_second_odd, first_second_even, first_second_big, 
+      first_second_small, first_second_3, first_second_4, 
+      first_second_5, first_second_6, first_second_7, 
+      first_second_8, first_second_9, first_second_10, 
+      first_second_11, first_second_12, first_second_13, 
+      first_second_14, first_second_15, first_second_16, 
+      first_second_17, first_second_18, first_second_19
+      )
+    values (#{id,jdbcType=INTEGER}, #{racingNum,jdbcType=VARCHAR}, #{firstUp,jdbcType=DECIMAL}, 
+      #{firstDowm,jdbcType=DECIMAL}, #{secondUp,jdbcType=DECIMAL}, #{secondDowm,jdbcType=DECIMAL}, 
+      #{thirdUp,jdbcType=DECIMAL}, #{thirdDowm,jdbcType=DECIMAL}, #{fourthUp,jdbcType=DECIMAL}, 
+      #{fourthDowm,jdbcType=DECIMAL}, #{fifthUp,jdbcType=DECIMAL}, #{fifthDowm,jdbcType=DECIMAL}, 
+      #{firstSecondOdd,jdbcType=DECIMAL}, #{firstSecondEven,jdbcType=DECIMAL}, #{firstSecondBig,jdbcType=DECIMAL}, 
+      #{firstSecondSmall,jdbcType=DECIMAL}, #{firstSecond3,jdbcType=DECIMAL}, #{firstSecond4,jdbcType=DECIMAL}, 
+      #{firstSecond5,jdbcType=DECIMAL}, #{firstSecond6,jdbcType=DECIMAL}, #{firstSecond7,jdbcType=DECIMAL}, 
+      #{firstSecond8,jdbcType=DECIMAL}, #{firstSecond9,jdbcType=DECIMAL}, #{firstSecond10,jdbcType=DECIMAL}, 
+      #{firstSecond11,jdbcType=DECIMAL}, #{firstSecond12,jdbcType=DECIMAL}, #{firstSecond13,jdbcType=DECIMAL}, 
+      #{firstSecond14,jdbcType=DECIMAL}, #{firstSecond15,jdbcType=DECIMAL}, #{firstSecond16,jdbcType=DECIMAL}, 
+      #{firstSecond17,jdbcType=DECIMAL}, #{firstSecond18,jdbcType=DECIMAL}, #{firstSecond19,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.racing.model.po.TotalCommonStake" useGeneratedKeys="true" keyProperty="id" >
+    insert into total_common_stake
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="racingNum != null" >
+        racing_num,
+      </if>
+      <if test="firstUp != null" >
+        first_up,
+      </if>
+      <if test="firstDowm != null" >
+        first_dowm,
+      </if>
+      <if test="secondUp != null" >
+        second_up,
+      </if>
+      <if test="secondDowm != null" >
+        second_dowm,
+      </if>
+      <if test="thirdUp != null" >
+        third_up,
+      </if>
+      <if test="thirdDowm != null" >
+        third_dowm,
+      </if>
+      <if test="fourthUp != null" >
+        fourth_up,
+      </if>
+      <if test="fourthDowm != null" >
+        fourth_dowm,
+      </if>
+      <if test="fifthUp != null" >
+        fifth_up,
+      </if>
+      <if test="fifthDowm != null" >
+        fifth_dowm,
+      </if>
+      <if test="firstSecondOdd != null" >
+        first_second_odd,
+      </if>
+      <if test="firstSecondEven != null" >
+        first_second_even,
+      </if>
+      <if test="firstSecondBig != null" >
+        first_second_big,
+      </if>
+      <if test="firstSecondSmall != null" >
+        first_second_small,
+      </if>
+      <if test="firstSecond3 != null" >
+        first_second_3,
+      </if>
+      <if test="firstSecond4 != null" >
+        first_second_4,
+      </if>
+      <if test="firstSecond5 != null" >
+        first_second_5,
+      </if>
+      <if test="firstSecond6 != null" >
+        first_second_6,
+      </if>
+      <if test="firstSecond7 != null" >
+        first_second_7,
+      </if>
+      <if test="firstSecond8 != null" >
+        first_second_8,
+      </if>
+      <if test="firstSecond9 != null" >
+        first_second_9,
+      </if>
+      <if test="firstSecond10 != null" >
+        first_second_10,
+      </if>
+      <if test="firstSecond11 != null" >
+        first_second_11,
+      </if>
+      <if test="firstSecond12 != null" >
+        first_second_12,
+      </if>
+      <if test="firstSecond13 != null" >
+        first_second_13,
+      </if>
+      <if test="firstSecond14 != null" >
+        first_second_14,
+      </if>
+      <if test="firstSecond15 != null" >
+        first_second_15,
+      </if>
+      <if test="firstSecond16 != null" >
+        first_second_16,
+      </if>
+      <if test="firstSecond17 != null" >
+        first_second_17,
+      </if>
+      <if test="firstSecond18 != null" >
+        first_second_18,
+      </if>
+      <if test="firstSecond19 != null" >
+        first_second_19,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="racingNum != null" >
+        #{racingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="firstUp != null" >
+        #{firstUp,jdbcType=DECIMAL},
+      </if>
+      <if test="firstDowm != null" >
+        #{firstDowm,jdbcType=DECIMAL},
+      </if>
+      <if test="secondUp != null" >
+        #{secondUp,jdbcType=DECIMAL},
+      </if>
+      <if test="secondDowm != null" >
+        #{secondDowm,jdbcType=DECIMAL},
+      </if>
+      <if test="thirdUp != null" >
+        #{thirdUp,jdbcType=DECIMAL},
+      </if>
+      <if test="thirdDowm != null" >
+        #{thirdDowm,jdbcType=DECIMAL},
+      </if>
+      <if test="fourthUp != null" >
+        #{fourthUp,jdbcType=DECIMAL},
+      </if>
+      <if test="fourthDowm != null" >
+        #{fourthDowm,jdbcType=DECIMAL},
+      </if>
+      <if test="fifthUp != null" >
+        #{fifthUp,jdbcType=DECIMAL},
+      </if>
+      <if test="fifthDowm != null" >
+        #{fifthDowm,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecondOdd != null" >
+        #{firstSecondOdd,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecondEven != null" >
+        #{firstSecondEven,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecondBig != null" >
+        #{firstSecondBig,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecondSmall != null" >
+        #{firstSecondSmall,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond3 != null" >
+        #{firstSecond3,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond4 != null" >
+        #{firstSecond4,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond5 != null" >
+        #{firstSecond5,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond6 != null" >
+        #{firstSecond6,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond7 != null" >
+        #{firstSecond7,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond8 != null" >
+        #{firstSecond8,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond9 != null" >
+        #{firstSecond9,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond10 != null" >
+        #{firstSecond10,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond11 != null" >
+        #{firstSecond11,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond12 != null" >
+        #{firstSecond12,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond13 != null" >
+        #{firstSecond13,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond14 != null" >
+        #{firstSecond14,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond15 != null" >
+        #{firstSecond15,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond16 != null" >
+        #{firstSecond16,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond17 != null" >
+        #{firstSecond17,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond18 != null" >
+        #{firstSecond18,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond19 != null" >
+        #{firstSecond19,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.racing.model.po.TotalCommonStakeExample" resultType="java.lang.Integer" >
+    select count(*) from total_common_stake
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update total_common_stake
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.racingNum != null" >
+        racing_num = #{record.racingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstUp != null" >
+        first_up = #{record.firstUp,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstDowm != null" >
+        first_dowm = #{record.firstDowm,jdbcType=DECIMAL},
+      </if>
+      <if test="record.secondUp != null" >
+        second_up = #{record.secondUp,jdbcType=DECIMAL},
+      </if>
+      <if test="record.secondDowm != null" >
+        second_dowm = #{record.secondDowm,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thirdUp != null" >
+        third_up = #{record.thirdUp,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thirdDowm != null" >
+        third_dowm = #{record.thirdDowm,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fourthUp != null" >
+        fourth_up = #{record.fourthUp,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fourthDowm != null" >
+        fourth_dowm = #{record.fourthDowm,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fifthUp != null" >
+        fifth_up = #{record.fifthUp,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fifthDowm != null" >
+        fifth_dowm = #{record.fifthDowm,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecondOdd != null" >
+        first_second_odd = #{record.firstSecondOdd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecondEven != null" >
+        first_second_even = #{record.firstSecondEven,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecondBig != null" >
+        first_second_big = #{record.firstSecondBig,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecondSmall != null" >
+        first_second_small = #{record.firstSecondSmall,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond3 != null" >
+        first_second_3 = #{record.firstSecond3,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond4 != null" >
+        first_second_4 = #{record.firstSecond4,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond5 != null" >
+        first_second_5 = #{record.firstSecond5,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond6 != null" >
+        first_second_6 = #{record.firstSecond6,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond7 != null" >
+        first_second_7 = #{record.firstSecond7,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond8 != null" >
+        first_second_8 = #{record.firstSecond8,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond9 != null" >
+        first_second_9 = #{record.firstSecond9,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond10 != null" >
+        first_second_10 = #{record.firstSecond10,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond11 != null" >
+        first_second_11 = #{record.firstSecond11,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond12 != null" >
+        first_second_12 = #{record.firstSecond12,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond13 != null" >
+        first_second_13 = #{record.firstSecond13,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond14 != null" >
+        first_second_14 = #{record.firstSecond14,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond15 != null" >
+        first_second_15 = #{record.firstSecond15,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond16 != null" >
+        first_second_16 = #{record.firstSecond16,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond17 != null" >
+        first_second_17 = #{record.firstSecond17,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond18 != null" >
+        first_second_18 = #{record.firstSecond18,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstSecond19 != null" >
+        first_second_19 = #{record.firstSecond19,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update total_common_stake
+    set id = #{record.id,jdbcType=INTEGER},
+      racing_num = #{record.racingNum,jdbcType=VARCHAR},
+      first_up = #{record.firstUp,jdbcType=DECIMAL},
+      first_dowm = #{record.firstDowm,jdbcType=DECIMAL},
+      second_up = #{record.secondUp,jdbcType=DECIMAL},
+      second_dowm = #{record.secondDowm,jdbcType=DECIMAL},
+      third_up = #{record.thirdUp,jdbcType=DECIMAL},
+      third_dowm = #{record.thirdDowm,jdbcType=DECIMAL},
+      fourth_up = #{record.fourthUp,jdbcType=DECIMAL},
+      fourth_dowm = #{record.fourthDowm,jdbcType=DECIMAL},
+      fifth_up = #{record.fifthUp,jdbcType=DECIMAL},
+      fifth_dowm = #{record.fifthDowm,jdbcType=DECIMAL},
+      first_second_odd = #{record.firstSecondOdd,jdbcType=DECIMAL},
+      first_second_even = #{record.firstSecondEven,jdbcType=DECIMAL},
+      first_second_big = #{record.firstSecondBig,jdbcType=DECIMAL},
+      first_second_small = #{record.firstSecondSmall,jdbcType=DECIMAL},
+      first_second_3 = #{record.firstSecond3,jdbcType=DECIMAL},
+      first_second_4 = #{record.firstSecond4,jdbcType=DECIMAL},
+      first_second_5 = #{record.firstSecond5,jdbcType=DECIMAL},
+      first_second_6 = #{record.firstSecond6,jdbcType=DECIMAL},
+      first_second_7 = #{record.firstSecond7,jdbcType=DECIMAL},
+      first_second_8 = #{record.firstSecond8,jdbcType=DECIMAL},
+      first_second_9 = #{record.firstSecond9,jdbcType=DECIMAL},
+      first_second_10 = #{record.firstSecond10,jdbcType=DECIMAL},
+      first_second_11 = #{record.firstSecond11,jdbcType=DECIMAL},
+      first_second_12 = #{record.firstSecond12,jdbcType=DECIMAL},
+      first_second_13 = #{record.firstSecond13,jdbcType=DECIMAL},
+      first_second_14 = #{record.firstSecond14,jdbcType=DECIMAL},
+      first_second_15 = #{record.firstSecond15,jdbcType=DECIMAL},
+      first_second_16 = #{record.firstSecond16,jdbcType=DECIMAL},
+      first_second_17 = #{record.firstSecond17,jdbcType=DECIMAL},
+      first_second_18 = #{record.firstSecond18,jdbcType=DECIMAL},
+      first_second_19 = #{record.firstSecond19,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.racing.model.po.TotalCommonStake" >
+    update total_common_stake
+    <set >
+      <if test="racingNum != null" >
+        racing_num = #{racingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="firstUp != null" >
+        first_up = #{firstUp,jdbcType=DECIMAL},
+      </if>
+      <if test="firstDowm != null" >
+        first_dowm = #{firstDowm,jdbcType=DECIMAL},
+      </if>
+      <if test="secondUp != null" >
+        second_up = #{secondUp,jdbcType=DECIMAL},
+      </if>
+      <if test="secondDowm != null" >
+        second_dowm = #{secondDowm,jdbcType=DECIMAL},
+      </if>
+      <if test="thirdUp != null" >
+        third_up = #{thirdUp,jdbcType=DECIMAL},
+      </if>
+      <if test="thirdDowm != null" >
+        third_dowm = #{thirdDowm,jdbcType=DECIMAL},
+      </if>
+      <if test="fourthUp != null" >
+        fourth_up = #{fourthUp,jdbcType=DECIMAL},
+      </if>
+      <if test="fourthDowm != null" >
+        fourth_dowm = #{fourthDowm,jdbcType=DECIMAL},
+      </if>
+      <if test="fifthUp != null" >
+        fifth_up = #{fifthUp,jdbcType=DECIMAL},
+      </if>
+      <if test="fifthDowm != null" >
+        fifth_dowm = #{fifthDowm,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecondOdd != null" >
+        first_second_odd = #{firstSecondOdd,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecondEven != null" >
+        first_second_even = #{firstSecondEven,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecondBig != null" >
+        first_second_big = #{firstSecondBig,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecondSmall != null" >
+        first_second_small = #{firstSecondSmall,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond3 != null" >
+        first_second_3 = #{firstSecond3,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond4 != null" >
+        first_second_4 = #{firstSecond4,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond5 != null" >
+        first_second_5 = #{firstSecond5,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond6 != null" >
+        first_second_6 = #{firstSecond6,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond7 != null" >
+        first_second_7 = #{firstSecond7,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond8 != null" >
+        first_second_8 = #{firstSecond8,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond9 != null" >
+        first_second_9 = #{firstSecond9,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond10 != null" >
+        first_second_10 = #{firstSecond10,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond11 != null" >
+        first_second_11 = #{firstSecond11,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond12 != null" >
+        first_second_12 = #{firstSecond12,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond13 != null" >
+        first_second_13 = #{firstSecond13,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond14 != null" >
+        first_second_14 = #{firstSecond14,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond15 != null" >
+        first_second_15 = #{firstSecond15,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond16 != null" >
+        first_second_16 = #{firstSecond16,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond17 != null" >
+        first_second_17 = #{firstSecond17,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond18 != null" >
+        first_second_18 = #{firstSecond18,jdbcType=DECIMAL},
+      </if>
+      <if test="firstSecond19 != null" >
+        first_second_19 = #{firstSecond19,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.racing.model.po.TotalCommonStake" >
+    update total_common_stake
+    set racing_num = #{racingNum,jdbcType=VARCHAR},
+      first_up = #{firstUp,jdbcType=DECIMAL},
+      first_dowm = #{firstDowm,jdbcType=DECIMAL},
+      second_up = #{secondUp,jdbcType=DECIMAL},
+      second_dowm = #{secondDowm,jdbcType=DECIMAL},
+      third_up = #{thirdUp,jdbcType=DECIMAL},
+      third_dowm = #{thirdDowm,jdbcType=DECIMAL},
+      fourth_up = #{fourthUp,jdbcType=DECIMAL},
+      fourth_dowm = #{fourthDowm,jdbcType=DECIMAL},
+      fifth_up = #{fifthUp,jdbcType=DECIMAL},
+      fifth_dowm = #{fifthDowm,jdbcType=DECIMAL},
+      first_second_odd = #{firstSecondOdd,jdbcType=DECIMAL},
+      first_second_even = #{firstSecondEven,jdbcType=DECIMAL},
+      first_second_big = #{firstSecondBig,jdbcType=DECIMAL},
+      first_second_small = #{firstSecondSmall,jdbcType=DECIMAL},
+      first_second_3 = #{firstSecond3,jdbcType=DECIMAL},
+      first_second_4 = #{firstSecond4,jdbcType=DECIMAL},
+      first_second_5 = #{firstSecond5,jdbcType=DECIMAL},
+      first_second_6 = #{firstSecond6,jdbcType=DECIMAL},
+      first_second_7 = #{firstSecond7,jdbcType=DECIMAL},
+      first_second_8 = #{firstSecond8,jdbcType=DECIMAL},
+      first_second_9 = #{firstSecond9,jdbcType=DECIMAL},
+      first_second_10 = #{firstSecond10,jdbcType=DECIMAL},
+      first_second_11 = #{firstSecond11,jdbcType=DECIMAL},
+      first_second_12 = #{firstSecond12,jdbcType=DECIMAL},
+      first_second_13 = #{firstSecond13,jdbcType=DECIMAL},
+      first_second_14 = #{firstSecond14,jdbcType=DECIMAL},
+      first_second_15 = #{firstSecond15,jdbcType=DECIMAL},
+      first_second_16 = #{firstSecond16,jdbcType=DECIMAL},
+      first_second_17 = #{firstSecond17,jdbcType=DECIMAL},
+      first_second_18 = #{firstSecond18,jdbcType=DECIMAL},
+      first_second_19 = #{firstSecond19,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

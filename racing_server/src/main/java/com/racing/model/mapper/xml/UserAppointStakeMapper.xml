@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.racing.model.mapper.UserAppointStakeMapper" >
+  <resultMap id="BaseResultMap" type="com.racing.model.po.UserAppointStake" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="racing_num" property="racingNum" jdbcType="VARCHAR" />
+    <result column="car_num" property="carNum" jdbcType="INTEGER" />
+    <result column="first" property="first" jdbcType="DECIMAL" />
+    <result column="second" property="second" jdbcType="DECIMAL" />
+    <result column="third" property="third" jdbcType="DECIMAL" />
+    <result column="fourth" property="fourth" jdbcType="DECIMAL" />
+    <result column="fifth" property="fifth" jdbcType="DECIMAL" />
+    <result column="sixth" property="sixth" jdbcType="DECIMAL" />
+    <result column="seventh" property="seventh" jdbcType="DECIMAL" />
+    <result column="eighth" property="eighth" jdbcType="DECIMAL" />
+    <result column="ninth" property="ninth" jdbcType="DECIMAL" />
+    <result column="tenth" property="tenth" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, racing_num, car_num, first, second, third, fourth, fifth, sixth, seventh, 
+    eighth, ninth, tenth
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.racing.model.po.UserAppointStakeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_appoint_stake
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_appoint_stake
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_appoint_stake
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.racing.model.po.UserAppointStakeExample" >
+    delete from user_appoint_stake
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.racing.model.po.UserAppointStake" useGeneratedKeys="true" keyProperty="id" >
+    insert into user_appoint_stake (id, user_id, racing_num, 
+      car_num, first, second, 
+      third, fourth, fifth, 
+      sixth, seventh, eighth, 
+      ninth, tenth)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{racingNum,jdbcType=VARCHAR}, 
+      #{carNum,jdbcType=INTEGER}, #{first,jdbcType=DECIMAL}, #{second,jdbcType=DECIMAL}, 
+      #{third,jdbcType=DECIMAL}, #{fourth,jdbcType=DECIMAL}, #{fifth,jdbcType=DECIMAL}, 
+      #{sixth,jdbcType=DECIMAL}, #{seventh,jdbcType=DECIMAL}, #{eighth,jdbcType=DECIMAL}, 
+      #{ninth,jdbcType=DECIMAL}, #{tenth,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.racing.model.po.UserAppointStake" useGeneratedKeys="true" keyProperty="id" >
+    insert into user_appoint_stake
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="racingNum != null" >
+        racing_num,
+      </if>
+      <if test="carNum != null" >
+        car_num,
+      </if>
+      <if test="first != null" >
+        first,
+      </if>
+      <if test="second != null" >
+        second,
+      </if>
+      <if test="third != null" >
+        third,
+      </if>
+      <if test="fourth != null" >
+        fourth,
+      </if>
+      <if test="fifth != null" >
+        fifth,
+      </if>
+      <if test="sixth != null" >
+        sixth,
+      </if>
+      <if test="seventh != null" >
+        seventh,
+      </if>
+      <if test="eighth != null" >
+        eighth,
+      </if>
+      <if test="ninth != null" >
+        ninth,
+      </if>
+      <if test="tenth != null" >
+        tenth,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="racingNum != null" >
+        #{racingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="carNum != null" >
+        #{carNum,jdbcType=INTEGER},
+      </if>
+      <if test="first != null" >
+        #{first,jdbcType=DECIMAL},
+      </if>
+      <if test="second != null" >
+        #{second,jdbcType=DECIMAL},
+      </if>
+      <if test="third != null" >
+        #{third,jdbcType=DECIMAL},
+      </if>
+      <if test="fourth != null" >
+        #{fourth,jdbcType=DECIMAL},
+      </if>
+      <if test="fifth != null" >
+        #{fifth,jdbcType=DECIMAL},
+      </if>
+      <if test="sixth != null" >
+        #{sixth,jdbcType=DECIMAL},
+      </if>
+      <if test="seventh != null" >
+        #{seventh,jdbcType=DECIMAL},
+      </if>
+      <if test="eighth != null" >
+        #{eighth,jdbcType=DECIMAL},
+      </if>
+      <if test="ninth != null" >
+        #{ninth,jdbcType=DECIMAL},
+      </if>
+      <if test="tenth != null" >
+        #{tenth,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.racing.model.po.UserAppointStakeExample" resultType="java.lang.Integer" >
+    select count(*) from user_appoint_stake
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_appoint_stake
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.racingNum != null" >
+        racing_num = #{record.racingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.carNum != null" >
+        car_num = #{record.carNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.first != null" >
+        first = #{record.first,jdbcType=DECIMAL},
+      </if>
+      <if test="record.second != null" >
+        second = #{record.second,jdbcType=DECIMAL},
+      </if>
+      <if test="record.third != null" >
+        third = #{record.third,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fourth != null" >
+        fourth = #{record.fourth,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fifth != null" >
+        fifth = #{record.fifth,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sixth != null" >
+        sixth = #{record.sixth,jdbcType=DECIMAL},
+      </if>
+      <if test="record.seventh != null" >
+        seventh = #{record.seventh,jdbcType=DECIMAL},
+      </if>
+      <if test="record.eighth != null" >
+        eighth = #{record.eighth,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ninth != null" >
+        ninth = #{record.ninth,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tenth != null" >
+        tenth = #{record.tenth,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_appoint_stake
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      racing_num = #{record.racingNum,jdbcType=VARCHAR},
+      car_num = #{record.carNum,jdbcType=INTEGER},
+      first = #{record.first,jdbcType=DECIMAL},
+      second = #{record.second,jdbcType=DECIMAL},
+      third = #{record.third,jdbcType=DECIMAL},
+      fourth = #{record.fourth,jdbcType=DECIMAL},
+      fifth = #{record.fifth,jdbcType=DECIMAL},
+      sixth = #{record.sixth,jdbcType=DECIMAL},
+      seventh = #{record.seventh,jdbcType=DECIMAL},
+      eighth = #{record.eighth,jdbcType=DECIMAL},
+      ninth = #{record.ninth,jdbcType=DECIMAL},
+      tenth = #{record.tenth,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.racing.model.po.UserAppointStake" >
+    update user_appoint_stake
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="racingNum != null" >
+        racing_num = #{racingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="carNum != null" >
+        car_num = #{carNum,jdbcType=INTEGER},
+      </if>
+      <if test="first != null" >
+        first = #{first,jdbcType=DECIMAL},
+      </if>
+      <if test="second != null" >
+        second = #{second,jdbcType=DECIMAL},
+      </if>
+      <if test="third != null" >
+        third = #{third,jdbcType=DECIMAL},
+      </if>
+      <if test="fourth != null" >
+        fourth = #{fourth,jdbcType=DECIMAL},
+      </if>
+      <if test="fifth != null" >
+        fifth = #{fifth,jdbcType=DECIMAL},
+      </if>
+      <if test="sixth != null" >
+        sixth = #{sixth,jdbcType=DECIMAL},
+      </if>
+      <if test="seventh != null" >
+        seventh = #{seventh,jdbcType=DECIMAL},
+      </if>
+      <if test="eighth != null" >
+        eighth = #{eighth,jdbcType=DECIMAL},
+      </if>
+      <if test="ninth != null" >
+        ninth = #{ninth,jdbcType=DECIMAL},
+      </if>
+      <if test="tenth != null" >
+        tenth = #{tenth,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.racing.model.po.UserAppointStake" >
+    update user_appoint_stake
+    set user_id = #{userId,jdbcType=INTEGER},
+      racing_num = #{racingNum,jdbcType=VARCHAR},
+      car_num = #{carNum,jdbcType=INTEGER},
+      first = #{first,jdbcType=DECIMAL},
+      second = #{second,jdbcType=DECIMAL},
+      third = #{third,jdbcType=DECIMAL},
+      fourth = #{fourth,jdbcType=DECIMAL},
+      fifth = #{fifth,jdbcType=DECIMAL},
+      sixth = #{sixth,jdbcType=DECIMAL},
+      seventh = #{seventh,jdbcType=DECIMAL},
+      eighth = #{eighth,jdbcType=DECIMAL},
+      ninth = #{ninth,jdbcType=DECIMAL},
+      tenth = #{tenth,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

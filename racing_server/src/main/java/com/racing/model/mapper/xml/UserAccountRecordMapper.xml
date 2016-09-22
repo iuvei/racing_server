@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.racing.model.mapper.UserAccountRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.racing.model.po.UserAccountRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="operation_total_points" property="operationTotalPoints" jdbcType="DECIMAL" />
+    <result column="result_total_points" property="resultTotalPoints" jdbcType="DECIMAL" />
+    <result column="operation_user_points" property="operationUserPoints" jdbcType="DECIMAL" />
+    <result column="result_user_points" property="resultUserPoints" jdbcType="DECIMAL" />
+    <result column="operation_members_points" property="operationMembersPoints" jdbcType="DECIMAL" />
+    <result column="result_members_points" property="resultMembersPoints" jdbcType="DECIMAL" />
+    <result column="operation_time" property="operationTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, type, operation_total_points, result_total_points, operation_user_points, 
+    result_user_points, operation_members_points, result_members_points, operation_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.racing.model.po.UserAccountRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_account_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_account_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_account_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.racing.model.po.UserAccountRecordExample" >
+    delete from user_account_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.racing.model.po.UserAccountRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into user_account_record (id, user_id, type, 
+      operation_total_points, result_total_points, 
+      operation_user_points, result_user_points, 
+      operation_members_points, result_members_points, 
+      operation_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
+      #{operationTotalPoints,jdbcType=DECIMAL}, #{resultTotalPoints,jdbcType=DECIMAL}, 
+      #{operationUserPoints,jdbcType=DECIMAL}, #{resultUserPoints,jdbcType=DECIMAL}, 
+      #{operationMembersPoints,jdbcType=DECIMAL}, #{resultMembersPoints,jdbcType=DECIMAL}, 
+      #{operationTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.racing.model.po.UserAccountRecord" useGeneratedKeys="true" keyProperty="id" >
+    insert into user_account_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="operationTotalPoints != null" >
+        operation_total_points,
+      </if>
+      <if test="resultTotalPoints != null" >
+        result_total_points,
+      </if>
+      <if test="operationUserPoints != null" >
+        operation_user_points,
+      </if>
+      <if test="resultUserPoints != null" >
+        result_user_points,
+      </if>
+      <if test="operationMembersPoints != null" >
+        operation_members_points,
+      </if>
+      <if test="resultMembersPoints != null" >
+        result_members_points,
+      </if>
+      <if test="operationTime != null" >
+        operation_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="operationTotalPoints != null" >
+        #{operationTotalPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="resultTotalPoints != null" >
+        #{resultTotalPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="operationUserPoints != null" >
+        #{operationUserPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="resultUserPoints != null" >
+        #{resultUserPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="operationMembersPoints != null" >
+        #{operationMembersPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="resultMembersPoints != null" >
+        #{resultMembersPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="operationTime != null" >
+        #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.racing.model.po.UserAccountRecordExample" resultType="java.lang.Integer" >
+    select count(*) from user_account_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_account_record
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationTotalPoints != null" >
+        operation_total_points = #{record.operationTotalPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="record.resultTotalPoints != null" >
+        result_total_points = #{record.resultTotalPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="record.operationUserPoints != null" >
+        operation_user_points = #{record.operationUserPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="record.resultUserPoints != null" >
+        result_user_points = #{record.resultUserPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="record.operationMembersPoints != null" >
+        operation_members_points = #{record.operationMembersPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="record.resultMembersPoints != null" >
+        result_members_points = #{record.resultMembersPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="record.operationTime != null" >
+        operation_time = #{record.operationTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_account_record
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=VARCHAR},
+      operation_total_points = #{record.operationTotalPoints,jdbcType=DECIMAL},
+      result_total_points = #{record.resultTotalPoints,jdbcType=DECIMAL},
+      operation_user_points = #{record.operationUserPoints,jdbcType=DECIMAL},
+      result_user_points = #{record.resultUserPoints,jdbcType=DECIMAL},
+      operation_members_points = #{record.operationMembersPoints,jdbcType=DECIMAL},
+      result_members_points = #{record.resultMembersPoints,jdbcType=DECIMAL},
+      operation_time = #{record.operationTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.racing.model.po.UserAccountRecord" >
+    update user_account_record
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="operationTotalPoints != null" >
+        operation_total_points = #{operationTotalPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="resultTotalPoints != null" >
+        result_total_points = #{resultTotalPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="operationUserPoints != null" >
+        operation_user_points = #{operationUserPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="resultUserPoints != null" >
+        result_user_points = #{resultUserPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="operationMembersPoints != null" >
+        operation_members_points = #{operationMembersPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="resultMembersPoints != null" >
+        result_members_points = #{resultMembersPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="operationTime != null" >
+        operation_time = #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.racing.model.po.UserAccountRecord" >
+    update user_account_record
+    set user_id = #{userId,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      operation_total_points = #{operationTotalPoints,jdbcType=DECIMAL},
+      result_total_points = #{resultTotalPoints,jdbcType=DECIMAL},
+      operation_user_points = #{operationUserPoints,jdbcType=DECIMAL},
+      result_user_points = #{resultUserPoints,jdbcType=DECIMAL},
+      operation_members_points = #{operationMembersPoints,jdbcType=DECIMAL},
+      result_members_points = #{resultMembersPoints,jdbcType=DECIMAL},
+      operation_time = #{operationTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

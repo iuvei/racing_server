@@ -7,25 +7,58 @@
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://120.26.75.31:3306/racing" userId="root"
+			connectionURL="jdbc:mysql://120.26.75.31:3306/racingdb" userId="root"
 			password="leonRemoteDB" />
 		<javaModelGenerator targetPackage="com.racing.model.po"
-			targetProject="racing" />
+			targetProject="racing_server" />
 		<sqlMapGenerator targetPackage="com.racing.model.mapper.xml"
-			targetProject="racing" />
+			targetProject="racing_server" />
 		<javaClientGenerator targetPackage="com.racing.model.mapper"
-			targetProject="racing" type="XMLMAPPER" />
+			targetProject="racing_server" type="XMLMAPPER" />
 			
-		<!-- <table schema="" tableName="appoint_stake" >
+		
+		<table schema="" tableName="manager" >
 		</table>
-		<table schema="" tableName="common_stake" >
-		</table> -->
-		<!-- <table schema="" tableName="day_count_stake" >
-		</table> -->
-		<!-- <table schema="" tableName="record_result" >
-		</table> -->
-		<!-- <table schema="" tableName="ranking_stake" >
-		</table> -->
+		<table schema="" tableName="members" >
+		</table>
+		<table schema="" tableName="members_account_record" >
+		</table>
+		<table schema="" tableName="members_day_count_income" >
+		</table>
+		<table schema="" tableName="member_stake" >
+		</table>
+		<table schema="" tableName="record_result" >
+		</table>
+		<table schema="" tableName="total_appoint_stake" >
+		</table>
+		<table schema="" tableName="total_common_stake" >
+		</table>
+		<table schema="" tableName="total_day_count_income" >
+		</table>
+		<table schema="" tableName="total_racing_income" >
+		</table>
+		<table schema="" tableName="total_ranking_stake" >
+		</table>
+		<table schema="" tableName="user" >
+		</table>
+		<table schema="" tableName="user_account_record" >
+		</table>
+		<table schema="" tableName="user_appoint_stake" >
+		</table>
+		<table schema="" tableName="user_common_stake" >
+		</table>
+		<table schema="" tableName="user_day_count_income" >
+		</table>
+		<table schema="" tableName="user_points_app_record" >
+		</table>
+		<table schema="" tableName="user_racing_income" >
+		</table>
+		<table schema="" tableName="user_ranking_stake" >
+		</table>
+		<table schema="" tableName="user_stake" >
+		</table>
+		<table schema="" tableName="wechat_client" >
+		</table>
 	</context>
 
 </generatorConfiguration>

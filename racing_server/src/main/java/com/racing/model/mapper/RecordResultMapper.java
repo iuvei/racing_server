@@ -1,37 +1,30 @@
 package com.racing.model.mapper;
 
-import java.math.BigDecimal;
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.racing.model.po.RecordResult;
 import com.racing.model.po.RecordResultExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface RecordResultMapper {
+    int countByExample(RecordResultExample example);
 
-  int upaddTotalStakeAmount(@Param("racingNum") String racingNum, @Param("addTotalStakeAmount") BigDecimal addTotalStakeAmount,
-      @Param("addTotalStakeCount") Integer addTotalStakeCount);
+    int deleteByExample(RecordResultExample example);
 
-  int countByExample(RecordResultExample example);
+    int deleteByPrimaryKey(Integer id);
 
-  int deleteByExample(RecordResultExample example);
+    int insert(RecordResult record);
 
-  int deleteByPrimaryKey(Integer id);
+    int insertSelective(RecordResult record);
 
-  int insert(RecordResult record);
+    List<RecordResult> selectByExample(RecordResultExample example);
 
-  int insertSelective(RecordResult record);
+    RecordResult selectByPrimaryKey(Integer id);
 
-  List<RecordResult> selectByExample(RecordResultExample example);
+    int updateByExampleSelective(@Param("record") RecordResult record, @Param("example") RecordResultExample example);
 
-  RecordResult selectByPrimaryKey(Integer id);
+    int updateByExample(@Param("record") RecordResult record, @Param("example") RecordResultExample example);
 
-  int updateByExampleSelective(@Param("record") RecordResult record, @Param("example") RecordResultExample example);
+    int updateByPrimaryKeySelective(RecordResult record);
 
-  int updateByExample(@Param("record") RecordResult record, @Param("example") RecordResultExample example);
-
-  int updateByPrimaryKeySelective(RecordResult record);
-
-  int updateByPrimaryKey(RecordResult record);
+    int updateByPrimaryKey(RecordResult record);
 }

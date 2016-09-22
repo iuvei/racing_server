@@ -1,6 +1,5 @@
 package com.racing.model.po;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class RecordResult {
@@ -46,13 +45,9 @@ public class RecordResult {
 
     private Boolean isFifthUp;
 
-    private BigDecimal totalStakeAmount;
-
-    private BigDecimal totalDeficitAmount;
-
-    private Integer totalStakeCount;
-
     private Boolean isComplateCalculation;
+
+    private Date complateCalculationTime;
 
     public Integer getId() {
         return id;
@@ -222,35 +217,19 @@ public class RecordResult {
         this.isFifthUp = isFifthUp;
     }
 
-    public BigDecimal getTotalStakeAmount() {
-        return totalStakeAmount;
-    }
-
-    public void setTotalStakeAmount(BigDecimal totalStakeAmount) {
-        this.totalStakeAmount = totalStakeAmount;
-    }
-
-    public BigDecimal getTotalDeficitAmount() {
-        return totalDeficitAmount;
-    }
-
-    public void setTotalDeficitAmount(BigDecimal totalDeficitAmount) {
-        this.totalDeficitAmount = totalDeficitAmount;
-    }
-
-    public Integer getTotalStakeCount() {
-        return totalStakeCount;
-    }
-
-    public void setTotalStakeCount(Integer totalStakeCount) {
-        this.totalStakeCount = totalStakeCount;
-    }
-
     public Boolean getIsComplateCalculation() {
         return isComplateCalculation;
     }
 
     public void setIsComplateCalculation(Boolean isComplateCalculation) {
         this.isComplateCalculation = isComplateCalculation;
+    }
+
+    public Date getComplateCalculationTime() {
+        return complateCalculationTime;
+    }
+
+    public void setComplateCalculationTime(Date complateCalculationTime) {
+        this.complateCalculationTime = complateCalculationTime;
     }
 }

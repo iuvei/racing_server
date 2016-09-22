@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.racing.model.mapper.WechatClientMapper" >
+  <resultMap id="BaseResultMap" type="com.racing.model.po.WechatClient" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="client_sn" property="clientSn" jdbcType="VARCHAR" />
+    <result column="expire_date" property="expireDate" jdbcType="TIMESTAMP" />
+    <result column="appoint_stake_rate" property="appointStakeRate" jdbcType="DECIMAL" />
+    <result column="ranking_stake_rate" property="rankingStakeRate" jdbcType="DECIMAL" />
+    <result column="up_or_down_rate" property="upOrDownRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_odd_rate" property="firstAddSecondOddRate" jdbcType="DECIMAL" />
+    <result column="first_ddd_second_even_rate" property="firstDddSecondEvenRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_big_rate" property="firstAddSecondBigRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_small_rate" property="firstAddSecondSmallRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint3_stake_rate" property="firstAddSecondAppoint3StakeRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint4_stake_rate" property="firstAddSecondAppoint4StakeRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint5_stake_rate" property="firstAddSecondAppoint5StakeRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint6_stake_rate" property="firstAddSecondAppoint6StakeRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint7_stake_rate" property="firstAddSecondAppoint7StakeRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint8_stake_rate" property="firstAddSecondAppoint8StakeRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint9_stake_rate" property="firstAddSecondAppoint9StakeRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint10_stake_rate" property="firstAddSecondAppoint10StakeRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint11_stake_rate" property="firstAddSecondAppoint11StakeRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint12_stake_rate" property="firstAddSecondAppoint12StakeRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint13_stake_rate" property="firstAddSecondAppoint13StakeRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint14_stake_rate" property="firstAddSecondAppoint14StakeRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint15_stake_rate" property="firstAddSecondAppoint15StakeRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint16_stake_rate" property="firstAddSecondAppoint16StakeRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint17_stake_rate" property="firstAddSecondAppoint17StakeRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint18_stake_rate" property="firstAddSecondAppoint18StakeRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_appoint19_stake_rate" property="firstAddSecondAppoint19StakeRate" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, client_sn, expire_date, appoint_stake_rate, ranking_stake_rate, up_or_down_rate, 
+    first_add_second_odd_rate, first_ddd_second_even_rate, first_add_second_big_rate, 
+    first_add_second_small_rate, first_add_second_appoint3_stake_rate, first_add_second_appoint4_stake_rate, 
+    first_add_second_appoint5_stake_rate, first_add_second_appoint6_stake_rate, first_add_second_appoint7_stake_rate, 
+    first_add_second_appoint8_stake_rate, first_add_second_appoint9_stake_rate, first_add_second_appoint10_stake_rate, 
+    first_add_second_appoint11_stake_rate, first_add_second_appoint12_stake_rate, first_add_second_appoint13_stake_rate, 
+    first_add_second_appoint14_stake_rate, first_add_second_appoint15_stake_rate, first_add_second_appoint16_stake_rate, 
+    first_add_second_appoint17_stake_rate, first_add_second_appoint18_stake_rate, first_add_second_appoint19_stake_rate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.racing.model.po.WechatClientExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wechat_client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_client
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wechat_client
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.racing.model.po.WechatClientExample" >
+    delete from wechat_client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.racing.model.po.WechatClient" useGeneratedKeys="true" keyProperty="id" >
+    insert into wechat_client (id, user_id, client_sn, 
+      expire_date, appoint_stake_rate, ranking_stake_rate, 
+      up_or_down_rate, first_add_second_odd_rate, first_ddd_second_even_rate, 
+      first_add_second_big_rate, first_add_second_small_rate, 
+      first_add_second_appoint3_stake_rate, first_add_second_appoint4_stake_rate, 
+      first_add_second_appoint5_stake_rate, first_add_second_appoint6_stake_rate, 
+      first_add_second_appoint7_stake_rate, first_add_second_appoint8_stake_rate, 
+      first_add_second_appoint9_stake_rate, first_add_second_appoint10_stake_rate, 
+      first_add_second_appoint11_stake_rate, first_add_second_appoint12_stake_rate, 
+      first_add_second_appoint13_stake_rate, first_add_second_appoint14_stake_rate, 
+      first_add_second_appoint15_stake_rate, first_add_second_appoint16_stake_rate, 
+      first_add_second_appoint17_stake_rate, first_add_second_appoint18_stake_rate, 
+      first_add_second_appoint19_stake_rate)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{clientSn,jdbcType=VARCHAR}, 
+      #{expireDate,jdbcType=TIMESTAMP}, #{appointStakeRate,jdbcType=DECIMAL}, #{rankingStakeRate,jdbcType=DECIMAL}, 
+      #{upOrDownRate,jdbcType=DECIMAL}, #{firstAddSecondOddRate,jdbcType=DECIMAL}, #{firstDddSecondEvenRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondBigRate,jdbcType=DECIMAL}, #{firstAddSecondSmallRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint3StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint4StakeRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint5StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint6StakeRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint7StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint8StakeRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint9StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint10StakeRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint11StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint12StakeRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint13StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint14StakeRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint15StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint16StakeRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint17StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint18StakeRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint19StakeRate,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.racing.model.po.WechatClient" useGeneratedKeys="true" keyProperty="id" >
+    insert into wechat_client
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="clientSn != null" >
+        client_sn,
+      </if>
+      <if test="expireDate != null" >
+        expire_date,
+      </if>
+      <if test="appointStakeRate != null" >
+        appoint_stake_rate,
+      </if>
+      <if test="rankingStakeRate != null" >
+        ranking_stake_rate,
+      </if>
+      <if test="upOrDownRate != null" >
+        up_or_down_rate,
+      </if>
+      <if test="firstAddSecondOddRate != null" >
+        first_add_second_odd_rate,
+      </if>
+      <if test="firstDddSecondEvenRate != null" >
+        first_ddd_second_even_rate,
+      </if>
+      <if test="firstAddSecondBigRate != null" >
+        first_add_second_big_rate,
+      </if>
+      <if test="firstAddSecondSmallRate != null" >
+        first_add_second_small_rate,
+      </if>
+      <if test="firstAddSecondAppoint3StakeRate != null" >
+        first_add_second_appoint3_stake_rate,
+      </if>
+      <if test="firstAddSecondAppoint4StakeRate != null" >
+        first_add_second_appoint4_stake_rate,
+      </if>
+      <if test="firstAddSecondAppoint5StakeRate != null" >
+        first_add_second_appoint5_stake_rate,
+      </if>
+      <if test="firstAddSecondAppoint6StakeRate != null" >
+        first_add_second_appoint6_stake_rate,
+      </if>
+      <if test="firstAddSecondAppoint7StakeRate != null" >
+        first_add_second_appoint7_stake_rate,
+      </if>
+      <if test="firstAddSecondAppoint8StakeRate != null" >
+        first_add_second_appoint8_stake_rate,
+      </if>
+      <if test="firstAddSecondAppoint9StakeRate != null" >
+        first_add_second_appoint9_stake_rate,
+      </if>
+      <if test="firstAddSecondAppoint10StakeRate != null" >
+        first_add_second_appoint10_stake_rate,
+      </if>
+      <if test="firstAddSecondAppoint11StakeRate != null" >
+        first_add_second_appoint11_stake_rate,
+      </if>
+      <if test="firstAddSecondAppoint12StakeRate != null" >
+        first_add_second_appoint12_stake_rate,
+      </if>
+      <if test="firstAddSecondAppoint13StakeRate != null" >
+        first_add_second_appoint13_stake_rate,
+      </if>
+      <if test="firstAddSecondAppoint14StakeRate != null" >
+        first_add_second_appoint14_stake_rate,
+      </if>
+      <if test="firstAddSecondAppoint15StakeRate != null" >
+        first_add_second_appoint15_stake_rate,
+      </if>
+      <if test="firstAddSecondAppoint16StakeRate != null" >
+        first_add_second_appoint16_stake_rate,
+      </if>
+      <if test="firstAddSecondAppoint17StakeRate != null" >
+        first_add_second_appoint17_stake_rate,
+      </if>
+      <if test="firstAddSecondAppoint18StakeRate != null" >
+        first_add_second_appoint18_stake_rate,
+      </if>
+      <if test="firstAddSecondAppoint19StakeRate != null" >
+        first_add_second_appoint19_stake_rate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="clientSn != null" >
+        #{clientSn,jdbcType=VARCHAR},
+      </if>
+      <if test="expireDate != null" >
+        #{expireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appointStakeRate != null" >
+        #{appointStakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="rankingStakeRate != null" >
+        #{rankingStakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="upOrDownRate != null" >
+        #{upOrDownRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondOddRate != null" >
+        #{firstAddSecondOddRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstDddSecondEvenRate != null" >
+        #{firstDddSecondEvenRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondBigRate != null" >
+        #{firstAddSecondBigRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondSmallRate != null" >
+        #{firstAddSecondSmallRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint3StakeRate != null" >
+        #{firstAddSecondAppoint3StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint4StakeRate != null" >
+        #{firstAddSecondAppoint4StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint5StakeRate != null" >
+        #{firstAddSecondAppoint5StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint6StakeRate != null" >
+        #{firstAddSecondAppoint6StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint7StakeRate != null" >
+        #{firstAddSecondAppoint7StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint8StakeRate != null" >
+        #{firstAddSecondAppoint8StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint9StakeRate != null" >
+        #{firstAddSecondAppoint9StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint10StakeRate != null" >
+        #{firstAddSecondAppoint10StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint11StakeRate != null" >
+        #{firstAddSecondAppoint11StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint12StakeRate != null" >
+        #{firstAddSecondAppoint12StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint13StakeRate != null" >
+        #{firstAddSecondAppoint13StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint14StakeRate != null" >
+        #{firstAddSecondAppoint14StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint15StakeRate != null" >
+        #{firstAddSecondAppoint15StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint16StakeRate != null" >
+        #{firstAddSecondAppoint16StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint17StakeRate != null" >
+        #{firstAddSecondAppoint17StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint18StakeRate != null" >
+        #{firstAddSecondAppoint18StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint19StakeRate != null" >
+        #{firstAddSecondAppoint19StakeRate,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.racing.model.po.WechatClientExample" resultType="java.lang.Integer" >
+    select count(*) from wechat_client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wechat_client
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.clientSn != null" >
+        client_sn = #{record.clientSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expireDate != null" >
+        expire_date = #{record.expireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.appointStakeRate != null" >
+        appoint_stake_rate = #{record.appointStakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rankingStakeRate != null" >
+        ranking_stake_rate = #{record.rankingStakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.upOrDownRate != null" >
+        up_or_down_rate = #{record.upOrDownRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondOddRate != null" >
+        first_add_second_odd_rate = #{record.firstAddSecondOddRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstDddSecondEvenRate != null" >
+        first_ddd_second_even_rate = #{record.firstDddSecondEvenRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondBigRate != null" >
+        first_add_second_big_rate = #{record.firstAddSecondBigRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondSmallRate != null" >
+        first_add_second_small_rate = #{record.firstAddSecondSmallRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint3StakeRate != null" >
+        first_add_second_appoint3_stake_rate = #{record.firstAddSecondAppoint3StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint4StakeRate != null" >
+        first_add_second_appoint4_stake_rate = #{record.firstAddSecondAppoint4StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint5StakeRate != null" >
+        first_add_second_appoint5_stake_rate = #{record.firstAddSecondAppoint5StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint6StakeRate != null" >
+        first_add_second_appoint6_stake_rate = #{record.firstAddSecondAppoint6StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint7StakeRate != null" >
+        first_add_second_appoint7_stake_rate = #{record.firstAddSecondAppoint7StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint8StakeRate != null" >
+        first_add_second_appoint8_stake_rate = #{record.firstAddSecondAppoint8StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint9StakeRate != null" >
+        first_add_second_appoint9_stake_rate = #{record.firstAddSecondAppoint9StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint10StakeRate != null" >
+        first_add_second_appoint10_stake_rate = #{record.firstAddSecondAppoint10StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint11StakeRate != null" >
+        first_add_second_appoint11_stake_rate = #{record.firstAddSecondAppoint11StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint12StakeRate != null" >
+        first_add_second_appoint12_stake_rate = #{record.firstAddSecondAppoint12StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint13StakeRate != null" >
+        first_add_second_appoint13_stake_rate = #{record.firstAddSecondAppoint13StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint14StakeRate != null" >
+        first_add_second_appoint14_stake_rate = #{record.firstAddSecondAppoint14StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint15StakeRate != null" >
+        first_add_second_appoint15_stake_rate = #{record.firstAddSecondAppoint15StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint16StakeRate != null" >
+        first_add_second_appoint16_stake_rate = #{record.firstAddSecondAppoint16StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint17StakeRate != null" >
+        first_add_second_appoint17_stake_rate = #{record.firstAddSecondAppoint17StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint18StakeRate != null" >
+        first_add_second_appoint18_stake_rate = #{record.firstAddSecondAppoint18StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.firstAddSecondAppoint19StakeRate != null" >
+        first_add_second_appoint19_stake_rate = #{record.firstAddSecondAppoint19StakeRate,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wechat_client
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      client_sn = #{record.clientSn,jdbcType=VARCHAR},
+      expire_date = #{record.expireDate,jdbcType=TIMESTAMP},
+      appoint_stake_rate = #{record.appointStakeRate,jdbcType=DECIMAL},
+      ranking_stake_rate = #{record.rankingStakeRate,jdbcType=DECIMAL},
+      up_or_down_rate = #{record.upOrDownRate,jdbcType=DECIMAL},
+      first_add_second_odd_rate = #{record.firstAddSecondOddRate,jdbcType=DECIMAL},
+      first_ddd_second_even_rate = #{record.firstDddSecondEvenRate,jdbcType=DECIMAL},
+      first_add_second_big_rate = #{record.firstAddSecondBigRate,jdbcType=DECIMAL},
+      first_add_second_small_rate = #{record.firstAddSecondSmallRate,jdbcType=DECIMAL},
+      first_add_second_appoint3_stake_rate = #{record.firstAddSecondAppoint3StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint4_stake_rate = #{record.firstAddSecondAppoint4StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint5_stake_rate = #{record.firstAddSecondAppoint5StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint6_stake_rate = #{record.firstAddSecondAppoint6StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint7_stake_rate = #{record.firstAddSecondAppoint7StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint8_stake_rate = #{record.firstAddSecondAppoint8StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint9_stake_rate = #{record.firstAddSecondAppoint9StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint10_stake_rate = #{record.firstAddSecondAppoint10StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint11_stake_rate = #{record.firstAddSecondAppoint11StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint12_stake_rate = #{record.firstAddSecondAppoint12StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint13_stake_rate = #{record.firstAddSecondAppoint13StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint14_stake_rate = #{record.firstAddSecondAppoint14StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint15_stake_rate = #{record.firstAddSecondAppoint15StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint16_stake_rate = #{record.firstAddSecondAppoint16StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint17_stake_rate = #{record.firstAddSecondAppoint17StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint18_stake_rate = #{record.firstAddSecondAppoint18StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint19_stake_rate = #{record.firstAddSecondAppoint19StakeRate,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.racing.model.po.WechatClient" >
+    update wechat_client
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="clientSn != null" >
+        client_sn = #{clientSn,jdbcType=VARCHAR},
+      </if>
+      <if test="expireDate != null" >
+        expire_date = #{expireDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appointStakeRate != null" >
+        appoint_stake_rate = #{appointStakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="rankingStakeRate != null" >
+        ranking_stake_rate = #{rankingStakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="upOrDownRate != null" >
+        up_or_down_rate = #{upOrDownRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondOddRate != null" >
+        first_add_second_odd_rate = #{firstAddSecondOddRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstDddSecondEvenRate != null" >
+        first_ddd_second_even_rate = #{firstDddSecondEvenRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondBigRate != null" >
+        first_add_second_big_rate = #{firstAddSecondBigRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondSmallRate != null" >
+        first_add_second_small_rate = #{firstAddSecondSmallRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint3StakeRate != null" >
+        first_add_second_appoint3_stake_rate = #{firstAddSecondAppoint3StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint4StakeRate != null" >
+        first_add_second_appoint4_stake_rate = #{firstAddSecondAppoint4StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint5StakeRate != null" >
+        first_add_second_appoint5_stake_rate = #{firstAddSecondAppoint5StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint6StakeRate != null" >
+        first_add_second_appoint6_stake_rate = #{firstAddSecondAppoint6StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint7StakeRate != null" >
+        first_add_second_appoint7_stake_rate = #{firstAddSecondAppoint7StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint8StakeRate != null" >
+        first_add_second_appoint8_stake_rate = #{firstAddSecondAppoint8StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint9StakeRate != null" >
+        first_add_second_appoint9_stake_rate = #{firstAddSecondAppoint9StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint10StakeRate != null" >
+        first_add_second_appoint10_stake_rate = #{firstAddSecondAppoint10StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint11StakeRate != null" >
+        first_add_second_appoint11_stake_rate = #{firstAddSecondAppoint11StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint12StakeRate != null" >
+        first_add_second_appoint12_stake_rate = #{firstAddSecondAppoint12StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint13StakeRate != null" >
+        first_add_second_appoint13_stake_rate = #{firstAddSecondAppoint13StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint14StakeRate != null" >
+        first_add_second_appoint14_stake_rate = #{firstAddSecondAppoint14StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint15StakeRate != null" >
+        first_add_second_appoint15_stake_rate = #{firstAddSecondAppoint15StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint16StakeRate != null" >
+        first_add_second_appoint16_stake_rate = #{firstAddSecondAppoint16StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint17StakeRate != null" >
+        first_add_second_appoint17_stake_rate = #{firstAddSecondAppoint17StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint18StakeRate != null" >
+        first_add_second_appoint18_stake_rate = #{firstAddSecondAppoint18StakeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="firstAddSecondAppoint19StakeRate != null" >
+        first_add_second_appoint19_stake_rate = #{firstAddSecondAppoint19StakeRate,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.racing.model.po.WechatClient" >
+    update wechat_client
+    set user_id = #{userId,jdbcType=INTEGER},
+      client_sn = #{clientSn,jdbcType=VARCHAR},
+      expire_date = #{expireDate,jdbcType=TIMESTAMP},
+      appoint_stake_rate = #{appointStakeRate,jdbcType=DECIMAL},
+      ranking_stake_rate = #{rankingStakeRate,jdbcType=DECIMAL},
+      up_or_down_rate = #{upOrDownRate,jdbcType=DECIMAL},
+      first_add_second_odd_rate = #{firstAddSecondOddRate,jdbcType=DECIMAL},
+      first_ddd_second_even_rate = #{firstDddSecondEvenRate,jdbcType=DECIMAL},
+      first_add_second_big_rate = #{firstAddSecondBigRate,jdbcType=DECIMAL},
+      first_add_second_small_rate = #{firstAddSecondSmallRate,jdbcType=DECIMAL},
+      first_add_second_appoint3_stake_rate = #{firstAddSecondAppoint3StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint4_stake_rate = #{firstAddSecondAppoint4StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint5_stake_rate = #{firstAddSecondAppoint5StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint6_stake_rate = #{firstAddSecondAppoint6StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint7_stake_rate = #{firstAddSecondAppoint7StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint8_stake_rate = #{firstAddSecondAppoint8StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint9_stake_rate = #{firstAddSecondAppoint9StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint10_stake_rate = #{firstAddSecondAppoint10StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint11_stake_rate = #{firstAddSecondAppoint11StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint12_stake_rate = #{firstAddSecondAppoint12StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint13_stake_rate = #{firstAddSecondAppoint13StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint14_stake_rate = #{firstAddSecondAppoint14StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint15_stake_rate = #{firstAddSecondAppoint15StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint16_stake_rate = #{firstAddSecondAppoint16StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint17_stake_rate = #{firstAddSecondAppoint17StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint18_stake_rate = #{firstAddSecondAppoint18StakeRate,jdbcType=DECIMAL},
+      first_add_second_appoint19_stake_rate = #{firstAddSecondAppoint19StakeRate,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

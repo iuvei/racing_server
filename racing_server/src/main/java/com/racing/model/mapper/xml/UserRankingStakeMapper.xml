@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.racing.model.mapper.UserRankingStakeMapper" >
+  <resultMap id="BaseResultMap" type="com.racing.model.po.UserRankingStake" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="racing_num" property="racingNum" jdbcType="VARCHAR" />
+    <result column="ranking_num" property="rankingNum" jdbcType="INTEGER" />
+    <result column="big" property="big" jdbcType="DECIMAL" />
+    <result column="small" property="small" jdbcType="DECIMAL" />
+    <result column="odd" property="odd" jdbcType="DECIMAL" />
+    <result column="even" property="even" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, racing_num, ranking_num, big, small, odd, even
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.racing.model.po.UserRankingStakeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_ranking_stake
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_ranking_stake
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_ranking_stake
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.racing.model.po.UserRankingStakeExample" >
+    delete from user_ranking_stake
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.racing.model.po.UserRankingStake" useGeneratedKeys="true" keyProperty="id" >
+    insert into user_ranking_stake (id, user_id, racing_num, 
+      ranking_num, big, small, 
+      odd, even)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{racingNum,jdbcType=VARCHAR}, 
+      #{rankingNum,jdbcType=INTEGER}, #{big,jdbcType=DECIMAL}, #{small,jdbcType=DECIMAL}, 
+      #{odd,jdbcType=DECIMAL}, #{even,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.racing.model.po.UserRankingStake" useGeneratedKeys="true" keyProperty="id" >
+    insert into user_ranking_stake
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="racingNum != null" >
+        racing_num,
+      </if>
+      <if test="rankingNum != null" >
+        ranking_num,
+      </if>
+      <if test="big != null" >
+        big,
+      </if>
+      <if test="small != null" >
+        small,
+      </if>
+      <if test="odd != null" >
+        odd,
+      </if>
+      <if test="even != null" >
+        even,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="racingNum != null" >
+        #{racingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="rankingNum != null" >
+        #{rankingNum,jdbcType=INTEGER},
+      </if>
+      <if test="big != null" >
+        #{big,jdbcType=DECIMAL},
+      </if>
+      <if test="small != null" >
+        #{small,jdbcType=DECIMAL},
+      </if>
+      <if test="odd != null" >
+        #{odd,jdbcType=DECIMAL},
+      </if>
+      <if test="even != null" >
+        #{even,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.racing.model.po.UserRankingStakeExample" resultType="java.lang.Integer" >
+    select count(*) from user_ranking_stake
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_ranking_stake
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.racingNum != null" >
+        racing_num = #{record.racingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rankingNum != null" >
+        ranking_num = #{record.rankingNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.big != null" >
+        big = #{record.big,jdbcType=DECIMAL},
+      </if>
+      <if test="record.small != null" >
+        small = #{record.small,jdbcType=DECIMAL},
+      </if>
+      <if test="record.odd != null" >
+        odd = #{record.odd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.even != null" >
+        even = #{record.even,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_ranking_stake
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      racing_num = #{record.racingNum,jdbcType=VARCHAR},
+      ranking_num = #{record.rankingNum,jdbcType=INTEGER},
+      big = #{record.big,jdbcType=DECIMAL},
+      small = #{record.small,jdbcType=DECIMAL},
+      odd = #{record.odd,jdbcType=DECIMAL},
+      even = #{record.even,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.racing.model.po.UserRankingStake" >
+    update user_ranking_stake
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="racingNum != null" >
+        racing_num = #{racingNum,jdbcType=VARCHAR},
+      </if>
+      <if test="rankingNum != null" >
+        ranking_num = #{rankingNum,jdbcType=INTEGER},
+      </if>
+      <if test="big != null" >
+        big = #{big,jdbcType=DECIMAL},
+      </if>
+      <if test="small != null" >
+        small = #{small,jdbcType=DECIMAL},
+      </if>
+      <if test="odd != null" >
+        odd = #{odd,jdbcType=DECIMAL},
+      </if>
+      <if test="even != null" >
+        even = #{even,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.racing.model.po.UserRankingStake" >
+    update user_ranking_stake
+    set user_id = #{userId,jdbcType=INTEGER},
+      racing_num = #{racingNum,jdbcType=VARCHAR},
+      ranking_num = #{rankingNum,jdbcType=INTEGER},
+      big = #{big,jdbcType=DECIMAL},
+      small = #{small,jdbcType=DECIMAL},
+      odd = #{odd,jdbcType=DECIMAL},
+      even = #{even,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

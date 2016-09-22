@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.racing.model.mapper.MembersDayCountIncomeMapper" >
+  <resultMap id="BaseResultMap" type="com.racing.model.po.MembersDayCountIncome" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="members_id" property="membersId" jdbcType="VARCHAR" />
+    <result column="stake_amount" property="stakeAmount" jdbcType="DECIMAL" />
+    <result column="income_amount" property="incomeAmount" jdbcType="DECIMAL" />
+    <result column="deficit_amount" property="deficitAmount" jdbcType="DECIMAL" />
+    <result column="stake_count" property="stakeCount" jdbcType="INTEGER" />
+    <result column="day" property="day" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, members_id, stake_amount, income_amount, deficit_amount, stake_count, day
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.racing.model.po.MembersDayCountIncomeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from members_day_count_income
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from members_day_count_income
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from members_day_count_income
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.racing.model.po.MembersDayCountIncomeExample" >
+    delete from members_day_count_income
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.racing.model.po.MembersDayCountIncome" useGeneratedKeys="true" keyProperty="id" >
+    insert into members_day_count_income (id, members_id, stake_amount, 
+      income_amount, deficit_amount, stake_count, 
+      day)
+    values (#{id,jdbcType=INTEGER}, #{membersId,jdbcType=VARCHAR}, #{stakeAmount,jdbcType=DECIMAL}, 
+      #{incomeAmount,jdbcType=DECIMAL}, #{deficitAmount,jdbcType=DECIMAL}, #{stakeCount,jdbcType=INTEGER}, 
+      #{day,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.racing.model.po.MembersDayCountIncome" useGeneratedKeys="true" keyProperty="id" >
+    insert into members_day_count_income
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="membersId != null" >
+        members_id,
+      </if>
+      <if test="stakeAmount != null" >
+        stake_amount,
+      </if>
+      <if test="incomeAmount != null" >
+        income_amount,
+      </if>
+      <if test="deficitAmount != null" >
+        deficit_amount,
+      </if>
+      <if test="stakeCount != null" >
+        stake_count,
+      </if>
+      <if test="day != null" >
+        day,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="membersId != null" >
+        #{membersId,jdbcType=VARCHAR},
+      </if>
+      <if test="stakeAmount != null" >
+        #{stakeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="incomeAmount != null" >
+        #{incomeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="deficitAmount != null" >
+        #{deficitAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="stakeCount != null" >
+        #{stakeCount,jdbcType=INTEGER},
+      </if>
+      <if test="day != null" >
+        #{day,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.racing.model.po.MembersDayCountIncomeExample" resultType="java.lang.Integer" >
+    select count(*) from members_day_count_income
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update members_day_count_income
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.membersId != null" >
+        members_id = #{record.membersId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stakeAmount != null" >
+        stake_amount = #{record.stakeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.incomeAmount != null" >
+        income_amount = #{record.incomeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.deficitAmount != null" >
+        deficit_amount = #{record.deficitAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.stakeCount != null" >
+        stake_count = #{record.stakeCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.day != null" >
+        day = #{record.day,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update members_day_count_income
+    set id = #{record.id,jdbcType=INTEGER},
+      members_id = #{record.membersId,jdbcType=VARCHAR},
+      stake_amount = #{record.stakeAmount,jdbcType=DECIMAL},
+      income_amount = #{record.incomeAmount,jdbcType=DECIMAL},
+      deficit_amount = #{record.deficitAmount,jdbcType=DECIMAL},
+      stake_count = #{record.stakeCount,jdbcType=INTEGER},
+      day = #{record.day,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.racing.model.po.MembersDayCountIncome" >
+    update members_day_count_income
+    <set >
+      <if test="membersId != null" >
+        members_id = #{membersId,jdbcType=VARCHAR},
+      </if>
+      <if test="stakeAmount != null" >
+        stake_amount = #{stakeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="incomeAmount != null" >
+        income_amount = #{incomeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="deficitAmount != null" >
+        deficit_amount = #{deficitAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="stakeCount != null" >
+        stake_count = #{stakeCount,jdbcType=INTEGER},
+      </if>
+      <if test="day != null" >
+        day = #{day,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.racing.model.po.MembersDayCountIncome" >
+    update members_day_count_income
+    set members_id = #{membersId,jdbcType=VARCHAR},
+      stake_amount = #{stakeAmount,jdbcType=DECIMAL},
+      income_amount = #{incomeAmount,jdbcType=DECIMAL},
+      deficit_amount = #{deficitAmount,jdbcType=DECIMAL},
+      stake_count = #{stakeCount,jdbcType=INTEGER},
+      day = #{day,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
