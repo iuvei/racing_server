@@ -4,3 +4,8 @@
 .settings/
 /Users/
 /transaction-logs/
+.idea
+*.ids
+*.iml
+*.ipr
+*.iws
