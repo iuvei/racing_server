@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class MembersDayCountIncome {
     private Integer id;
 
-    private String membersId;
+    private Integer membersId;
 
     private BigDecimal stakeAmount;
 
@@ -25,11 +25,11 @@ public class MembersDayCountIncome {
         this.id = id;
     }
 
-    public String getMembersId() {
+    public Integer getMembersId() {
         return membersId;
     }
 
-    public void setMembersId(String membersId) {
+    public void setMembersId(Integer membersId) {
         this.membersId = membersId;
     }
 

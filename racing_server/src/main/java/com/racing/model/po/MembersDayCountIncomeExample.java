@@ -175,62 +175,52 @@ public class MembersDayCountIncomeExample {
             return (Criteria) this;
         }
 
-        public Criteria andMembersIdEqualTo(String value) {
+        public Criteria andMembersIdEqualTo(Integer value) {
             addCriterion("members_id =", value, "membersId");
             return (Criteria) this;
         }
 
-        public Criteria andMembersIdNotEqualTo(String value) {
+        public Criteria andMembersIdNotEqualTo(Integer value) {
             addCriterion("members_id <>", value, "membersId");
             return (Criteria) this;
         }
 
-        public Criteria andMembersIdGreaterThan(String value) {
+        public Criteria andMembersIdGreaterThan(Integer value) {
             addCriterion("members_id >", value, "membersId");
             return (Criteria) this;
         }
 
-        public Criteria andMembersIdGreaterThanOrEqualTo(String value) {
+        public Criteria andMembersIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("members_id >=", value, "membersId");
             return (Criteria) this;
         }
 
-        public Criteria andMembersIdLessThan(String value) {
+        public Criteria andMembersIdLessThan(Integer value) {
             addCriterion("members_id <", value, "membersId");
             return (Criteria) this;
         }
 
-        public Criteria andMembersIdLessThanOrEqualTo(String value) {
+        public Criteria andMembersIdLessThanOrEqualTo(Integer value) {
             addCriterion("members_id <=", value, "membersId");
             return (Criteria) this;
         }
 
-        public Criteria andMembersIdLike(String value) {
-            addCriterion("members_id like", value, "membersId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMembersIdNotLike(String value) {
-            addCriterion("members_id not like", value, "membersId");
-            return (Criteria) this;
-        }
-
-        public Criteria andMembersIdIn(List<String> values) {
+        public Criteria andMembersIdIn(List<Integer> values) {
             addCriterion("members_id in", values, "membersId");
             return (Criteria) this;
         }
 
-        public Criteria andMembersIdNotIn(List<String> values) {
+        public Criteria andMembersIdNotIn(List<Integer> values) {
             addCriterion("members_id not in", values, "membersId");
             return (Criteria) this;
         }
 
-        public Criteria andMembersIdBetween(String value1, String value2) {
+        public Criteria andMembersIdBetween(Integer value1, Integer value2) {
             addCriterion("members_id between", value1, value2, "membersId");
             return (Criteria) this;
         }
 
-        public Criteria andMembersIdNotBetween(String value1, String value2) {
+        public Criteria andMembersIdNotBetween(Integer value1, Integer value2) {
             addCriterion("members_id not between", value1, value2, "membersId");
             return (Criteria) this;
         }

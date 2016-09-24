@@ -1,16 +1,11 @@
 package com.racing.model.po;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 public class WechatClient {
     private Integer id;
 
     private Integer userId;
-
-    private String clientSn;
-
-    private Date expireDate;
 
     private BigDecimal appointStakeRate;
 
@@ -74,22 +69,6 @@ public class WechatClient {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public String getClientSn() {
-        return clientSn;
-    }
-
-    public void setClientSn(String clientSn) {
-        this.clientSn = clientSn;
-    }
-
-    public Date getExpireDate() {
-        return expireDate;
-    }
-
-    public void setExpireDate(Date expireDate) {
-        this.expireDate = expireDate;
     }
 
     public BigDecimal getAppointStakeRate() {

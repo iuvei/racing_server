@@ -4,8 +4,6 @@
   <resultMap id="BaseResultMap" type="com.racing.model.po.WechatClient" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="client_sn" property="clientSn" jdbcType="VARCHAR" />
-    <result column="expire_date" property="expireDate" jdbcType="TIMESTAMP" />
     <result column="appoint_stake_rate" property="appointStakeRate" jdbcType="DECIMAL" />
     <result column="ranking_stake_rate" property="rankingStakeRate" jdbcType="DECIMAL" />
     <result column="up_or_down_rate" property="upOrDownRate" jdbcType="DECIMAL" />
@@ -90,14 +88,14 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id, client_sn, expire_date, appoint_stake_rate, ranking_stake_rate, up_or_down_rate, 
-    first_add_second_odd_rate, first_ddd_second_even_rate, first_add_second_big_rate, 
-    first_add_second_small_rate, first_add_second_appoint3_stake_rate, first_add_second_appoint4_stake_rate, 
-    first_add_second_appoint5_stake_rate, first_add_second_appoint6_stake_rate, first_add_second_appoint7_stake_rate, 
-    first_add_second_appoint8_stake_rate, first_add_second_appoint9_stake_rate, first_add_second_appoint10_stake_rate, 
-    first_add_second_appoint11_stake_rate, first_add_second_appoint12_stake_rate, first_add_second_appoint13_stake_rate, 
-    first_add_second_appoint14_stake_rate, first_add_second_appoint15_stake_rate, first_add_second_appoint16_stake_rate, 
-    first_add_second_appoint17_stake_rate, first_add_second_appoint18_stake_rate, first_add_second_appoint19_stake_rate
+    id, user_id, appoint_stake_rate, ranking_stake_rate, up_or_down_rate, first_add_second_odd_rate, 
+    first_ddd_second_even_rate, first_add_second_big_rate, first_add_second_small_rate, 
+    first_add_second_appoint3_stake_rate, first_add_second_appoint4_stake_rate, first_add_second_appoint5_stake_rate, 
+    first_add_second_appoint6_stake_rate, first_add_second_appoint7_stake_rate, first_add_second_appoint8_stake_rate, 
+    first_add_second_appoint9_stake_rate, first_add_second_appoint10_stake_rate, first_add_second_appoint11_stake_rate, 
+    first_add_second_appoint12_stake_rate, first_add_second_appoint13_stake_rate, first_add_second_appoint14_stake_rate, 
+    first_add_second_appoint15_stake_rate, first_add_second_appoint16_stake_rate, first_add_second_appoint17_stake_rate, 
+    first_add_second_appoint18_stake_rate, first_add_second_appoint19_stake_rate
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.racing.model.po.WechatClientExample" >
     select
@@ -130,32 +128,32 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.racing.model.po.WechatClient" useGeneratedKeys="true" keyProperty="id" >
-    insert into wechat_client (id, user_id, client_sn, 
-      expire_date, appoint_stake_rate, ranking_stake_rate, 
-      up_or_down_rate, first_add_second_odd_rate, first_ddd_second_even_rate, 
-      first_add_second_big_rate, first_add_second_small_rate, 
-      first_add_second_appoint3_stake_rate, first_add_second_appoint4_stake_rate, 
-      first_add_second_appoint5_stake_rate, first_add_second_appoint6_stake_rate, 
-      first_add_second_appoint7_stake_rate, first_add_second_appoint8_stake_rate, 
-      first_add_second_appoint9_stake_rate, first_add_second_appoint10_stake_rate, 
-      first_add_second_appoint11_stake_rate, first_add_second_appoint12_stake_rate, 
-      first_add_second_appoint13_stake_rate, first_add_second_appoint14_stake_rate, 
-      first_add_second_appoint15_stake_rate, first_add_second_appoint16_stake_rate, 
-      first_add_second_appoint17_stake_rate, first_add_second_appoint18_stake_rate, 
-      first_add_second_appoint19_stake_rate)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{clientSn,jdbcType=VARCHAR}, 
-      #{expireDate,jdbcType=TIMESTAMP}, #{appointStakeRate,jdbcType=DECIMAL}, #{rankingStakeRate,jdbcType=DECIMAL}, 
-      #{upOrDownRate,jdbcType=DECIMAL}, #{firstAddSecondOddRate,jdbcType=DECIMAL}, #{firstDddSecondEvenRate,jdbcType=DECIMAL}, 
-      #{firstAddSecondBigRate,jdbcType=DECIMAL}, #{firstAddSecondSmallRate,jdbcType=DECIMAL}, 
-      #{firstAddSecondAppoint3StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint4StakeRate,jdbcType=DECIMAL}, 
-      #{firstAddSecondAppoint5StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint6StakeRate,jdbcType=DECIMAL}, 
-      #{firstAddSecondAppoint7StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint8StakeRate,jdbcType=DECIMAL}, 
-      #{firstAddSecondAppoint9StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint10StakeRate,jdbcType=DECIMAL}, 
-      #{firstAddSecondAppoint11StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint12StakeRate,jdbcType=DECIMAL}, 
-      #{firstAddSecondAppoint13StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint14StakeRate,jdbcType=DECIMAL}, 
-      #{firstAddSecondAppoint15StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint16StakeRate,jdbcType=DECIMAL}, 
-      #{firstAddSecondAppoint17StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint18StakeRate,jdbcType=DECIMAL}, 
-      #{firstAddSecondAppoint19StakeRate,jdbcType=DECIMAL})
+    insert into wechat_client (id, user_id, appoint_stake_rate, 
+      ranking_stake_rate, up_or_down_rate, first_add_second_odd_rate, 
+      first_ddd_second_even_rate, first_add_second_big_rate, 
+      first_add_second_small_rate, first_add_second_appoint3_stake_rate, 
+      first_add_second_appoint4_stake_rate, first_add_second_appoint5_stake_rate, 
+      first_add_second_appoint6_stake_rate, first_add_second_appoint7_stake_rate, 
+      first_add_second_appoint8_stake_rate, first_add_second_appoint9_stake_rate, 
+      first_add_second_appoint10_stake_rate, first_add_second_appoint11_stake_rate, 
+      first_add_second_appoint12_stake_rate, first_add_second_appoint13_stake_rate, 
+      first_add_second_appoint14_stake_rate, first_add_second_appoint15_stake_rate, 
+      first_add_second_appoint16_stake_rate, first_add_second_appoint17_stake_rate, 
+      first_add_second_appoint18_stake_rate, first_add_second_appoint19_stake_rate
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{appointStakeRate,jdbcType=DECIMAL}, 
+      #{rankingStakeRate,jdbcType=DECIMAL}, #{upOrDownRate,jdbcType=DECIMAL}, #{firstAddSecondOddRate,jdbcType=DECIMAL}, 
+      #{firstDddSecondEvenRate,jdbcType=DECIMAL}, #{firstAddSecondBigRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondSmallRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint3StakeRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint4StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint5StakeRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint6StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint7StakeRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint8StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint9StakeRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint10StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint11StakeRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint12StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint13StakeRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint14StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint15StakeRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint16StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint17StakeRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondAppoint18StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint19StakeRate,jdbcType=DECIMAL}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.racing.model.po.WechatClient" useGeneratedKeys="true" keyProperty="id" >
     insert into wechat_client
@@ -165,12 +163,6 @@
       </if>
       <if test="userId != null" >
         user_id,
-      </if>
-      <if test="clientSn != null" >
-        client_sn,
-      </if>
-      <if test="expireDate != null" >
-        expire_date,
       </if>
       <if test="appointStakeRate != null" >
         appoint_stake_rate,
@@ -251,12 +243,6 @@
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="clientSn != null" >
-        #{clientSn,jdbcType=VARCHAR},
-      </if>
-      <if test="expireDate != null" >
-        #{expireDate,jdbcType=TIMESTAMP},
       </if>
       <if test="appointStakeRate != null" >
         #{appointStakeRate,jdbcType=DECIMAL},
@@ -347,12 +333,6 @@
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.clientSn != null" >
-        client_sn = #{record.clientSn,jdbcType=VARCHAR},
-      </if>
-      <if test="record.expireDate != null" >
-        expire_date = #{record.expireDate,jdbcType=TIMESTAMP},
-      </if>
       <if test="record.appointStakeRate != null" >
         appoint_stake_rate = #{record.appointStakeRate,jdbcType=DECIMAL},
       </if>
@@ -434,8 +414,6 @@
     update wechat_client
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      client_sn = #{record.clientSn,jdbcType=VARCHAR},
-      expire_date = #{record.expireDate,jdbcType=TIMESTAMP},
       appoint_stake_rate = #{record.appointStakeRate,jdbcType=DECIMAL},
       ranking_stake_rate = #{record.rankingStakeRate,jdbcType=DECIMAL},
       up_or_down_rate = #{record.upOrDownRate,jdbcType=DECIMAL},
@@ -469,12 +447,6 @@
     <set >
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="clientSn != null" >
-        client_sn = #{clientSn,jdbcType=VARCHAR},
-      </if>
-      <if test="expireDate != null" >
-        expire_date = #{expireDate,jdbcType=TIMESTAMP},
       </if>
       <if test="appointStakeRate != null" >
         appoint_stake_rate = #{appointStakeRate,jdbcType=DECIMAL},
@@ -554,8 +526,6 @@
   <update id="updateByPrimaryKey" parameterType="com.racing.model.po.WechatClient" >
     update wechat_client
     set user_id = #{userId,jdbcType=INTEGER},
-      client_sn = #{clientSn,jdbcType=VARCHAR},
-      expire_date = #{expireDate,jdbcType=TIMESTAMP},
       appoint_stake_rate = #{appointStakeRate,jdbcType=DECIMAL},
       ranking_stake_rate = #{rankingStakeRate,jdbcType=DECIMAL},
       up_or_down_rate = #{upOrDownRate,jdbcType=DECIMAL},

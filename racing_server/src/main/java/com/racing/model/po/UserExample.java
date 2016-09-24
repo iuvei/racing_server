@@ -756,63 +756,243 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableEqualTo(String value) {
+        public Criteria andIsEnableEqualTo(Byte value) {
             addCriterion("is_enable =", value, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableNotEqualTo(String value) {
+        public Criteria andIsEnableNotEqualTo(Byte value) {
             addCriterion("is_enable <>", value, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableGreaterThan(String value) {
+        public Criteria andIsEnableGreaterThan(Byte value) {
             addCriterion("is_enable >", value, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableGreaterThanOrEqualTo(String value) {
+        public Criteria andIsEnableGreaterThanOrEqualTo(Byte value) {
             addCriterion("is_enable >=", value, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableLessThan(String value) {
+        public Criteria andIsEnableLessThan(Byte value) {
             addCriterion("is_enable <", value, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableLessThanOrEqualTo(String value) {
+        public Criteria andIsEnableLessThanOrEqualTo(Byte value) {
             addCriterion("is_enable <=", value, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableLike(String value) {
-            addCriterion("is_enable like", value, "isEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsEnableNotLike(String value) {
-            addCriterion("is_enable not like", value, "isEnable");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsEnableIn(List<String> values) {
+        public Criteria andIsEnableIn(List<Byte> values) {
             addCriterion("is_enable in", values, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableNotIn(List<String> values) {
+        public Criteria andIsEnableNotIn(List<Byte> values) {
             addCriterion("is_enable not in", values, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableBetween(String value1, String value2) {
+        public Criteria andIsEnableBetween(Byte value1, Byte value2) {
             addCriterion("is_enable between", value1, value2, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableNotBetween(String value1, String value2) {
+        public Criteria andIsEnableNotBetween(Byte value1, Byte value2) {
             addCriterion("is_enable not between", value1, value2, "isEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientSnIsNull() {
+            addCriterion("client_sn is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientSnIsNotNull() {
+            addCriterion("client_sn is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientSnEqualTo(String value) {
+            addCriterion("client_sn =", value, "clientSn");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientSnNotEqualTo(String value) {
+            addCriterion("client_sn <>", value, "clientSn");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientSnGreaterThan(String value) {
+            addCriterion("client_sn >", value, "clientSn");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientSnGreaterThanOrEqualTo(String value) {
+            addCriterion("client_sn >=", value, "clientSn");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientSnLessThan(String value) {
+            addCriterion("client_sn <", value, "clientSn");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientSnLessThanOrEqualTo(String value) {
+            addCriterion("client_sn <=", value, "clientSn");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientSnLike(String value) {
+            addCriterion("client_sn like", value, "clientSn");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientSnNotLike(String value) {
+            addCriterion("client_sn not like", value, "clientSn");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientSnIn(List<String> values) {
+            addCriterion("client_sn in", values, "clientSn");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientSnNotIn(List<String> values) {
+            addCriterion("client_sn not in", values, "clientSn");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientSnBetween(String value1, String value2) {
+            addCriterion("client_sn between", value1, value2, "clientSn");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientSnNotBetween(String value1, String value2) {
+            addCriterion("client_sn not between", value1, value2, "clientSn");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientExpireDateIsNull() {
+            addCriterion("client_expire_date is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientExpireDateIsNotNull() {
+            addCriterion("client_expire_date is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientExpireDateEqualTo(Date value) {
+            addCriterion("client_expire_date =", value, "clientExpireDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientExpireDateNotEqualTo(Date value) {
+            addCriterion("client_expire_date <>", value, "clientExpireDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientExpireDateGreaterThan(Date value) {
+            addCriterion("client_expire_date >", value, "clientExpireDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientExpireDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("client_expire_date >=", value, "clientExpireDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientExpireDateLessThan(Date value) {
+            addCriterion("client_expire_date <", value, "clientExpireDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientExpireDateLessThanOrEqualTo(Date value) {
+            addCriterion("client_expire_date <=", value, "clientExpireDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientExpireDateIn(List<Date> values) {
+            addCriterion("client_expire_date in", values, "clientExpireDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientExpireDateNotIn(List<Date> values) {
+            addCriterion("client_expire_date not in", values, "clientExpireDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientExpireDateBetween(Date value1, Date value2) {
+            addCriterion("client_expire_date between", value1, value2, "clientExpireDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientExpireDateNotBetween(Date value1, Date value2) {
+            addCriterion("client_expire_date not between", value1, value2, "clientExpireDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientIsEnableIsNull() {
+            addCriterion("client_is_enable is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientIsEnableIsNotNull() {
+            addCriterion("client_is_enable is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientIsEnableEqualTo(Byte value) {
+            addCriterion("client_is_enable =", value, "clientIsEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientIsEnableNotEqualTo(Byte value) {
+            addCriterion("client_is_enable <>", value, "clientIsEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientIsEnableGreaterThan(Byte value) {
+            addCriterion("client_is_enable >", value, "clientIsEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientIsEnableGreaterThanOrEqualTo(Byte value) {
+            addCriterion("client_is_enable >=", value, "clientIsEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientIsEnableLessThan(Byte value) {
+            addCriterion("client_is_enable <", value, "clientIsEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientIsEnableLessThanOrEqualTo(Byte value) {
+            addCriterion("client_is_enable <=", value, "clientIsEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientIsEnableIn(List<Byte> values) {
+            addCriterion("client_is_enable in", values, "clientIsEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientIsEnableNotIn(List<Byte> values) {
+            addCriterion("client_is_enable not in", values, "clientIsEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientIsEnableBetween(Byte value1, Byte value2) {
+            addCriterion("client_is_enable between", value1, value2, "clientIsEnable");
+            return (Criteria) this;
+        }
+
+        public Criteria andClientIsEnableNotBetween(Byte value1, Byte value2) {
+            addCriterion("client_is_enable not between", value1, value2, "clientIsEnable");
             return (Criteria) this;
         }
 

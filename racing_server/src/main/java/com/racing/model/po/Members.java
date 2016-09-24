@@ -7,11 +7,11 @@ public class Members {
 
     private Integer userId;
 
-    private String wechatClientId;
-
-    private String groupSn;
+    private Integer wechatClientId;
 
     private String wechatSn;
+
+    private String nickName;
 
     private BigDecimal points;
 
@@ -31,20 +31,12 @@ public class Members {
         this.userId = userId;
     }
 
-    public String getWechatClientId() {
+    public Integer getWechatClientId() {
         return wechatClientId;
     }
 
-    public void setWechatClientId(String wechatClientId) {
+    public void setWechatClientId(Integer wechatClientId) {
         this.wechatClientId = wechatClientId;
-    }
-
-    public String getGroupSn() {
-        return groupSn;
-    }
-
-    public void setGroupSn(String groupSn) {
-        this.groupSn = groupSn;
     }
 
     public String getWechatSn() {
@@ -53,6 +45,14 @@ public class Members {
 
     public void setWechatSn(String wechatSn) {
         this.wechatSn = wechatSn;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public BigDecimal getPoints() {

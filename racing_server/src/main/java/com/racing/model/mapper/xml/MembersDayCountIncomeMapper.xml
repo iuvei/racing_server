@@ -3,7 +3,7 @@
 <mapper namespace="com.racing.model.mapper.MembersDayCountIncomeMapper" >
   <resultMap id="BaseResultMap" type="com.racing.model.po.MembersDayCountIncome" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="members_id" property="membersId" jdbcType="VARCHAR" />
+    <result column="members_id" property="membersId" jdbcType="INTEGER" />
     <result column="stake_amount" property="stakeAmount" jdbcType="DECIMAL" />
     <result column="income_amount" property="incomeAmount" jdbcType="DECIMAL" />
     <result column="deficit_amount" property="deficitAmount" jdbcType="DECIMAL" />
@@ -105,7 +105,7 @@
     insert into members_day_count_income (id, members_id, stake_amount, 
       income_amount, deficit_amount, stake_count, 
       day)
-    values (#{id,jdbcType=INTEGER}, #{membersId,jdbcType=VARCHAR}, #{stakeAmount,jdbcType=DECIMAL}, 
+    values (#{id,jdbcType=INTEGER}, #{membersId,jdbcType=INTEGER}, #{stakeAmount,jdbcType=DECIMAL}, 
       #{incomeAmount,jdbcType=DECIMAL}, #{deficitAmount,jdbcType=DECIMAL}, #{stakeCount,jdbcType=INTEGER}, 
       #{day,jdbcType=VARCHAR})
   </insert>
@@ -139,7 +139,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="membersId != null" >
-        #{membersId,jdbcType=VARCHAR},
+        #{membersId,jdbcType=INTEGER},
       </if>
       <if test="stakeAmount != null" >
         #{stakeAmount,jdbcType=DECIMAL},
@@ -171,7 +171,7 @@
         id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.membersId != null" >
-        members_id = #{record.membersId,jdbcType=VARCHAR},
+        members_id = #{record.membersId,jdbcType=INTEGER},
       </if>
       <if test="record.stakeAmount != null" >
         stake_amount = #{record.stakeAmount,jdbcType=DECIMAL},
@@ -196,7 +196,7 @@
   <update id="updateByExample" parameterType="map" >
     update members_day_count_income
     set id = #{record.id,jdbcType=INTEGER},
-      members_id = #{record.membersId,jdbcType=VARCHAR},
+      members_id = #{record.membersId,jdbcType=INTEGER},
       stake_amount = #{record.stakeAmount,jdbcType=DECIMAL},
       income_amount = #{record.incomeAmount,jdbcType=DECIMAL},
       deficit_amount = #{record.deficitAmount,jdbcType=DECIMAL},
@@ -210,7 +210,7 @@
     update members_day_count_income
     <set >
       <if test="membersId != null" >
-        members_id = #{membersId,jdbcType=VARCHAR},
+        members_id = #{membersId,jdbcType=INTEGER},
       </if>
       <if test="stakeAmount != null" >
         stake_amount = #{stakeAmount,jdbcType=DECIMAL},
@@ -232,7 +232,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.racing.model.po.MembersDayCountIncome" >
     update members_day_count_income
-    set members_id = #{membersId,jdbcType=VARCHAR},
+    set members_id = #{membersId,jdbcType=INTEGER},
       stake_amount = #{stakeAmount,jdbcType=DECIMAL},
       income_amount = #{incomeAmount,jdbcType=DECIMAL},
       deficit_amount = #{deficitAmount,jdbcType=DECIMAL},

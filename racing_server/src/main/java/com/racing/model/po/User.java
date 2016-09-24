@@ -24,7 +24,13 @@ public class User {
 
     private Date createTime;
 
-    private String isEnable;
+    private Byte isEnable;
+
+    private String clientSn;
+
+    private Date clientExpireDate;
+
+    private Byte clientIsEnable;
 
     private String webSecurityKey;
 
@@ -118,12 +124,36 @@ public class User {
         this.createTime = createTime;
     }
 
-    public String getIsEnable() {
+    public Byte getIsEnable() {
         return isEnable;
     }
 
-    public void setIsEnable(String isEnable) {
+    public void setIsEnable(Byte isEnable) {
         this.isEnable = isEnable;
+    }
+
+    public String getClientSn() {
+        return clientSn;
+    }
+
+    public void setClientSn(String clientSn) {
+        this.clientSn = clientSn;
+    }
+
+    public Date getClientExpireDate() {
+        return clientExpireDate;
+    }
+
+    public void setClientExpireDate(Date clientExpireDate) {
+        this.clientExpireDate = clientExpireDate;
+    }
+
+    public Byte getClientIsEnable() {
+        return clientIsEnable;
+    }
+
+    public void setClientIsEnable(Byte clientIsEnable) {
+        this.clientIsEnable = clientIsEnable;
     }
 
     public String getWebSecurityKey() {
