@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/test")
 public class TestController {
 
+    //test
     @RequestMapping(method = RequestMethod.GET)
     public TestDTO test() {
         TestDTO testDTO=new TestDTO();
