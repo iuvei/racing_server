@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.racing.controller.vo.ApiResutl;
+import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.LoginVO;
 import com.racing.service.manager.ManagerLoginService;
 import com.racing.util.LoginStatusSaveUtil;
@@ -26,12 +26,12 @@ public class ManagerLoginController {
   }
 
   @RequestMapping(value = "/manager/loginout", method = RequestMethod.GET)
-  public ApiResutl loginout() {
+  public ApiResult loginout() {
     Integer managerId = LoginStatusSaveUtil.getManagerId();
     if (managerId != null) {
       managerLogin.loginout(managerId);
     }
-    return ApiResutl.createSuccessReuslt();
+    return ApiResult.createSuccessReuslt();
   }
 
 }

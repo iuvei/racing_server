@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.racing.controller.vo.ApiResutl;
+import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.LoginVO;
 import com.racing.service.user.UserLoginService;
 import com.racing.util.LoginStatusSaveUtil;
@@ -26,12 +26,12 @@ public class UserLoginController {
   }
 
   @RequestMapping(value = "/user/web/loginout", method = RequestMethod.GET)
-  public ApiResutl webLoginout() {
+  public ApiResult webLoginout() {
     Integer managerId = LoginStatusSaveUtil.getManagerId();
     if (managerId != null) {
       userLoginService.webLoginout(managerId);
     }
-    return ApiResutl.createSuccessReuslt();
+    return ApiResult.createSuccessReuslt();
   }
 
 }

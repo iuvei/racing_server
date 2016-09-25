@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.racing.controller.vo.ApiResutl;
+import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.LoginVO;
 import com.racing.service.user.UserLoginService;
 import com.racing.util.LoginStatusSaveUtil;
@@ -29,7 +29,7 @@ public class WechatLoginController {
     if (userId != null) {
       userLoginService.clientLoginout(userId);
     }
-    return ApiResutl.createSuccessReuslt();
+    return ApiResult.createSuccessReuslt();
   }
 
   @RequestMapping(value = "/user/client/check", method = RequestMethod.GET)

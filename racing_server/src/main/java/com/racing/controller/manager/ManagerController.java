@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.racing.controller.vo.ApiResutl;
+import com.racing.controller.vo.ApiResult;
 import com.racing.service.manager.UserPointsAppRecordService;
 import com.racing.service.user.UserService;
 
@@ -21,13 +21,13 @@ public class ManagerController {
 
   @RequestMapping(value = "/user", method = RequestMethod.GET)
   public Object selectUser(@RequestParam(required = false) String nickName, @RequestParam(required = false) Integer id, @RequestParam(required = false) Integer page) {
-    return ApiResutl.createSuccessReuslt(userService.selectUser(nickName, id, page));
+    return ApiResult.createSuccessReuslt(userService.selectUser(nickName, id, page));
   }
 
   @RequestMapping(value = "/user/points", method = RequestMethod.GET)
   public Object selectPoints(@RequestParam(required = false) String nickName, @RequestParam(required = false) Integer userId, @RequestParam(required = false) String status,
       @RequestParam(required = false) Integer page) {
-    return ApiResutl.createSuccessReuslt(userPointsAppRecordService.selectPoints(nickName, userId, status, page));
+    return ApiResult.createSuccessReuslt(userPointsAppRecordService.selectPoints(nickName, userId, status, page));
   }
 
   /**
@@ -38,23 +38,23 @@ public class ManagerController {
   @RequestMapping(value = "/user/point/{id}/status/audit", method = RequestMethod.PUT)
   public Object toUserPointAudit(@PathVariable Integer id) {
     userPointsAppRecordService.updateStatus(id, "audit");
-    return ApiResutl.createSuccessReuslt();
+    return ApiResult.createSuccessReuslt();
   }
 
   @RequestMapping(value = "/user/point/{id}/status/reject", method = RequestMethod.PUT)
   public Object toUserPointReject(@PathVariable Integer id) {
     userPointsAppRecordService.updateStatus(id, "reject");
-    return ApiResutl.createSuccessReuslt();
+    return ApiResult.createSuccessReuslt();
   }
 
   @RequestMapping(value = "/user/point/{id}/status/cancel", method = RequestMethod.PUT)
   public Object toUserPointUntreated(@PathVariable Integer id) {
     userPointsAppRecordService.updateStatus(id, "cancel");
-    return ApiResutl.createSuccessReuslt();
+    return ApiResult.createSuccessReuslt();
   }
 
   @RequestMapping(value = "/user/{userId}/points", method = RequestMethod.GET)
   public Object selectPointsByUserId(@PathVariable Integer userId, @RequestParam(required = false) Integer page) {
-    return ApiResutl.createSuccessReuslt(userPointsAppRecordService.selectPointsByUserId(userId, page));
+    return ApiResult.createSuccessReuslt(userPointsAppRecordService.selectPointsByUserId(userId, page));
   }
 }

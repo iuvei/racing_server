@@ -22,7 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import com.racing.constant.APIRequestHeaderConstant;
-import com.racing.controller.vo.ApiResutl;
+import com.racing.controller.vo.ApiResult;
 import com.racing.model.po.Manager;
 import com.racing.model.po.User;
 import com.racing.model.repo.ManagerRepo;
@@ -144,7 +144,7 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
   private void setSignErrorResponse(HttpServletResponse httpResponse) throws IOException {
     httpResponse.setStatus(HttpStatus.FORBIDDEN.value());
     httpResponse.setContentType("application/json;charset=UTF-8");
-    httpResponse.getWriter().write(JsonUtils.toJsonHasNullKey(ApiResutl.createNoLoginReuslt()));
+    httpResponse.getWriter().write(JsonUtils.toJsonHasNullKey(ApiResult.createNoLoginReuslt()));
   }
 
   private boolean checkSign(HttpServletRequest httpRequest, String requestURI, String securityKey) {

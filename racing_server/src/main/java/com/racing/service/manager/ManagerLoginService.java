@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.racing.controller.vo.ApiResutl;
+import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.LoginInfoVO;
 import com.racing.model.po.Manager;
 import com.racing.model.repo.ManagerRepo;
@@ -24,17 +24,17 @@ public class ManagerLoginService {
 
 
   @Transactional(rollbackFor = Exception.class)
-  public ApiResutl login(String userName, String password, String ip) {
+  public ApiResult login(String userName, String password, String ip) {
     if (StringUtil.isEmpty(userName) || StringUtil.isEmpty(password)) {
-      return ApiResutl.createErrorReuslt("用户名密码不能为空");
+      return ApiResult.createErrorReuslt("用户名密码不能为空");
     }
 
     Manager manager = this.managerRepo.getByUserNameAndPassword(userName, password);
     if (manager == null) {
-      return ApiResutl.createErrorReuslt("用户名或密码错误");
+      return ApiResult.createErrorReuslt("用户名或密码错误");
     }
     if (!manager.getIsEnable()) {
-      return ApiResutl.createErrorReuslt("该账号暂时不可用");
+      return ApiResult.createErrorReuslt("该账号暂时不可用");
     }
 
     String securityKey = UUIDUtil.getUUIDUpcase();
@@ -55,7 +55,7 @@ public class ManagerLoginService {
     result.setSecurityKey(securityKey);
     result.setNickName(manager.getNickName());
 
-    return ApiResutl.createSuccessReuslt(result);
+    return ApiResult.createSuccessReuslt(result);
   }
 
   public void loginout(Integer managerId) {

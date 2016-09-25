@@ -1,6 +1,6 @@
 package com.racing.controller.vo;
 
-public class ApiResutl {
+public class ApiResult {
 
   private static final String SUCCESS = "SUCCESS";
 
@@ -14,34 +14,34 @@ public class ApiResutl {
 
   private String message;
 
-  public static ApiResutl createSuccessReuslt(Object data) {
-    ApiResutl result = new ApiResutl();
+  public static ApiResult createSuccessReuslt(Object data) {
+    ApiResult result = new ApiResult();
     result.setData(data);
     result.setResult(SUCCESS);
     return result;
   }
 
-  public static ApiResutl createSuccessReuslt() {
-    ApiResutl result = new ApiResutl();
+  public static ApiResult createSuccessReuslt() {
+    ApiResult result = new ApiResult();
     result.setResult(SUCCESS);
     return result;
   }
 
-  public static ApiResutl createNoLoginReuslt() {
-    ApiResutl result = new ApiResutl();
+  public static ApiResult createNoLoginReuslt() {
+    ApiResult result = new ApiResult();
     result.setResult(NO_LOGIN);
     return result;
   }
 
-  public static ApiResutl createSuccessReuslt(String message) {
-    ApiResutl result = new ApiResutl();
+  public static ApiResult createSuccessReuslt(String message) {
+    ApiResult result = new ApiResult();
     result.setResult(SUCCESS);
     result.setMessage(message);
     return result;
   }
 
-  public static ApiResutl createErrorReuslt(String message) {
-    ApiResutl result = new ApiResutl();
+  public static ApiResult createErrorReuslt(String message) {
+    ApiResult result = new ApiResult();
     result.setMessage(message);
     result.setResult(ERROR);
     return result;
