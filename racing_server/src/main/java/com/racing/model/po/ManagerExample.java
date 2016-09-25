@@ -775,62 +775,52 @@ public class ManagerExample {
             return (Criteria) this;
         }
 
-        public Criteria andWebOutTimeEqualTo(String value) {
+        public Criteria andWebOutTimeEqualTo(Date value) {
             addCriterion("web_out_time =", value, "webOutTime");
             return (Criteria) this;
         }
 
-        public Criteria andWebOutTimeNotEqualTo(String value) {
+        public Criteria andWebOutTimeNotEqualTo(Date value) {
             addCriterion("web_out_time <>", value, "webOutTime");
             return (Criteria) this;
         }
 
-        public Criteria andWebOutTimeGreaterThan(String value) {
+        public Criteria andWebOutTimeGreaterThan(Date value) {
             addCriterion("web_out_time >", value, "webOutTime");
             return (Criteria) this;
         }
 
-        public Criteria andWebOutTimeGreaterThanOrEqualTo(String value) {
+        public Criteria andWebOutTimeGreaterThanOrEqualTo(Date value) {
             addCriterion("web_out_time >=", value, "webOutTime");
             return (Criteria) this;
         }
 
-        public Criteria andWebOutTimeLessThan(String value) {
+        public Criteria andWebOutTimeLessThan(Date value) {
             addCriterion("web_out_time <", value, "webOutTime");
             return (Criteria) this;
         }
 
-        public Criteria andWebOutTimeLessThanOrEqualTo(String value) {
+        public Criteria andWebOutTimeLessThanOrEqualTo(Date value) {
             addCriterion("web_out_time <=", value, "webOutTime");
             return (Criteria) this;
         }
 
-        public Criteria andWebOutTimeLike(String value) {
-            addCriterion("web_out_time like", value, "webOutTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andWebOutTimeNotLike(String value) {
-            addCriterion("web_out_time not like", value, "webOutTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andWebOutTimeIn(List<String> values) {
+        public Criteria andWebOutTimeIn(List<Date> values) {
             addCriterion("web_out_time in", values, "webOutTime");
             return (Criteria) this;
         }
 
-        public Criteria andWebOutTimeNotIn(List<String> values) {
+        public Criteria andWebOutTimeNotIn(List<Date> values) {
             addCriterion("web_out_time not in", values, "webOutTime");
             return (Criteria) this;
         }
 
-        public Criteria andWebOutTimeBetween(String value1, String value2) {
+        public Criteria andWebOutTimeBetween(Date value1, Date value2) {
             addCriterion("web_out_time between", value1, value2, "webOutTime");
             return (Criteria) this;
         }
 
-        public Criteria andWebOutTimeNotBetween(String value1, String value2) {
+        public Criteria andWebOutTimeNotBetween(Date value1, Date value2) {
             addCriterion("web_out_time not between", value1, value2, "webOutTime");
             return (Criteria) this;
         }

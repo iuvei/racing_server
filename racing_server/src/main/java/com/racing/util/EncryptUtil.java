@@ -32,6 +32,16 @@ public class EncryptUtil {
   private static final char[] DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
   /**
+   * 对字符串先进行MD5加密转大写后再进行sha-1加密转大写(默认UTF8)
+   * 
+   * @param text
+   * @return
+   */
+  public static String md5AndSha1Upcase(String text) {
+    return sha1UpperCase(md5UpperCase(text));
+  }
+
+  /**
    * 对字符串进行MD5加密(默认UTF8)
    * 
    * @param text 明文

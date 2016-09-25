@@ -23,7 +23,7 @@ public class Manager {
 
     private String accessKey;
 
-    private String webOutTime;
+    private Date webOutTime;
 
     public Integer getId() {
         return id;
@@ -105,11 +105,11 @@ public class Manager {
         this.accessKey = accessKey;
     }
 
-    public String getWebOutTime() {
+    public Date getWebOutTime() {
         return webOutTime;
     }
 
-    public void setWebOutTime(String webOutTime) {
+    public void setWebOutTime(Date webOutTime) {
         this.webOutTime = webOutTime;
     }
 }

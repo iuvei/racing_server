@@ -17,14 +17,14 @@
 			targetProject="racing_server" type="XMLMAPPER" />
 			
 		
-		<!-- <table schema="" tableName="manager" >
-		</table> -->
-		<table schema="" tableName="members" >
+		<table schema="" tableName="manager" >
 		</table>
+		<!-- <table schema="" tableName="members" >
+		</table> -->
 		<!-- <table schema="" tableName="members_account_record" >
 		</table> -->
-		<table schema="" tableName="members_day_count_income" >
-		</table>
+		<!-- <table schema="" tableName="members_day_count_income" >
+		</table> -->
 		<!-- <table schema="" tableName="member_stake" >
 		</table>
 		<table schema="" tableName="record_result" >

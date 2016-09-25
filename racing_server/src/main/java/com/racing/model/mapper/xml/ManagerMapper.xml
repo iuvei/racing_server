@@ -12,7 +12,7 @@
     <result column="is_enable" property="isEnable" jdbcType="BIT" />
     <result column="security_key" property="securityKey" jdbcType="VARCHAR" />
     <result column="access_key" property="accessKey" jdbcType="VARCHAR" />
-    <result column="web_out_time" property="webOutTime" jdbcType="VARCHAR" />
+    <result column="web_out_time" property="webOutTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -114,7 +114,7 @@
     values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{nickName,jdbcType=VARCHAR}, #{lastLoginIp,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
       #{createTime,jdbcType=TIMESTAMP}, #{isEnable,jdbcType=BIT}, #{securityKey,jdbcType=VARCHAR}, 
-      #{accessKey,jdbcType=VARCHAR}, #{webOutTime,jdbcType=VARCHAR})
+      #{accessKey,jdbcType=VARCHAR}, #{webOutTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.racing.model.po.Manager" useGeneratedKeys="true" keyProperty="id" >
     insert into manager
@@ -185,7 +185,7 @@
         #{accessKey,jdbcType=VARCHAR},
       </if>
       <if test="webOutTime != null" >
-        #{webOutTime,jdbcType=VARCHAR},
+        #{webOutTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -229,7 +229,7 @@
         access_key = #{record.accessKey,jdbcType=VARCHAR},
       </if>
       <if test="record.webOutTime != null" >
-        web_out_time = #{record.webOutTime,jdbcType=VARCHAR},
+        web_out_time = #{record.webOutTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -248,7 +248,7 @@
       is_enable = #{record.isEnable,jdbcType=BIT},
       security_key = #{record.securityKey,jdbcType=VARCHAR},
       access_key = #{record.accessKey,jdbcType=VARCHAR},
-      web_out_time = #{record.webOutTime,jdbcType=VARCHAR}
+      web_out_time = #{record.webOutTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -284,7 +284,7 @@
         access_key = #{accessKey,jdbcType=VARCHAR},
       </if>
       <if test="webOutTime != null" >
-        web_out_time = #{webOutTime,jdbcType=VARCHAR},
+        web_out_time = #{webOutTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -300,7 +300,7 @@
       is_enable = #{isEnable,jdbcType=BIT},
       security_key = #{securityKey,jdbcType=VARCHAR},
       access_key = #{accessKey,jdbcType=VARCHAR},
-      web_out_time = #{webOutTime,jdbcType=VARCHAR}
+      web_out_time = #{webOutTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

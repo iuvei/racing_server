@@ -158,11 +158,16 @@ public class DateUtil {
    * @throws ParseException
    * 
    */
-  public static Date getEndOfDay(Date date) throws ParseException {
+  public static Date getEndOfDay(Date date) {
     SimpleDateFormat sdf = new SimpleDateFormat(DateFormat_yyyy_MM_dd);
     SimpleDateFormat sdf2 = new SimpleDateFormat(DateFormat_yyyyMMddHHmmss);
     String temp = sdf.format(date);
-    Date newDate = sdf2.parse(temp + " 23:59:59");
+    Date newDate;
+    try {
+      newDate = sdf2.parse(temp + " 23:59:59");
+    } catch (ParseException e) {
+      throw new RuntimeException("日期格式化异常", e);
+    }
     return newDate;
   }
 

@@ -27,6 +27,12 @@ public class ApiResutl {
     return result;
   }
 
+  public static ApiResutl createNoLoginReuslt() {
+    ApiResutl result = new ApiResutl();
+    result.setResult(NO_LOGIN);
+    return result;
+  }
+
   public static ApiResutl createSuccessReuslt(String message) {
     ApiResutl result = new ApiResutl();
     result.setResult(SUCCESS);
