@@ -1,13 +1,23 @@
 package com.racing.controller.vo;
 
 public class PageVo {
-    private Integer totalPage;
+  private int totalPage;
 
-    public Integer getTotalPage() {
-        return totalPage;
-    }
+  private int page;
 
-    public void setTotalPage(Integer totalPage) {
-        this.totalPage = totalPage;
-    }
+  public int getTotalPage() {
+    return totalPage;
+  }
+
+  public void setTotalPage(int totalPage) {
+    this.totalPage = totalPage;
+  }
+
+  public int getPage() {
+    return page;
+  }
+
+  public void setPage(int page) {
+    this.page = page;
+  }
 }

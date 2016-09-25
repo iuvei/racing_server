@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.racing.controller.vo.ApiResult;
+import com.racing.controller.vo.UserPointsInfoListVo;
+import com.racing.controller.vo.UserPointsInfoVO;
 import com.racing.controller.vo.manager.UserIdVO;
 import com.racing.model.po.User;
 import com.racing.model.repo.UserRepo;
+import com.racing.util.PageUtil;
 
 @Service
 public class UserService {
@@ -30,4 +33,27 @@ public class UserService {
     }
     return ApiResult.createSuccessReuslt(voList);
   }
+
+  public ApiResult getUserPointsInfoList(String nickName, Integer userId, Integer page) {
+    UserPointsInfoListVo result = new UserPointsInfoListVo();
+    List<User> userList = userRepo.selectUser(nickName, userId, PageUtil.createPage(page, 15));
+    if (CollectionUtils.isNotEmpty(userList)) {
+      List<UserPointsInfoVO> userPointsInfoList = new ArrayList<UserPointsInfoVO>();
+      for (User user : userList) {
+        UserPointsInfoVO infoVO = new UserPointsInfoVO();
+        infoVO.setUserId(user.getId());
+        infoVO.setNickName(user.getNickName());
+        infoVO.setUserName(user.getUserName());
+        infoVO.setTotalPoints(user.getTotalPoints());
+        infoVO.setUserPoints(user.getUserPoints());
+        infoVO.setMembersPoints(user.getMembersPoints());
+        userPointsInfoList.add(infoVO);
+      }
+      result.setPage(page);
+      result.setTotalPage(userRepo.count(nickName, userId));
+    }
+
+    return ApiResult.createSuccessReuslt(result);
+  }
+
 }
