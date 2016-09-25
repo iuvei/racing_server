@@ -21,30 +21,30 @@ public class UserRepo {
   UserMapper mapper;
 
   public int count(String nickName, Integer id) {
-        UserExample example = new UserExample();
-        UserExample.Criteria criteria = example.createCriteria();
-        if (StringUtil.isNotEmpty(nickName)) {
-            criteria.andNickNameLike("%" + nickName + "%");
-        }
-        if (null == id) {
-            criteria.andIdEqualTo(id);
-        }
-        return this.mapper.countByExample(example);
+    UserExample example = new UserExample();
+    UserExample.Criteria criteria = example.createCriteria();
+    if (StringUtil.isNotEmpty(nickName)) {
+      criteria.andNickNameLike("%" + nickName + "%");
     }
+    if (null == id) {
+      criteria.andIdEqualTo(id);
+    }
+    return this.mapper.countByExample(example);
+  }
 
-    public List<User> selectUser(String nickName, Integer id, PageUtil pageUtil) {
-        UserExample example = new UserExample();
-        UserExample.Criteria criteria = example.createCriteria();
-        if (StringUtil.isNotEmpty(nickName)) {
-            criteria.andNickNameLike("%" + nickName + "%");
-        }
-        if (null == id) {
-            criteria.andIdEqualTo(id);
-        }
-        example.setOrderByClause(" id desc " + pageUtil);
-        List<User> users = mapper.selectByExample(example);
-        return users;
+  public List<User> selectUser(String nickName, Integer id, PageUtil pageUtil) {
+    UserExample example = new UserExample();
+    UserExample.Criteria criteria = example.createCriteria();
+    if (StringUtil.isNotEmpty(nickName)) {
+      criteria.andNickNameLike("%" + nickName + "%");
     }
+    if (null == id) {
+      criteria.andIdEqualTo(id);
+    }
+    example.setOrderByClause(" id desc " + pageUtil);
+    List<User> users = mapper.selectByExample(example);
+    return users;
+  }
 
   public User getByUserNameAndPassword(String userName, String password) {
     password = EncryptUtil.md5AndSha1Upcase(password);
@@ -100,16 +100,36 @@ public class UserRepo {
     return null;
   }
 
-    public List<User> selectUser(String nickName, Integer id) {
-        UserExample example = new UserExample();
-        UserExample.Criteria criteria = example.createCriteria();
-        if (StringUtil.isNotEmpty(nickName)) {
-            criteria.andNickNameLike("%" + nickName + "%");
-        }
-        if (null == id) {
-            criteria.andIdEqualTo(id);
-        }
-        List<User> users = mapper.selectByExample(example);
-        return users;
+  public List<User> selectUser(String nickName, Integer id) {
+    UserExample example = new UserExample();
+    UserExample.Criteria criteria = example.createCriteria();
+    if (StringUtil.isNotEmpty(nickName)) {
+      criteria.andNickNameLike("%" + nickName + "%");
     }
+    if (null == id) {
+      criteria.andIdEqualTo(id);
+    }
+    List<User> users = mapper.selectByExample(example);
+    return users;
+  }
+
+  public User getByClientAccessKey(String accessKey) {
+    UserExample example = new UserExample();
+    example.createCriteria().andClientAccessKeyEqualTo(accessKey);
+    List<User> list = this.mapper.selectByExample(example);
+    if (CollectionUtils.isNotEmpty(list)) {
+      return list.get(0);
+    }
+    return null;
+  }
+
+  public User getByWebAccessKey(String accessKey) {
+    UserExample example = new UserExample();
+    example.createCriteria().andWebAccessKeyEqualTo(accessKey);
+    List<User> list = this.mapper.selectByExample(example);
+    if (CollectionUtils.isNotEmpty(list)) {
+      return list.get(0);
+    }
+    return null;
+  }
 }

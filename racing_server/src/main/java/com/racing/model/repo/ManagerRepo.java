@@ -42,4 +42,14 @@ public class ManagerRepo {
     return true;
   }
 
+  public Manager getByAccessKey(String accessKey) {
+    ManagerExample example = new ManagerExample();
+    example.createCriteria().andAccessKeyEqualTo(accessKey);
+    List<Manager> list = this.mapper.selectByExample(example);
+    if (CollectionUtils.isNotEmpty(list)) {
+      return list.get(0);
+    }
+    return null;
+  }
+
 }
