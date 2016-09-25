@@ -45,7 +45,7 @@ public class UserRepo {
         List<User> users = mapper.selectByExample(example);
         return users;
     }
-    
+
   public User getByUserNameAndPassword(String userName, String password) {
     password = EncryptUtil.md5AndSha1Upcase(password);
     UserExample example = new UserExample();
@@ -100,4 +100,16 @@ public class UserRepo {
     return null;
   }
 
+    public List<User> selectUser(String nickName, Integer id) {
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
+        if (StringUtil.isNotEmpty(nickName)) {
+            criteria.andNickNameLike("%" + nickName + "%");
+        }
+        if (null == id) {
+            criteria.andIdEqualTo(id);
+        }
+        List<User> users = mapper.selectByExample(example);
+        return users;
+    }
 }
