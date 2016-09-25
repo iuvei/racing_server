@@ -1,5 +1,6 @@
 package com.racing.model.repo;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -31,6 +32,14 @@ public class ManagerRepo {
   public Manager update(Manager manager) {
     this.mapper.updateByPrimaryKeySelective(manager);
     return manager;
+  }
+
+  public boolean updateWebOutTime(Integer managerId, Date webOutTime) {
+    Manager manager = new Manager();
+    manager.setId(managerId);
+    manager.setWebOutTime(webOutTime);
+    this.mapper.updateByPrimaryKeySelective(manager);
+    return true;
   }
 
 }
