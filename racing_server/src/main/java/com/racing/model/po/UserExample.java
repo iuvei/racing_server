@@ -756,52 +756,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableEqualTo(Byte value) {
+        public Criteria andIsEnableEqualTo(Boolean value) {
             addCriterion("is_enable =", value, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableNotEqualTo(Byte value) {
+        public Criteria andIsEnableNotEqualTo(Boolean value) {
             addCriterion("is_enable <>", value, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableGreaterThan(Byte value) {
+        public Criteria andIsEnableGreaterThan(Boolean value) {
             addCriterion("is_enable >", value, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableGreaterThanOrEqualTo(Byte value) {
+        public Criteria andIsEnableGreaterThanOrEqualTo(Boolean value) {
             addCriterion("is_enable >=", value, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableLessThan(Byte value) {
+        public Criteria andIsEnableLessThan(Boolean value) {
             addCriterion("is_enable <", value, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableLessThanOrEqualTo(Byte value) {
+        public Criteria andIsEnableLessThanOrEqualTo(Boolean value) {
             addCriterion("is_enable <=", value, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableIn(List<Byte> values) {
+        public Criteria andIsEnableIn(List<Boolean> values) {
             addCriterion("is_enable in", values, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableNotIn(List<Byte> values) {
+        public Criteria andIsEnableNotIn(List<Boolean> values) {
             addCriterion("is_enable not in", values, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableBetween(Byte value1, Byte value2) {
+        public Criteria andIsEnableBetween(Boolean value1, Boolean value2) {
             addCriterion("is_enable between", value1, value2, "isEnable");
             return (Criteria) this;
         }
 
-        public Criteria andIsEnableNotBetween(Byte value1, Byte value2) {
+        public Criteria andIsEnableNotBetween(Boolean value1, Boolean value2) {
             addCriterion("is_enable not between", value1, value2, "isEnable");
             return (Criteria) this;
         }
@@ -946,52 +946,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andClientIsEnableEqualTo(Byte value) {
+        public Criteria andClientIsEnableEqualTo(Boolean value) {
             addCriterion("client_is_enable =", value, "clientIsEnable");
             return (Criteria) this;
         }
 
-        public Criteria andClientIsEnableNotEqualTo(Byte value) {
+        public Criteria andClientIsEnableNotEqualTo(Boolean value) {
             addCriterion("client_is_enable <>", value, "clientIsEnable");
             return (Criteria) this;
         }
 
-        public Criteria andClientIsEnableGreaterThan(Byte value) {
+        public Criteria andClientIsEnableGreaterThan(Boolean value) {
             addCriterion("client_is_enable >", value, "clientIsEnable");
             return (Criteria) this;
         }
 
-        public Criteria andClientIsEnableGreaterThanOrEqualTo(Byte value) {
+        public Criteria andClientIsEnableGreaterThanOrEqualTo(Boolean value) {
             addCriterion("client_is_enable >=", value, "clientIsEnable");
             return (Criteria) this;
         }
 
-        public Criteria andClientIsEnableLessThan(Byte value) {
+        public Criteria andClientIsEnableLessThan(Boolean value) {
             addCriterion("client_is_enable <", value, "clientIsEnable");
             return (Criteria) this;
         }
 
-        public Criteria andClientIsEnableLessThanOrEqualTo(Byte value) {
+        public Criteria andClientIsEnableLessThanOrEqualTo(Boolean value) {
             addCriterion("client_is_enable <=", value, "clientIsEnable");
             return (Criteria) this;
         }
 
-        public Criteria andClientIsEnableIn(List<Byte> values) {
+        public Criteria andClientIsEnableIn(List<Boolean> values) {
             addCriterion("client_is_enable in", values, "clientIsEnable");
             return (Criteria) this;
         }
 
-        public Criteria andClientIsEnableNotIn(List<Byte> values) {
+        public Criteria andClientIsEnableNotIn(List<Boolean> values) {
             addCriterion("client_is_enable not in", values, "clientIsEnable");
             return (Criteria) this;
         }
 
-        public Criteria andClientIsEnableBetween(Byte value1, Byte value2) {
+        public Criteria andClientIsEnableBetween(Boolean value1, Boolean value2) {
             addCriterion("client_is_enable between", value1, value2, "clientIsEnable");
             return (Criteria) this;
         }
 
-        public Criteria andClientIsEnableNotBetween(Byte value1, Byte value2) {
+        public Criteria andClientIsEnableNotBetween(Boolean value1, Boolean value2) {
             addCriterion("client_is_enable not between", value1, value2, "clientIsEnable");
             return (Criteria) this;
         }

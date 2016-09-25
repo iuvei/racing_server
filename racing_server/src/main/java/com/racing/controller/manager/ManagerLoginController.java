@@ -25,7 +25,7 @@ public class ManagerLoginController {
     return managerLogin.login(loginVO.getUserName(), loginVO.getPassword(), RequestIPUtil.getIpAddr(request));
   }
 
-  @RequestMapping(value = "/manager/loginout", method = RequestMethod.POST)
+  @RequestMapping(value = "/manager/loginout", method = RequestMethod.GET)
   public ApiResutl loginout() {
     Integer managerId = LoginStatusSaveUtil.getManagerId();
     if (managerId != null) {

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.racing.controller.vo.ApiResutl;
-import com.racing.controller.vo.ManagerLoginInfoVO;
+import com.racing.controller.vo.LoginInfoVO;
 import com.racing.model.po.Manager;
 import com.racing.model.repo.ManagerRepo;
 import com.racing.util.AccessKeyUtil;
@@ -50,7 +50,7 @@ public class ManagerLoginService {
 
     this.managerRepo.update(manager);
 
-    ManagerLoginInfoVO result = new ManagerLoginInfoVO();
+    LoginInfoVO result = new LoginInfoVO();
     result.setAccessKey(AccessKeyUtil.createManagerAccessKey(accessKey));
     result.setSecurityKey(securityKey);
     result.setNickName(manager.getNickName());

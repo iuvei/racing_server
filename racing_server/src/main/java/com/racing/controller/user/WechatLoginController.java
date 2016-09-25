@@ -1,9 +1,8 @@
 package com.racing.controller.user;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,17 +19,22 @@ public class WechatLoginController {
   private UserLoginService userLoginService;
 
   @RequestMapping(value = "/user/client/login", method = RequestMethod.POST)
-  public Object clientLogin(@RequestBody LoginVO loginVO, HttpServletRequest request) {
-    return userLoginService.clientLogin(loginVO.getUserName(), loginVO.getPassword());
+  public Object clientLogin(@RequestBody LoginVO loginVO, @RequestHeader("Client") String clientSN) {
+    return userLoginService.clientLogin(loginVO.getUserName(), loginVO.getPassword(), clientSN);
   }
 
-  @RequestMapping(value = "/user/client/loginout", method = RequestMethod.POST)
-  public ApiResutl clientLoginout() {
-    Integer managerId = LoginStatusSaveUtil.getManagerId();
-    if (managerId != null) {
-      userLoginService.clientLoginout(managerId);
+  @RequestMapping(value = "/user/client/loginout", method = RequestMethod.GET)
+  public Object clientLoginout() {
+    Integer userId = LoginStatusSaveUtil.getUserClientId();
+    if (userId != null) {
+      userLoginService.clientLoginout(userId);
     }
     return ApiResutl.createSuccessReuslt();
+  }
+
+  @RequestMapping(value = "/user/client/check", method = RequestMethod.GET)
+  public Object clientCheckIsEnable(@RequestHeader("Client") String clientSN) {
+    return userLoginService.checkClientIsEnable(clientSN);
   }
 
 }

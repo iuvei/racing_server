@@ -25,7 +25,7 @@ public class UserLoginController {
     return userLoginService.webLogin(loginVO.getUserName(), loginVO.getPassword(), RequestIPUtil.getIpAddr(request));
   }
 
-  @RequestMapping(value = "/user/web/loginout", method = RequestMethod.POST)
+  @RequestMapping(value = "/user/web/loginout", method = RequestMethod.GET)
   public ApiResutl webLoginout() {
     Integer managerId = LoginStatusSaveUtil.getManagerId();
     if (managerId != null) {

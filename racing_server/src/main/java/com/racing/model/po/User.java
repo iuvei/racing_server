@@ -24,13 +24,13 @@ public class User {
 
     private Date createTime;
 
-    private Byte isEnable;
+    private Boolean isEnable;
 
     private String clientSn;
 
     private Date clientExpireDate;
 
-    private Byte clientIsEnable;
+    private Boolean clientIsEnable;
 
     private String webSecurityKey;
 
@@ -124,11 +124,11 @@ public class User {
         this.createTime = createTime;
     }
 
-    public Byte getIsEnable() {
+    public Boolean getIsEnable() {
         return isEnable;
     }
 
-    public void setIsEnable(Byte isEnable) {
+    public void setIsEnable(Boolean isEnable) {
         this.isEnable = isEnable;
     }
 
@@ -148,11 +148,11 @@ public class User {
         this.clientExpireDate = clientExpireDate;
     }
 
-    public Byte getClientIsEnable() {
+    public Boolean getClientIsEnable() {
         return clientIsEnable;
     }
 
-    public void setClientIsEnable(Byte clientIsEnable) {
+    public void setClientIsEnable(Boolean clientIsEnable) {
         this.clientIsEnable = clientIsEnable;
     }
 

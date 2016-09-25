@@ -12,10 +12,10 @@
     <result column="last_login_ip" property="lastLoginIp" jdbcType="VARCHAR" />
     <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="is_enable" property="isEnable" jdbcType="TINYINT" />
+    <result column="is_enable" property="isEnable" jdbcType="BIT" />
     <result column="client_sn" property="clientSn" jdbcType="VARCHAR" />
     <result column="client_expire_date" property="clientExpireDate" jdbcType="TIMESTAMP" />
-    <result column="client_is_enable" property="clientIsEnable" jdbcType="TINYINT" />
+    <result column="client_is_enable" property="clientIsEnable" jdbcType="BIT" />
     <result column="web_security_key" property="webSecurityKey" jdbcType="VARCHAR" />
     <result column="web_access_key" property="webAccessKey" jdbcType="VARCHAR" />
     <result column="web_out_time" property="webOutTime" jdbcType="TIMESTAMP" />
@@ -128,8 +128,8 @@
     values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{nickName,jdbcType=VARCHAR}, #{totalPoints,jdbcType=DECIMAL}, #{userPoints,jdbcType=DECIMAL}, 
       #{membersPoints,jdbcType=DECIMAL}, #{lastLoginIp,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{isEnable,jdbcType=TINYINT}, #{clientSn,jdbcType=VARCHAR}, 
-      #{clientExpireDate,jdbcType=TIMESTAMP}, #{clientIsEnable,jdbcType=TINYINT}, #{webSecurityKey,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{isEnable,jdbcType=BIT}, #{clientSn,jdbcType=VARCHAR}, 
+      #{clientExpireDate,jdbcType=TIMESTAMP}, #{clientIsEnable,jdbcType=BIT}, #{webSecurityKey,jdbcType=VARCHAR}, 
       #{webAccessKey,jdbcType=VARCHAR}, #{webOutTime,jdbcType=TIMESTAMP}, #{clientSecurityKey,jdbcType=VARCHAR}, 
       #{clientAccessKey,jdbcType=VARCHAR}, #{clientOutTime,jdbcType=TIMESTAMP})
   </insert>
@@ -229,7 +229,7 @@
         #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="isEnable != null" >
-        #{isEnable,jdbcType=TINYINT},
+        #{isEnable,jdbcType=BIT},
       </if>
       <if test="clientSn != null" >
         #{clientSn,jdbcType=VARCHAR},
@@ -238,7 +238,7 @@
         #{clientExpireDate,jdbcType=TIMESTAMP},
       </if>
       <if test="clientIsEnable != null" >
-        #{clientIsEnable,jdbcType=TINYINT},
+        #{clientIsEnable,jdbcType=BIT},
       </if>
       <if test="webSecurityKey != null" >
         #{webSecurityKey,jdbcType=VARCHAR},
@@ -300,7 +300,7 @@
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.isEnable != null" >
-        is_enable = #{record.isEnable,jdbcType=TINYINT},
+        is_enable = #{record.isEnable,jdbcType=BIT},
       </if>
       <if test="record.clientSn != null" >
         client_sn = #{record.clientSn,jdbcType=VARCHAR},
@@ -309,7 +309,7 @@
         client_expire_date = #{record.clientExpireDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.clientIsEnable != null" >
-        client_is_enable = #{record.clientIsEnable,jdbcType=TINYINT},
+        client_is_enable = #{record.clientIsEnable,jdbcType=BIT},
       </if>
       <if test="record.webSecurityKey != null" >
         web_security_key = #{record.webSecurityKey,jdbcType=VARCHAR},
@@ -346,10 +346,10 @@
       last_login_ip = #{record.lastLoginIp,jdbcType=VARCHAR},
       last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      is_enable = #{record.isEnable,jdbcType=TINYINT},
+      is_enable = #{record.isEnable,jdbcType=BIT},
       client_sn = #{record.clientSn,jdbcType=VARCHAR},
       client_expire_date = #{record.clientExpireDate,jdbcType=TIMESTAMP},
-      client_is_enable = #{record.clientIsEnable,jdbcType=TINYINT},
+      client_is_enable = #{record.clientIsEnable,jdbcType=BIT},
       web_security_key = #{record.webSecurityKey,jdbcType=VARCHAR},
       web_access_key = #{record.webAccessKey,jdbcType=VARCHAR},
       web_out_time = #{record.webOutTime,jdbcType=TIMESTAMP},
@@ -391,7 +391,7 @@
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="isEnable != null" >
-        is_enable = #{isEnable,jdbcType=TINYINT},
+        is_enable = #{isEnable,jdbcType=BIT},
       </if>
       <if test="clientSn != null" >
         client_sn = #{clientSn,jdbcType=VARCHAR},
@@ -400,7 +400,7 @@
         client_expire_date = #{clientExpireDate,jdbcType=TIMESTAMP},
       </if>
       <if test="clientIsEnable != null" >
-        client_is_enable = #{clientIsEnable,jdbcType=TINYINT},
+        client_is_enable = #{clientIsEnable,jdbcType=BIT},
       </if>
       <if test="webSecurityKey != null" >
         web_security_key = #{webSecurityKey,jdbcType=VARCHAR},
@@ -434,10 +434,10 @@
       last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
       last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      is_enable = #{isEnable,jdbcType=TINYINT},
+      is_enable = #{isEnable,jdbcType=BIT},
       client_sn = #{clientSn,jdbcType=VARCHAR},
       client_expire_date = #{clientExpireDate,jdbcType=TIMESTAMP},
-      client_is_enable = #{clientIsEnable,jdbcType=TINYINT},
+      client_is_enable = #{clientIsEnable,jdbcType=BIT},
       web_security_key = #{webSecurityKey,jdbcType=VARCHAR},
       web_access_key = #{webAccessKey,jdbcType=VARCHAR},
       web_out_time = #{webOutTime,jdbcType=TIMESTAMP},

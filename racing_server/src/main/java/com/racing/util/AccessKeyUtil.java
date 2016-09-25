@@ -14,8 +14,28 @@ public class AccessKeyUtil {
     return false;
   }
 
-  public static String createUserAccessKey(String accessKey) {
-    return accessKey + "_U";
+  public static String createWebUserAccessKey(String accessKey) {
+    return accessKey + "_UB";
+  }
+
+  public static boolean checkWebUserAccessKeyIsManager(String accessKey) {
+    String[] access = accessKey.split("_");
+    if (access.length == 2 && access[1].equals("UB")) {
+      return true;
+    }
+    return false;
+  }
+
+  public static String createClientUserAccessKey(String accessKey) {
+    return accessKey + "_UC";
+  }
+
+  public static boolean checkClientUserAccessKeyIsManager(String accessKey) {
+    String[] access = accessKey.split("_");
+    if (access.length == 2 && access[1].equals("UC")) {
+      return true;
+    }
+    return false;
   }
 
 }
