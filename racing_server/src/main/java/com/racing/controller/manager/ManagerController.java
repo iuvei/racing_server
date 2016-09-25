@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ManagerController {
     @Autowired
     UserService userService;
-    @RequestMapping(value = "/getuser",method = RequestMethod.GET)
+
+    @RequestMapping(value = "/getuser", method = RequestMethod.GET)
     public UserVo selectUser(@RequestParam(required = false) String nickName,
-                                 @RequestParam(required = false) Integer id,
-                                 @RequestParam(required = false) Integer page){
+                             @RequestParam(required = false) Integer id,
+                             @RequestParam(required = false) Integer page) {
         return userService.selectUser(nickName, id, page);
     }
 }
