@@ -1,30 +1,37 @@
 package com.racing.model.mapper;
 
-import com.racing.model.po.User;
-import com.racing.model.po.UserExample;
+import java.math.BigDecimal;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import com.racing.model.po.User;
+import com.racing.model.po.UserExample;
+
 public interface UserMapper {
-    int countByExample(UserExample example);
 
-    int deleteByExample(UserExample example);
+  int updatePoints(@Param("userId") Integer userId, @Param("addTotalPoints") BigDecimal addTotalPoints, @Param("addUserPoints") BigDecimal addUserPoints,
+      @Param("addMembersPoints") BigDecimal addMembersPoints);
 
-    int deleteByPrimaryKey(Integer id);
+  int countByExample(UserExample example);
 
-    int insert(User record);
+  int deleteByExample(UserExample example);
 
-    int insertSelective(User record);
+  int deleteByPrimaryKey(Integer id);
 
-    List<User> selectByExample(UserExample example);
+  int insert(User record);
 
-    User selectByPrimaryKey(Integer id);
+  int insertSelective(User record);
 
-    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
+  List<User> selectByExample(UserExample example);
 
-    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+  User selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(User record);
+  int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 
-    int updateByPrimaryKey(User record);
+  int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+
+  int updateByPrimaryKeySelective(User record);
+
+  int updateByPrimaryKey(User record);
 }
