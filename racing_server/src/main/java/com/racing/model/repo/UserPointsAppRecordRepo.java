@@ -1,45 +1,55 @@
 package com.racing.model.repo;
 
+import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.racing.model.mapper.UserPointsAppRecordMapper;
 import com.racing.model.po.UserPointsAppRecord;
 import com.racing.model.po.UserPointsAppRecordExample;
 import com.racing.util.PageUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import jodd.util.StringUtil;
 
 @Repository
 public class UserPointsAppRecordRepo {
-    @Autowired
-    UserPointsAppRecordMapper mapper;
+  @Autowired
+  UserPointsAppRecordMapper mapper;
 
-    public List<UserPointsAppRecord> selectByUserIds(List<Integer> userIds,
-                                                     String status, PageUtil pageUtil) {
-        UserPointsAppRecordExample example = new UserPointsAppRecordExample();
-        example.createCriteria().andStatusEqualTo(status).andUserIdIn(userIds);
-        example.setOrderByClause(" id desc " + pageUtil);
-        List<UserPointsAppRecord> list = mapper.selectByExample(example);
-        return list;
+  public List<UserPointsAppRecord> selectByUserIds(List<Integer> userIds, String status, PageUtil pageUtil) {
+    UserPointsAppRecordExample example = new UserPointsAppRecordExample();
+    UserPointsAppRecordExample.Criteria criteria = example.createCriteria();
+    if (StringUtil.isNotEmpty(status)) {
+      criteria.andStatusEqualTo(status);
+    }
+    if (CollectionUtils.isNotEmpty(userIds)) {
+      criteria.andUserIdIn(userIds);
     }
 
-    public UserPointsAppRecord selectById(Integer id) {
-        UserPointsAppRecordExample example = new UserPointsAppRecordExample();
-        example.createCriteria().andIdEqualTo(id);
-        List<UserPointsAppRecord> list = mapper.selectByExample(example);
-        return list.get(0);
-    }
+    example.setOrderByClause(" id desc " + pageUtil);
+    List<UserPointsAppRecord> list = mapper.selectByExample(example);
+    return list;
+  }
 
-    public boolean updateStatus(UserPointsAppRecord userPointsAppRecord) {
-        mapper.updateByPrimaryKeySelective(userPointsAppRecord);
-        return true;
-    }
+  public UserPointsAppRecord selectById(Integer id) {
+    UserPointsAppRecordExample example = new UserPointsAppRecordExample();
+    example.createCriteria().andIdEqualTo(id);
+    List<UserPointsAppRecord> list = mapper.selectByExample(example);
+    return list.get(0);
+  }
 
-    public List<UserPointsAppRecord> selectPointsByUserId(Integer userId, PageUtil pageUtil) {
-        UserPointsAppRecordExample example = new UserPointsAppRecordExample();
-        example.createCriteria().andUserIdEqualTo(userId);
-        example.setOrderByClause(" id desc " + pageUtil);
-        List<UserPointsAppRecord> list = mapper.selectByExample(example);
-        return list;
-    }
+  public boolean updateStatus(UserPointsAppRecord userPointsAppRecord) {
+    mapper.updateByPrimaryKeySelective(userPointsAppRecord);
+    return true;
+  }
+
+  public List<UserPointsAppRecord> selectPointsByUserId(Integer userId, PageUtil pageUtil) {
+    UserPointsAppRecordExample example = new UserPointsAppRecordExample();
+    example.createCriteria().andUserIdEqualTo(userId);
+    example.setOrderByClause(" id desc " + pageUtil);
+    List<UserPointsAppRecord> list = mapper.selectByExample(example);
+    return list;
+  }
 }

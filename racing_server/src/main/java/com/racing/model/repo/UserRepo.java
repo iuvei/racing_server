@@ -38,7 +38,7 @@ public class UserRepo {
     if (StringUtil.isNotEmpty(nickName)) {
       criteria.andNickNameLike("%" + nickName + "%");
     }
-    if (null == id) {
+    if (null != id) {
       criteria.andIdEqualTo(id);
     }
     example.setOrderByClause(" id desc " + pageUtil);
