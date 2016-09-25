@@ -1,6 +1,6 @@
 package com.racing.controller.vo;
 
-public class ManagerLoginVO {
+public class LoginVO {
 
   private String userName;
 

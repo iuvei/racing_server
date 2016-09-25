@@ -1,4 +1,4 @@
-package com.racing.controller.manager;
+package com.racing.controller.user;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,26 +10,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.racing.controller.vo.ApiResutl;
 import com.racing.controller.vo.LoginVO;
-import com.racing.service.manager.ManagerLoginService;
+import com.racing.service.user.UserLoginService;
 import com.racing.util.LoginStatusSaveUtil;
 import com.racing.util.RequestIPUtil;
 
 @RestController
-public class ManagerLoginController {
+public class UserLoginController {
 
   @Autowired
-  private ManagerLoginService managerLogin;
+  private UserLoginService userLoginService;
 
-  @RequestMapping(value = "/manager/login", method = RequestMethod.POST)
-  public Object login(@RequestBody LoginVO loginVO, HttpServletRequest request) {
-    return managerLogin.login(loginVO.getUserName(), loginVO.getPassword(), RequestIPUtil.getIpAddr(request));
+  @RequestMapping(value = "/user/web/login", method = RequestMethod.POST)
+  public Object webLogin(@RequestBody LoginVO loginVO, HttpServletRequest request) {
+    return userLoginService.webLogin(loginVO.getUserName(), loginVO.getPassword(), RequestIPUtil.getIpAddr(request));
   }
 
-  @RequestMapping(value = "/manager/loginout", method = RequestMethod.POST)
-  public ApiResutl loginout() {
+  @RequestMapping(value = "/user/web/loginout", method = RequestMethod.POST)
+  public ApiResutl webLoginout() {
     Integer managerId = LoginStatusSaveUtil.getManagerId();
     if (managerId != null) {
-      managerLogin.loginout(managerId);
+      userLoginService.webLoginout(managerId);
     }
     return ApiResutl.createSuccessReuslt();
   }

@@ -1,4 +1,4 @@
-package com.racing.controller.manager;
+package com.racing.controller.user;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,26 +10,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.racing.controller.vo.ApiResutl;
 import com.racing.controller.vo.LoginVO;
-import com.racing.service.manager.ManagerLoginService;
+import com.racing.service.user.UserLoginService;
 import com.racing.util.LoginStatusSaveUtil;
-import com.racing.util.RequestIPUtil;
 
 @RestController
-public class ManagerLoginController {
+public class WechatLoginController {
 
   @Autowired
-  private ManagerLoginService managerLogin;
+  private UserLoginService userLoginService;
 
-  @RequestMapping(value = "/manager/login", method = RequestMethod.POST)
-  public Object login(@RequestBody LoginVO loginVO, HttpServletRequest request) {
-    return managerLogin.login(loginVO.getUserName(), loginVO.getPassword(), RequestIPUtil.getIpAddr(request));
+  @RequestMapping(value = "/user/client/login", method = RequestMethod.POST)
+  public Object clientLogin(@RequestBody LoginVO loginVO, HttpServletRequest request) {
+    return userLoginService.clientLogin(loginVO.getUserName(), loginVO.getPassword());
   }
 
-  @RequestMapping(value = "/manager/loginout", method = RequestMethod.POST)
-  public ApiResutl loginout() {
+  @RequestMapping(value = "/user/client/loginout", method = RequestMethod.POST)
+  public ApiResutl clientLoginout() {
     Integer managerId = LoginStatusSaveUtil.getManagerId();
     if (managerId != null) {
-      managerLogin.loginout(managerId);
+      userLoginService.clientLoginout(managerId);
     }
     return ApiResutl.createSuccessReuslt();
   }
