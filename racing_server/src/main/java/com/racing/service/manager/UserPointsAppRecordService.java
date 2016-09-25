@@ -1,11 +1,12 @@
 package com.racing.service.manager;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,40 +22,35 @@ import com.racing.util.PageUtil;
 
 @Service
 public class UserPointsAppRecordService {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(UserPointsAppRecordService.class);
+
   @Autowired
   UserRepo userRepo;
   @Autowired
   UserPointsAppRecordRepo userPointsAppRecordRepo;
 
-  public List<UserPointsAppRecordVo> selectPoints(String nickName, Integer userId, String status, Integer page) {
-    if (null == page) {
-      page = 1;
-    }
+  public ApiResult selectPoints(String nickName, Integer userId, String status, Integer page) {
+    List<UserPointsAppRecordVo> result = new ArrayList<>();
+    int count = 0;
     List<User> users = userRepo.selectUser(nickName, userId);
     List<Integer> userIds = new ArrayList<>();
     users.stream().forEach(a -> userIds.add(a.getId()));
     if (0 != users.size()) {
       List<UserPointsAppRecord> list = userPointsAppRecordRepo.selectByUserIds(userIds, status, PageUtil.createPage(page, 15));
-      List<UserPointsAppRecordVo> userPointsRecordVoList = new ArrayList<>();
       list.stream().forEach(a -> {
         UserPointsAppRecordVo userPointsRecordVo = new UserPointsAppRecordVo();
         try {
           PropertyUtils.copyProperties(userPointsRecordVo, a);
-        } catch (IllegalAccessException e) {
-          e.printStackTrace();
-        } catch (InvocationTargetException e) {
-          e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-          e.printStackTrace();
+        } catch (Exception e) {
+          LOGGER.error("拷贝属性出现异常", e);
         }
         users.stream().filter(b -> a.getUserId().equals(b.getId())).forEach(b -> userPointsRecordVo.setUserNickName(b.getNickName()));
-        userPointsRecordVoList.add(userPointsRecordVo);
+        result.add(userPointsRecordVo);
       });
-
-      return userPointsRecordVoList;
-    } else {
-      return null;
+      count = userPointsAppRecordRepo.countByUserIds(userIds, status);
     }
+    return ApiResult.createSuccessReuslt(result, page, 15, count);
   }
 
   @Transactional(rollbackFor = Exception.class)

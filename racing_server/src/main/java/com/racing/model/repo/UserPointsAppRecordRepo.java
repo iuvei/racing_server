@@ -33,6 +33,21 @@ public class UserPointsAppRecordRepo {
     return list;
   }
 
+  public int countByUserIds(List<Integer> userIds, String status) {
+    UserPointsAppRecordExample example = new UserPointsAppRecordExample();
+    UserPointsAppRecordExample.Criteria criteria = example.createCriteria();
+    if (StringUtil.isNotEmpty(status)) {
+      criteria.andStatusEqualTo(status);
+    }
+    if (CollectionUtils.isNotEmpty(userIds)) {
+      criteria.andUserIdIn(userIds);
+    }
+
+    return this.mapper.countByExample(example);
+  }
+
+
+
   public UserPointsAppRecord selectById(Integer id) {
     UserPointsAppRecordExample example = new UserPointsAppRecordExample();
     example.createCriteria().andIdEqualTo(id);

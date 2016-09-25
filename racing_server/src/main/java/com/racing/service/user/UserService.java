@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.racing.controller.vo.ApiResult;
-import com.racing.controller.vo.UserPointsInfoListVo;
 import com.racing.controller.vo.UserPointsInfoVO;
 import com.racing.controller.vo.manager.UserIdVO;
 import com.racing.model.po.User;
@@ -35,10 +34,10 @@ public class UserService {
   }
 
   public ApiResult getUserPointsInfoList(String nickName, Integer userId, Integer page) {
-    UserPointsInfoListVo result = new UserPointsInfoListVo();
     List<User> userList = userRepo.selectUser(nickName, userId, PageUtil.createPage(page, 15));
+    int count = 0;
+    List<UserPointsInfoVO> userPointsInfoList = new ArrayList<UserPointsInfoVO>();
     if (CollectionUtils.isNotEmpty(userList)) {
-      List<UserPointsInfoVO> userPointsInfoList = new ArrayList<UserPointsInfoVO>();
       for (User user : userList) {
         UserPointsInfoVO infoVO = new UserPointsInfoVO();
         infoVO.setUserId(user.getId());
@@ -49,11 +48,9 @@ public class UserService {
         infoVO.setMembersPoints(user.getMembersPoints());
         userPointsInfoList.add(infoVO);
       }
-      result.setPage(page);
-      result.setTotalPage(userRepo.count(nickName, userId));
+      count = userRepo.count(nickName, userId);
     }
-
-    return ApiResult.createSuccessReuslt(result);
+    return ApiResult.createSuccessReuslt(userPointsInfoList, page, 15, count);
   }
 
 }

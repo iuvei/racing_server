@@ -1,5 +1,7 @@
 package com.racing.controller.vo;
 
+import com.racing.util.PageUtil;
+
 public class ApiResult {
 
   private static final String SUCCESS = "SUCCESS";
@@ -14,10 +16,29 @@ public class ApiResult {
 
   private String message;
 
+  private int page;
+
+  private int pageSize;
+
+  private int totalPage;
+
+  private int count;
+
   public static ApiResult createSuccessReuslt(Object data) {
     ApiResult result = new ApiResult();
     result.setData(data);
     result.setResult(SUCCESS);
+    return result;
+  }
+
+  public static ApiResult createSuccessReuslt(Object data, int page, int pageSize, int count) {
+    ApiResult result = new ApiResult();
+    result.setData(data);
+    result.setResult(SUCCESS);
+    result.setCount(count);
+    result.setPage(page);
+    result.setPageSize(pageSize);
+    result.setTotalPage(PageUtil.getTotalPage(count, pageSize));
     return result;
   }
 
@@ -73,6 +94,38 @@ public class ApiResult {
 
   public static String getNoLogin() {
     return NO_LOGIN;
+  }
+
+  public int getPage() {
+    return page;
+  }
+
+  public void setPage(int page) {
+    this.page = page;
+  }
+
+  public int getTotalPage() {
+    return totalPage;
+  }
+
+  public void setTotalPage(int totalPage) {
+    this.totalPage = totalPage;
+  }
+
+  public int getCount() {
+    return count;
+  }
+
+  public void setCount(int count) {
+    this.count = count;
+  }
+
+  public int getPageSize() {
+    return pageSize;
+  }
+
+  public void setPageSize(int pageSize) {
+    this.pageSize = pageSize;
   }
 
 }
