@@ -21,7 +21,7 @@ public class ManagerRepo {
   public Manager getByUserNameAndPassword(String userName, String password) {
     password = EncryptUtil.md5AndSha1Upcase(password);
     ManagerExample example = new ManagerExample();
-    example.createCriteria().andUserNameEqualTo(password).andPasswordEqualTo(password);
+    example.createCriteria().andUserNameEqualTo(userName).andPasswordEqualTo(password);
     List<Manager> list = this.mapper.selectByExample(example);
     if (CollectionUtils.isNotEmpty(list)) {
       return list.get(0);
