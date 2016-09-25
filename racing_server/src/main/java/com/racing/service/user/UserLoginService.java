@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.LoginInfoVO;
@@ -21,6 +22,7 @@ public class UserLoginService {
   @Autowired
   private UserRepo userRepo;
 
+  @Transactional(rollbackFor = Exception.class)
   public ApiResult webLogin(String userName, String password, String ip) {
     if (StringUtil.isEmpty(userName) || StringUtil.isEmpty(password)) {
       return ApiResult.createErrorReuslt("用户名密码不能为空");
@@ -53,10 +55,12 @@ public class UserLoginService {
     return ApiResult.createSuccessReuslt(result);
   }
 
+  @Transactional(rollbackFor = Exception.class)
   public void webLoginout(Integer userId) {
     this.userRepo.updateWebOutTime(userId, new Date());
   }
 
+  @Transactional(rollbackFor = Exception.class)
   public ApiResult clientLogin(String userName, String password, String clientSN) {
     if (StringUtil.isEmpty(userName) || StringUtil.isEmpty(password)) {
       return ApiResult.createErrorReuslt("用户名密码不能为空");
@@ -95,6 +99,7 @@ public class UserLoginService {
     return ApiResult.createSuccessReuslt(result);
   }
 
+  @Transactional(rollbackFor = Exception.class)
   public void clientLoginout(Integer userId) {
     this.userRepo.updateClientOutTime(userId, new Date());
   }

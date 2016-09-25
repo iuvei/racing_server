@@ -58,6 +58,7 @@ public class ManagerLoginService {
     return ApiResult.createSuccessReuslt(result);
   }
 
+  @Transactional(rollbackFor = Exception.class)
   public void loginout(Integer managerId) {
     this.managerRepo.updateWebOutTime(managerId, new Date());
   }
