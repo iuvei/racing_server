@@ -45,7 +45,6 @@ public class ManagerController {
 
   @RequestMapping(value = "/user/apppoints/{id}/status/reject", method = RequestMethod.PUT)
   public Object toUserPointReject(@PathVariable Integer id, @RequestBody UserAppPointDealCommentVO commentVO) {
-    userPointsAppRecordService.updateStatus(id, UserPointsAppStatusConstant.REJECT, commentVO.getComments());
     return userPointsAppRecordService.updateStatus(id, UserPointsAppStatusConstant.AUDIT, commentVO.getComments());
   }
 
