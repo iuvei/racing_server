@@ -28,7 +28,7 @@ public class UserPointsAppRecordRepo {
       criteria.andUserIdIn(userIds);
     }
 
-    example.setOrderByClause(" id desc " + pageUtil);
+    example.setOrderByClause(" id desc " + pageUtil.getLimit());
     List<UserPointsAppRecord> list = mapper.selectByExample(example);
     return list;
   }
@@ -48,7 +48,7 @@ public class UserPointsAppRecordRepo {
   public List<UserPointsAppRecord> selectPointsByUserId(Integer userId, PageUtil pageUtil) {
     UserPointsAppRecordExample example = new UserPointsAppRecordExample();
     example.createCriteria().andUserIdEqualTo(userId);
-    example.setOrderByClause(" id desc " + pageUtil);
+    example.setOrderByClause(" id desc " + pageUtil.getLimit());
     List<UserPointsAppRecord> list = mapper.selectByExample(example);
     return list;
   }

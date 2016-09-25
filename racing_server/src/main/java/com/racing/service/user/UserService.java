@@ -1,26 +1,33 @@
 package com.racing.service.user;
 
-import com.racing.controller.vo.UserVo;
-import com.racing.model.repo.UserRepo;
-import com.racing.util.PageUtil;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.racing.controller.vo.ApiResult;
+import com.racing.controller.vo.manager.UserIdVO;
+import com.racing.model.po.User;
+import com.racing.model.repo.UserRepo;
+
 @Service
 public class UserService {
-    @Autowired
-    UserRepo userRepo;
+  @Autowired
+  UserRepo userRepo;
 
-    public UserVo selectUser(String nickName, Integer id,
-                             Integer page) {
-        if (null == page) {
-            page = 1;
-        }
-        UserVo userVo = new UserVo();
-        userVo.setUsers(
-            userRepo.selectUser(nickName, id, PageUtil.createPage(page, 15)));
-        userVo.setTotalPage(
-            PageUtil.getTotalPage(userRepo.count(nickName, id), 15));
-        return userVo;
+  public ApiResult selectUserIdInfo() {
+    List<UserIdVO> voList = new ArrayList<UserIdVO>();
+    List<User> userList = userRepo.selectUser();
+    if (CollectionUtils.isNotEmpty(userList)) {
+      for (User user : userList) {
+        UserIdVO idVO = new UserIdVO();
+        idVO.setId(user.getId());
+        idVO.setNickName(user.getNickName());
+        idVO.setUserName(user.getUserName());
+      }
     }
+    return ApiResult.createSuccessReuslt(voList);
+  }
 }

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.racing.constant.UserPointsAppStatusConstant;
 import com.racing.controller.vo.ApiResult;
-import com.racing.controller.vo.manager.UserPointsRecordVo;
+import com.racing.controller.vo.manager.UserPointsAppRecordVo;
 import com.racing.model.po.User;
 import com.racing.model.po.UserPointsAppRecord;
 import com.racing.model.repo.UserPointsAppRecordRepo;
@@ -26,7 +26,7 @@ public class UserPointsAppRecordService {
   @Autowired
   UserPointsAppRecordRepo userPointsAppRecordRepo;
 
-  public List<UserPointsRecordVo> selectPoints(String nickName, Integer userId, String status, Integer page) {
+  public List<UserPointsAppRecordVo> selectPoints(String nickName, Integer userId, String status, Integer page) {
     if (null == page) {
       page = 1;
     }
@@ -35,9 +35,9 @@ public class UserPointsAppRecordService {
     users.stream().forEach(a -> userIds.add(a.getId()));
     if (0 != users.size()) {
       List<UserPointsAppRecord> list = userPointsAppRecordRepo.selectByUserIds(userIds, status, PageUtil.createPage(page, 15));
-      List<UserPointsRecordVo> userPointsRecordVoList = new ArrayList<>();
+      List<UserPointsAppRecordVo> userPointsRecordVoList = new ArrayList<>();
       list.stream().forEach(a -> {
-        UserPointsRecordVo userPointsRecordVo = new UserPointsRecordVo();
+        UserPointsAppRecordVo userPointsRecordVo = new UserPointsAppRecordVo();
         try {
           PropertyUtils.copyProperties(userPointsRecordVo, a);
         } catch (IllegalAccessException e) {

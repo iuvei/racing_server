@@ -32,6 +32,11 @@ public class UserRepo {
     return this.mapper.countByExample(example);
   }
 
+  public List<User> selectUser() {
+    List<User> users = mapper.selectByExample(new UserExample());
+    return users;
+  }
+
   public List<User> selectUser(String nickName, Integer id, PageUtil pageUtil) {
     UserExample example = new UserExample();
     UserExample.Criteria criteria = example.createCriteria();
@@ -41,7 +46,7 @@ public class UserRepo {
     if (null != id) {
       criteria.andIdEqualTo(id);
     }
-    example.setOrderByClause(" id desc " + pageUtil);
+    example.setOrderByClause(" id desc " + pageUtil.getLimit());
     List<User> users = mapper.selectByExample(example);
     return users;
   }

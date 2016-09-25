@@ -3,7 +3,7 @@ package com.racing.controller.vo.manager;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class UserPointsRecordVo {
+public class UserPointsAppRecordVo {
     private Integer id;
     private BigDecimal appPoints;
     private String appComment;
