@@ -1,23 +1,29 @@
 package com.racing.service.user;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.racing.constant.UserPointsAppStatusConstant;
 import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.UserPointsInfoVO;
 import com.racing.controller.vo.manager.UserIdVO;
 import com.racing.model.po.User;
+import com.racing.model.po.UserAccountRecord;
+import com.racing.model.repo.UserAccountRecordRepo;
 import com.racing.model.repo.UserRepo;
 import com.racing.util.PageUtil;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class UserService {
   @Autowired
   UserRepo userRepo;
+  @Autowired
+  UserAccountRecordRepo userAccountRecordRepo;
 
   public ApiResult selectUserIdInfo() {
     List<UserIdVO> voList = new ArrayList<UserIdVO>();
@@ -53,4 +59,31 @@ public class UserService {
     return ApiResult.createSuccessReuslt(userPointsInfoList, page, 15, count);
   }
 
+  public Object updatePoint(Integer userId, BigDecimal points) {
+    int returnNum = userRepo.updatePoint(userId ,points);
+    User user=userRepo.selectById(userId);
+    if(returnNum == 0){
+      return ApiResult.createErrorReuslt("分数变更失败");
+    }
+
+    UserAccountRecord userAccountRecord=new UserAccountRecord();
+    userAccountRecord.setUserId(userId);
+    if(points.compareTo(BigDecimal.ZERO) >= 0) {
+      userAccountRecord.setType(UserPointsAppStatusConstant.MANAGER_ADD);
+    }else{
+      userAccountRecord.setType(UserPointsAppStatusConstant.MANAGER_ADD);
+    }
+    userAccountRecord.setOperationTotalPoints(points);
+    userAccountRecord.setResultTotalPoints(user.getTotalPoints());
+    userAccountRecord.setOperationUserPoints(points);
+    userAccountRecord.setResultUserPoints(user.getUserPoints());
+    userAccountRecord.setOperationMembersPoints(BigDecimal.ZERO);
+    userAccountRecord.setResultMembersPoints(user.getMembersPoints());
+    userAccountRecord.setOperationTime(new Date());
+    returnNum = userAccountRecordRepo.insert(userAccountRecord);
+    if(returnNum == 0){
+      return ApiResult.createErrorReuslt("分数变更记录插入失败");
+    }
+    return ApiResult.createSuccessReuslt();
+  }
 }

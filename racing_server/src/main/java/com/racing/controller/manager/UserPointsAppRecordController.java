@@ -47,12 +47,12 @@ public class UserPointsAppRecordController {
 
   @RequestMapping(value = "/pointsapp/{id}/status/reject", method = RequestMethod.PUT)
   public Object toUserPointReject(@PathVariable Integer id, @RequestBody UserAppPointDealCommentVO commentVO) {
-    return userPointsAppRecordService.updateStatus(id, UserPointsAppStatusConstant.AUDIT, commentVO.getComments());
+    return userPointsAppRecordService.updateStatus(id, UserPointsAppStatusConstant.REJECT, commentVO.getComments());
   }
 
   @RequestMapping(value = "/pointsapp/{id}/status/cancel", method = RequestMethod.PUT)
   public Object toUserPointUntreated(@PathVariable Integer id, @RequestBody UserAppPointDealCommentVO commentVO) {
-    return userPointsAppRecordService.updateStatus(id, UserPointsAppStatusConstant.AUDIT, commentVO.getComments());
+    return userPointsAppRecordService.updateStatus(id, UserPointsAppStatusConstant.CANCEL, commentVO.getComments());
   }
 
   /**

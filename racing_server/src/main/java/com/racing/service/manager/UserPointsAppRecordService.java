@@ -1,9 +1,15 @@
 package com.racing.service.manager;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import com.racing.constant.UserPointsAppStatusConstant;
+import com.racing.controller.vo.ApiResult;
+import com.racing.controller.vo.manager.UserPointsAppRecordVo;
+import com.racing.model.po.User;
+import com.racing.model.po.UserAccountRecord;
+import com.racing.model.po.UserPointsAppRecord;
+import com.racing.model.repo.UserAccountRecordRepo;
+import com.racing.model.repo.UserPointsAppRecordRepo;
+import com.racing.model.repo.UserRepo;
+import com.racing.util.PageUtil;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,14 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.racing.constant.UserPointsAppStatusConstant;
-import com.racing.controller.vo.ApiResult;
-import com.racing.controller.vo.manager.UserPointsAppRecordVo;
-import com.racing.model.po.User;
-import com.racing.model.po.UserPointsAppRecord;
-import com.racing.model.repo.UserPointsAppRecordRepo;
-import com.racing.model.repo.UserRepo;
-import com.racing.util.PageUtil;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class UserPointsAppRecordService {
@@ -29,6 +31,8 @@ public class UserPointsAppRecordService {
   UserRepo userRepo;
   @Autowired
   UserPointsAppRecordRepo userPointsAppRecordRepo;
+  @Autowired
+  UserAccountRecordRepo userAccountRecordRepo;
 
   public ApiResult selectPoints(String nickName, Integer userId, String status, Integer page) {
     List<UserPointsAppRecordVo> result = new ArrayList<>();
@@ -59,11 +63,27 @@ public class UserPointsAppRecordService {
     if (!UserPointsAppStatusConstant.UNTREATED.equals(userPointsAppRecord.getStatus())) {
       return ApiResult.createErrorReuslt("该申请已处理！不能重复处理！");
     }
-
     if (UserPointsAppStatusConstant.AUDIT.equals(status)) {
-      // TODO 状态为批准，则执行操作积分操作
+      User user=userRepo.selectById(userPointsAppRecord.getUserId());
+      UserAccountRecord userAccountRecord = new UserAccountRecord();
+      userAccountRecord.setUserId(userPointsAppRecord.getUserId());
+      if(userPointsAppRecord.getAppPoints().compareTo(BigDecimal.ZERO) >= 0) {
+        userAccountRecord.setType(UserPointsAppStatusConstant.MANAGER_ADD);
+      }else{
+        userAccountRecord.setType(UserPointsAppStatusConstant.MANAGER_ADD);
+      }
+      userAccountRecord.setOperationTotalPoints(userPointsAppRecord.getAppPoints());
+      userAccountRecord.setResultTotalPoints(user.getTotalPoints());
+      userAccountRecord.setOperationUserPoints(userPointsAppRecord.getAppPoints());
+      userAccountRecord.setResultUserPoints(user.getUserPoints());
+      userAccountRecord.setOperationMembersPoints(BigDecimal.ZERO);
+      userAccountRecord.setResultMembersPoints(user.getMembersPoints());
+      userAccountRecord.setOperationTime(new Date());
+      int insertNum = userAccountRecordRepo.insert(userAccountRecord);
+      if(insertNum == 0){
+        return ApiResult.createErrorReuslt("积分变化记录异常,请重试!");
+      }
     }
-
     userPointsAppRecord.setStatus(status);
     userPointsAppRecord.setOperationComment(comment);
     userPointsAppRecord.setOperationTime(new Date());
