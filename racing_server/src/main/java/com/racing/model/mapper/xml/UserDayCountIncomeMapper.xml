@@ -18,6 +18,11 @@
     <result column="user_stake_count" property="userStakeCount" jdbcType="INTEGER" />
     <result column="members_stake_count" property="membersStakeCount" jdbcType="INTEGER" />
   </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.racing.model.po.UserDayCountIncomeWithBLOBs" extends="BaseResultMap" >
+    <result column="appoint_stake" property="appointStake" jdbcType="LONGVARCHAR" />
+    <result column="common_stake" property="commonStake" jdbcType="LONGVARCHAR" />
+    <result column="ranking_stake" property="rankingStake" jdbcType="LONGVARCHAR" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -81,6 +86,25 @@
     user_income_amount, members_income_amount, total_deficit_amount, user_deficit_amount, 
     members_deficit_amount, total_stake_count, user_stake_count, members_stake_count
   </sql>
+  <sql id="Blob_Column_List" >
+    appoint_stake, common_stake, ranking_stake
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.racing.model.po.UserDayCountIncomeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_day_count_income
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.racing.model.po.UserDayCountIncomeExample" >
     select
     <if test="distinct" >
@@ -95,9 +119,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from user_day_count_income
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -111,21 +137,23 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.racing.model.po.UserDayCountIncome" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insert" parameterType="com.racing.model.po.UserDayCountIncomeWithBLOBs" useGeneratedKeys="true" keyProperty="id" >
     insert into user_day_count_income (id, user_id, day, 
       total_stake_amount, user_stake_amount, members_stake_amount, 
       total_income_amount, user_income_amount, members_income_amount, 
       total_deficit_amount, user_deficit_amount, 
       members_deficit_amount, total_stake_count, 
-      user_stake_count, members_stake_count)
+      user_stake_count, members_stake_count, appoint_stake, 
+      common_stake, ranking_stake)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{day,jdbcType=VARCHAR}, 
       #{totalStakeAmount,jdbcType=DECIMAL}, #{userStakeAmount,jdbcType=DECIMAL}, #{membersStakeAmount,jdbcType=DECIMAL}, 
       #{totalIncomeAmount,jdbcType=DECIMAL}, #{userIncomeAmount,jdbcType=DECIMAL}, #{membersIncomeAmount,jdbcType=DECIMAL}, 
       #{totalDeficitAmount,jdbcType=DECIMAL}, #{userDeficitAmount,jdbcType=DECIMAL}, 
       #{membersDeficitAmount,jdbcType=DECIMAL}, #{totalStakeCount,jdbcType=INTEGER}, 
-      #{userStakeCount,jdbcType=INTEGER}, #{membersStakeCount,jdbcType=INTEGER})
+      #{userStakeCount,jdbcType=INTEGER}, #{membersStakeCount,jdbcType=INTEGER}, #{appointStake,jdbcType=LONGVARCHAR}, 
+      #{commonStake,jdbcType=LONGVARCHAR}, #{rankingStake,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.racing.model.po.UserDayCountIncome" useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insertSelective" parameterType="com.racing.model.po.UserDayCountIncomeWithBLOBs" useGeneratedKeys="true" keyProperty="id" >
     insert into user_day_count_income
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -173,6 +201,15 @@
       <if test="membersStakeCount != null" >
         members_stake_count,
       </if>
+      <if test="appointStake != null" >
+        appoint_stake,
+      </if>
+      <if test="commonStake != null" >
+        common_stake,
+      </if>
+      <if test="rankingStake != null" >
+        ranking_stake,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -219,6 +256,15 @@
       </if>
       <if test="membersStakeCount != null" >
         #{membersStakeCount,jdbcType=INTEGER},
+      </if>
+      <if test="appointStake != null" >
+        #{appointStake,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="commonStake != null" >
+        #{commonStake,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rankingStake != null" >
+        #{rankingStake,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -276,7 +322,40 @@
       <if test="record.membersStakeCount != null" >
         members_stake_count = #{record.membersStakeCount,jdbcType=INTEGER},
       </if>
+      <if test="record.appointStake != null" >
+        appoint_stake = #{record.appointStake,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.commonStake != null" >
+        common_stake = #{record.commonStake,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.rankingStake != null" >
+        ranking_stake = #{record.rankingStake,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update user_day_count_income
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      day = #{record.day,jdbcType=VARCHAR},
+      total_stake_amount = #{record.totalStakeAmount,jdbcType=DECIMAL},
+      user_stake_amount = #{record.userStakeAmount,jdbcType=DECIMAL},
+      members_stake_amount = #{record.membersStakeAmount,jdbcType=DECIMAL},
+      total_income_amount = #{record.totalIncomeAmount,jdbcType=DECIMAL},
+      user_income_amount = #{record.userIncomeAmount,jdbcType=DECIMAL},
+      members_income_amount = #{record.membersIncomeAmount,jdbcType=DECIMAL},
+      total_deficit_amount = #{record.totalDeficitAmount,jdbcType=DECIMAL},
+      user_deficit_amount = #{record.userDeficitAmount,jdbcType=DECIMAL},
+      members_deficit_amount = #{record.membersDeficitAmount,jdbcType=DECIMAL},
+      total_stake_count = #{record.totalStakeCount,jdbcType=INTEGER},
+      user_stake_count = #{record.userStakeCount,jdbcType=INTEGER},
+      members_stake_count = #{record.membersStakeCount,jdbcType=INTEGER},
+      appoint_stake = #{record.appointStake,jdbcType=LONGVARCHAR},
+      common_stake = #{record.commonStake,jdbcType=LONGVARCHAR},
+      ranking_stake = #{record.rankingStake,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -302,7 +381,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.racing.model.po.UserDayCountIncome" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.racing.model.po.UserDayCountIncomeWithBLOBs" >
     update user_day_count_income
     <set >
       <if test="userId != null" >
@@ -347,7 +426,37 @@
       <if test="membersStakeCount != null" >
         members_stake_count = #{membersStakeCount,jdbcType=INTEGER},
       </if>
+      <if test="appointStake != null" >
+        appoint_stake = #{appointStake,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="commonStake != null" >
+        common_stake = #{commonStake,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rankingStake != null" >
+        ranking_stake = #{rankingStake,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.racing.model.po.UserDayCountIncomeWithBLOBs" >
+    update user_day_count_income
+    set user_id = #{userId,jdbcType=INTEGER},
+      day = #{day,jdbcType=VARCHAR},
+      total_stake_amount = #{totalStakeAmount,jdbcType=DECIMAL},
+      user_stake_amount = #{userStakeAmount,jdbcType=DECIMAL},
+      members_stake_amount = #{membersStakeAmount,jdbcType=DECIMAL},
+      total_income_amount = #{totalIncomeAmount,jdbcType=DECIMAL},
+      user_income_amount = #{userIncomeAmount,jdbcType=DECIMAL},
+      members_income_amount = #{membersIncomeAmount,jdbcType=DECIMAL},
+      total_deficit_amount = #{totalDeficitAmount,jdbcType=DECIMAL},
+      user_deficit_amount = #{userDeficitAmount,jdbcType=DECIMAL},
+      members_deficit_amount = #{membersDeficitAmount,jdbcType=DECIMAL},
+      total_stake_count = #{totalStakeCount,jdbcType=INTEGER},
+      user_stake_count = #{userStakeCount,jdbcType=INTEGER},
+      members_stake_count = #{membersStakeCount,jdbcType=INTEGER},
+      appoint_stake = #{appointStake,jdbcType=LONGVARCHAR},
+      common_stake = #{commonStake,jdbcType=LONGVARCHAR},
+      ranking_stake = #{rankingStake,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.racing.model.po.UserDayCountIncome" >

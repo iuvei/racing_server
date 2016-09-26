@@ -2,6 +2,7 @@ package com.racing.model.mapper;
 
 import com.racing.model.po.UserDayCountIncome;
 import com.racing.model.po.UserDayCountIncomeExample;
+import com.racing.model.po.UserDayCountIncomeWithBLOBs;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,19 +13,25 @@ public interface UserDayCountIncomeMapper {
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(UserDayCountIncome record);
+    int insert(UserDayCountIncomeWithBLOBs record);
 
-    int insertSelective(UserDayCountIncome record);
+    int insertSelective(UserDayCountIncomeWithBLOBs record);
+
+    List<UserDayCountIncomeWithBLOBs> selectByExampleWithBLOBs(UserDayCountIncomeExample example);
 
     List<UserDayCountIncome> selectByExample(UserDayCountIncomeExample example);
 
-    UserDayCountIncome selectByPrimaryKey(Integer id);
+    UserDayCountIncomeWithBLOBs selectByPrimaryKey(Integer id);
 
-    int updateByExampleSelective(@Param("record") UserDayCountIncome record, @Param("example") UserDayCountIncomeExample example);
+    int updateByExampleSelective(@Param("record") UserDayCountIncomeWithBLOBs record, @Param("example") UserDayCountIncomeExample example);
+
+    int updateByExampleWithBLOBs(@Param("record") UserDayCountIncomeWithBLOBs record, @Param("example") UserDayCountIncomeExample example);
 
     int updateByExample(@Param("record") UserDayCountIncome record, @Param("example") UserDayCountIncomeExample example);
 
-    int updateByPrimaryKeySelective(UserDayCountIncome record);
+    int updateByPrimaryKeySelective(UserDayCountIncomeWithBLOBs record);
+
+    int updateByPrimaryKeyWithBLOBs(UserDayCountIncomeWithBLOBs record);
 
     int updateByPrimaryKey(UserDayCountIncome record);
 }
