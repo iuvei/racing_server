@@ -52,4 +52,8 @@ public class ManagerRepo {
     return null;
   }
 
+  public List<Manager> getManagerList() {
+    return this.mapper.selectByExample(new ManagerExample());
+  }
+
 }
