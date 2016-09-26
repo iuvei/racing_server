@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.racing.constant.UserPointsAppStatusConstant;
+import com.racing.constant.UserConstant;
 import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.UserAppPointDealCommentVO;
 import com.racing.service.manager.UserPointsAppRecordService;
@@ -42,17 +42,17 @@ public class UserPointsAppRecordController {
    */
   @RequestMapping(value = "/pointsapp/{id}/status/audit", method = RequestMethod.PUT)
   public Object toUserPointAudit(@PathVariable Integer id, @RequestBody UserAppPointDealCommentVO commentVO) {
-    return userPointsAppRecordService.updateStatus(id, UserPointsAppStatusConstant.AUDIT, commentVO.getComments());
+    return userPointsAppRecordService.updateStatus(id, UserConstant.POINTS_APP_STATUS_AUDIT, commentVO.getComments());
   }
 
   @RequestMapping(value = "/pointsapp/{id}/status/reject", method = RequestMethod.PUT)
   public Object toUserPointReject(@PathVariable Integer id, @RequestBody UserAppPointDealCommentVO commentVO) {
-    return userPointsAppRecordService.updateStatus(id, UserPointsAppStatusConstant.REJECT, commentVO.getComments());
+    return userPointsAppRecordService.updateStatus(id, UserConstant.POINTS_APP_STATUS_REJECT, commentVO.getComments());
   }
 
   @RequestMapping(value = "/pointsapp/{id}/status/cancel", method = RequestMethod.PUT)
   public Object toUserPointUntreated(@PathVariable Integer id, @RequestBody UserAppPointDealCommentVO commentVO) {
-    return userPointsAppRecordService.updateStatus(id, UserPointsAppStatusConstant.CANCEL, commentVO.getComments());
+    return userPointsAppRecordService.updateStatus(id, UserConstant.POINTS_APP_STATUS_CANCEL, commentVO.getComments());
   }
 
   /**

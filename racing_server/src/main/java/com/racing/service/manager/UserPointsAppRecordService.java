@@ -1,6 +1,6 @@
 package com.racing.service.manager;
 
-import com.racing.constant.UserPointsAppStatusConstant;
+import com.racing.constant.UserConstant;
 import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.manager.UserPointsAppRecordVo;
 import com.racing.model.po.User;
@@ -60,17 +60,17 @@ public class UserPointsAppRecordService {
   @Transactional(rollbackFor = Exception.class)
   public ApiResult updateStatus(Integer id, String status, String comment) {
     UserPointsAppRecord userPointsAppRecord = userPointsAppRecordRepo.selectById(id);
-    if (!UserPointsAppStatusConstant.UNTREATED.equals(userPointsAppRecord.getStatus())) {
+    if (!UserConstant.POINTS_APP_STATUS_UNTREATED.equals(userPointsAppRecord.getStatus())) {
       return ApiResult.createErrorReuslt("该申请已处理！不能重复处理！");
     }
-    if (UserPointsAppStatusConstant.AUDIT.equals(status)) {
+    if (UserConstant.POINTS_APP_STATUS_AUDIT.equals(status)) {
       User user=userRepo.selectById(userPointsAppRecord.getUserId());
       UserAccountRecord userAccountRecord = new UserAccountRecord();
       userAccountRecord.setUserId(userPointsAppRecord.getUserId());
       if(userPointsAppRecord.getAppPoints().compareTo(BigDecimal.ZERO) >= 0) {
-        userAccountRecord.setType(UserPointsAppStatusConstant.MANAGER_ADD);
+        userAccountRecord.setType(UserConstant.ACCOUNT_RECORD_TYPE_MANAGER_ADD);
       }else{
-        userAccountRecord.setType(UserPointsAppStatusConstant.MANAGER_ADD);
+        userAccountRecord.setType(UserConstant.ACCOUNT_RECORD_TYPE_MANAGER_ADD);
       }
       userAccountRecord.setOperationTotalPoints(userPointsAppRecord.getAppPoints());
       userAccountRecord.setResultTotalPoints(user.getTotalPoints());

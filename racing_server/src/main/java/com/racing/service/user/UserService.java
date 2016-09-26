@@ -1,6 +1,6 @@
 package com.racing.service.user;
 
-import com.racing.constant.UserPointsAppStatusConstant;
+import com.racing.constant.UserConstant;
 import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.UserPointsInfoVO;
 import com.racing.controller.vo.manager.UserIdVO;
@@ -69,9 +69,9 @@ public class UserService {
     UserAccountRecord userAccountRecord=new UserAccountRecord();
     userAccountRecord.setUserId(userId);
     if(points.compareTo(BigDecimal.ZERO) >= 0) {
-      userAccountRecord.setType(UserPointsAppStatusConstant.MANAGER_ADD);
+      userAccountRecord.setType(UserConstant.ACCOUNT_RECORD_TYPE_MANAGER_ADD);
     }else{
-      userAccountRecord.setType(UserPointsAppStatusConstant.MANAGER_ADD);
+      userAccountRecord.setType(UserConstant.ACCOUNT_RECORD_TYPE_MANAGER_ADD);
     }
     userAccountRecord.setOperationTotalPoints(points);
     userAccountRecord.setResultTotalPoints(user.getTotalPoints());
