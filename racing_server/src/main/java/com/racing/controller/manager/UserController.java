@@ -1,16 +1,11 @@
 package com.racing.controller.manager;
 
-import java.math.BigDecimal;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import com.racing.model.po.User;
 import com.racing.service.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 
 @RestController
 @RequestMapping("/manager")
@@ -26,6 +21,22 @@ public class UserController {
   @RequestMapping(value = "/user", method = RequestMethod.GET)
   public Object selectUser(@RequestParam(required = false) String nickName, @RequestParam(required = false) Integer userId) {
     return userService.getUserList(nickName, userId);
+  }
+
+  /**
+   * 新增用户
+   * @param user
+   */
+  @RequestMapping(value = "/user", method = RequestMethod.POST)
+  public void addUser(@RequestBody User user){
+  }
+
+  /**
+   * 修改用户信息
+   */
+  @RequestMapping(value = "/user", method = RequestMethod.PUT)
+  public void updateUser(){
+
   }
 
   /**
@@ -52,28 +63,27 @@ public class UserController {
     return userService.getUserPointsInfoList(nickName, userId, page);
   }
 
-  /**
-   * 总盘给用户添加积分
-   * 
-   * @param userId
-   * @param points
-   * @return
-   */
-  @RequestMapping(value = "/add/points/user/{id}", method = RequestMethod.PUT)
-  public Object managerAddPointsToUser(@PathVariable("id") Integer userId, @RequestBody BigDecimal points) {
-    return userService.updatePoint(userId, points);
-  }
+    /**
+     * 总盘给用户添加积分
+     * @param userId
+     * @param points
+     * @return
+     */
+    @RequestMapping(value = "/add/points/user/{userId}", method = RequestMethod.PUT)
+    public Object managerAddPointsToUser(@PathVariable Integer userId,
+                                         @RequestBody BigDecimal points) {
+        return userService.updatePoint(userId, points);
+    }
 
-  /**
-   * 总盘给用户减少积分
-   * 
-   * @param userId
-   * @param points
-   * @return
-   */
-  @RequestMapping(value = "/subtract/points/user/{id}", method = RequestMethod.PUT)
-  public Object managerSubtractPointsToUser(@PathVariable("id") Integer userId, @RequestBody BigDecimal points) {
-    return userService.updatePoint(userId, points);
-  }
-
+    /**
+     * 总盘给用户减少积分
+     * @param userId
+     * @param points
+     * @return
+     */
+    @RequestMapping(value = "/subtract/points/user/{userId}", method = RequestMethod.PUT)
+    public Object managerSubtractPointsToUser(@PathVariable Integer userId,
+                                         @RequestBody BigDecimal points) {
+        return userService.updatePoint(userId,points);
+    }
 }
