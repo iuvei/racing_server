@@ -62,7 +62,7 @@ public class UserPointsAppRecordController {
    * @param page
    * @return
    */
-  @RequestMapping(value = "/{userId}/apppoints", method = RequestMethod.GET)
+  @RequestMapping(value = "/{userId}/pointsapp", method = RequestMethod.GET)
   public Object selectPointsByUserId(@PathVariable Integer userId, @RequestParam(required = false) Integer page) {
     return ApiResult.createSuccessReuslt(userPointsAppRecordService.selectPointsByUserId(userId, page));
   }
