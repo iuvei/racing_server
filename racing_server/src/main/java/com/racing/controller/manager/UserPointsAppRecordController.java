@@ -32,7 +32,7 @@ public class UserPointsAppRecordController {
   @RequestMapping(value = "/pointsapp", method = RequestMethod.GET)
   public Object selectPointsApp(@RequestParam(required = false) String nickName, @RequestParam(required = false) Integer userId, @RequestParam(required = false) String status,
       @RequestParam(required = false, defaultValue = "1") Integer page) {
-    return ApiResult.createSuccessReuslt(userPointsAppRecordService.selectPoints(nickName, userId, status, page));
+    return userPointsAppRecordService.selectPoints(nickName, userId, status, page);
   }
 
   /**

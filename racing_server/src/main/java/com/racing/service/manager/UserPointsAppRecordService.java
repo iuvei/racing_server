@@ -97,4 +97,25 @@ public class UserPointsAppRecordService {
     }
     return userPointsAppRecordRepo.selectPointsByUserId(userId, PageUtil.createPage(page, 15));
   }
+
+  public ApiResult userSelectPointsByDate(Integer userId, String status, Date startDate, Date endDate, Integer page) {
+      List<UserPointsAppRecordVo> result = new ArrayList<>();
+      User user=userRepo.selectById(userId);
+      int count;
+          List<UserPointsAppRecord> list = userPointsAppRecordRepo.userSelectByUserIdAndDateAndState(
+              userId, startDate, endDate, status, PageUtil.createPage(page, 15));
+          list.stream().forEach(a -> {
+              UserPointsAppRecordVo userPointsRecordVo = new UserPointsAppRecordVo();
+              try {
+                  PropertyUtils.copyProperties(userPointsRecordVo, a);
+              } catch (Exception e) {
+                  LOGGER.error("拷贝属性出现异常", e);
+              }
+              userPointsRecordVo.setUserNickName(user.getNickName());
+              result.add(userPointsRecordVo);
+          });
+          count = userPointsAppRecordRepo.countByUser(userId, startDate, endDate, status);
+
+      return ApiResult.createSuccessReuslt(result, page, 15, count);
+  }
 }

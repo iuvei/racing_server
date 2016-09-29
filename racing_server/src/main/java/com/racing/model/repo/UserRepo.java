@@ -1,20 +1,18 @@
 package com.racing.model.repo;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 import com.racing.model.mapper.UserMapper;
 import com.racing.model.po.User;
 import com.racing.model.po.UserExample;
 import com.racing.util.EncryptUtil;
 import com.racing.util.PageUtil;
-
 import jodd.util.StringUtil;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 @Repository
 public class UserRepo {
@@ -145,5 +143,17 @@ public class UserRepo {
 
   public User selectById(Integer userId) {
     return this.mapper.selectByPrimaryKey(userId);
+  }
+
+  public int updateUser(User user) {
+    return mapper.updateByPrimaryKey(user);
+  }
+
+  public int insert(User user) {
+    return mapper.insert(user);
+  }
+
+  public int delete(Integer userId) {
+    return mapper.deleteByPrimaryKey(userId);
   }
 }

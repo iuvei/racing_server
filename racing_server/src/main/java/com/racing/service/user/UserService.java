@@ -1,18 +1,5 @@
 package com.racing.service.user;
 
-import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.collections.CollectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.racing.constant.UserConstant;
 import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.UserPointsInfoVO;
@@ -23,8 +10,20 @@ import com.racing.model.po.UserAccountRecord;
 import com.racing.model.repo.UserAccountRecordRepo;
 import com.racing.model.repo.UserRepo;
 import com.racing.util.PageUtil;
-
 import jodd.util.StringUtil;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -124,5 +123,89 @@ public class UserService {
       return ApiResult.createErrorReuslt("分数变更记录插入失败");
     }
     return ApiResult.createSuccessReuslt();
+  }
+
+  @Transactional(rollbackFor = Exception.class)
+  public Object updateUserNickName(Integer userId, String nickName) {
+    User user = userRepo.selectById(userId);
+    if (null == user) {
+      return ApiResult.createErrorReuslt("分盘不存在");
+    }
+    user.setNickName(nickName);
+    int result = userRepo.updateUser(user);
+    if(result == 1){
+      return ApiResult.createSuccessReuslt();
+    }
+    return ApiResult.createErrorReuslt("更新失败");
+  }
+
+  @Transactional(rollbackFor = Exception.class)
+  public Object addUser(String clientSn, Date clientExpireDate) {
+    User user = userRepo.getByClientSN(clientSn);
+    if(user != null){
+      return ApiResult.createErrorReuslt("此sn已存在");
+    }
+    user = new User();
+    user.setClientSn(clientSn);
+    user.setClientExpireDate(clientExpireDate);
+    int result=userRepo.insert(user);
+    if(result == 1) {
+      return ApiResult.createSuccessReuslt();
+    }else {
+      return ApiResult.createErrorReuslt("创建失败");
+    }
+  }
+
+  @Transactional(rollbackFor = Exception.class)
+  public Object updateUserIsEnable(Integer userId, boolean isEnable) {
+    User user = userRepo.selectById(userId);
+    if (null == user) {
+      return ApiResult.createErrorReuslt("分盘不存在");
+    }
+    user.setIsEnable(isEnable);
+    int result = userRepo.updateUser(user);
+    if(result > 0){
+      return ApiResult.createSuccessReuslt();
+    }
+    return ApiResult.createErrorReuslt("更新失败");
+  }
+
+  @Transactional(rollbackFor = Exception.class)
+  public Object delete(Integer userId) {
+    int result = userRepo.delete(userId);
+    if(result == 1){
+      return ApiResult.createSuccessReuslt();
+    }
+    return ApiResult.createErrorReuslt("删除失败");
+  }
+
+  @Transactional(rollbackFor = Exception.class)
+  public Object addRobot(Integer userId, Date clientExpireDate) {
+    User user = userRepo.selectById(userId);
+    if(user == null){
+      return ApiResult.createErrorReuslt("用户不存在");
+    }
+    user = new User();
+    user.setClientExpireDate(clientExpireDate);
+    int result=userRepo.updateUser(user);
+    if(result == 1) {
+      return ApiResult.createSuccessReuslt();
+    }else {
+      return ApiResult.createErrorReuslt("操作机器人失败");
+    }
+  }
+
+  @Transactional(rollbackFor = Exception.class)
+  public Object updateRobotIsEnable(Integer userId, boolean isEnable) {
+    User user = userRepo.selectById(userId);
+    if (null == user) {
+      return ApiResult.createErrorReuslt("分盘不存在");
+    }
+    user.setClientIsEnable(isEnable);
+    int result = userRepo.updateUser(user);
+    if(result == 1){
+      return ApiResult.createSuccessReuslt();
+    }
+    return ApiResult.createErrorReuslt("更新失败");
   }
 }
