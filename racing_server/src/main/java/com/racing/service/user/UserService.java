@@ -9,6 +9,7 @@ import com.racing.model.po.User;
 import com.racing.model.po.UserAccountRecord;
 import com.racing.model.repo.UserAccountRecordRepo;
 import com.racing.model.repo.UserRepo;
+import com.racing.util.EncryptUtil;
 import com.racing.util.PageUtil;
 import jodd.util.StringUtil;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -202,6 +203,20 @@ public class UserService {
       return ApiResult.createErrorReuslt("分盘不存在");
     }
     user.setClientIsEnable(isEnable);
+    int result = userRepo.updateUser(user);
+    if(result == 1){
+      return ApiResult.createSuccessReuslt();
+    }
+    return ApiResult.createErrorReuslt("更新失败");
+  }
+
+  public Object updateUserNickNameAndPassword(Integer userId, String nickName, String password) {
+    User user = userRepo.selectById(userId);
+    if (null == user) {
+      return ApiResult.createErrorReuslt("分盘不存在");
+    }
+    user.setNickName(nickName);
+    user.setPassword(EncryptUtil.md5AndSha1Upcase(password));
     int result = userRepo.updateUser(user);
     if(result == 1){
       return ApiResult.createSuccessReuslt();
