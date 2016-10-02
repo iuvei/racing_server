@@ -104,4 +104,8 @@ public class UserPointsAppRecordRepo {
     criteria.andUserIdEqualTo(userId);
     return mapper.countByExample(example);
   }
+
+  public int addUserPointsAppRecord(UserPointsAppRecord userPointsAppRecord) {
+    return mapper.insert(userPointsAppRecord);
+  }
 }

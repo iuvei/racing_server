@@ -6,6 +6,7 @@ import com.racing.service.manager.UserPointsAppRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @RestController
@@ -30,11 +31,19 @@ public class UserPointsAppRecordController {
 
     /**
      * 分盘取消上分
-     *
      */
-    @RequestMapping(value = "/pointsapp/{userId}/status/cancel", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{userId}/pointsapp/status/cancel", method = RequestMethod.PUT)
     public Object toUserPointUntreated(@PathVariable Integer userId, @RequestBody UserAppPointDealCommentVO commentVO) {
         return userPointsAppRecordService.updateStatus(userId, UserConstant.POINTS_APP_STATUS_CANCEL, commentVO.getComments());
     }
 
+    /**
+     * 新增积分申请
+     */
+    @RequestMapping(value = "/{userId}/pointsapp", method = RequestMethod.POST)
+    public Object addUserPointsAppRecord(@PathVariable Integer userId,
+                                         @RequestBody BigDecimal appPoints,
+                                         @RequestBody String appComment) {
+        return userPointsAppRecordService.addUserPointsAppRecord(userId, appPoints, appComment);
+    }
 }
