@@ -1,5 +1,19 @@
 package com.racing.service.user;
 
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.racing.constant.UserConstant;
 import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.UserPointsInfoVO;
@@ -11,20 +25,8 @@ import com.racing.model.repo.UserAccountRecordRepo;
 import com.racing.model.repo.UserRepo;
 import com.racing.util.EncryptUtil;
 import com.racing.util.PageUtil;
-import jodd.util.StringUtil;
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.collections.CollectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import jodd.util.StringUtil;
 
 @Service
 public class UserService {
@@ -36,10 +38,10 @@ public class UserService {
   @Autowired
   UserAccountRecordRepo userAccountRecordRepo;
 
-  public ApiResult getUserList(String nickName, Integer id) {
+  public ApiResult getUserList() {
     List<UserInfoVo> result = new ArrayList<UserInfoVo>();
 
-    List<User> userList = userRepo.selectUser(nickName, id);
+    List<User> userList = userRepo.selectUser();
     if (CollectionUtils.isNotEmpty(userList)) {
       for (User user : userList) {
         UserInfoVo vo = new UserInfoVo();
@@ -58,6 +60,7 @@ public class UserService {
         } else {// 无客户端
           vo.setIsHaveClient(false);
         }
+        result.add(vo);
       }
     }
 
@@ -134,7 +137,7 @@ public class UserService {
     }
     user.setNickName(nickName);
     int result = userRepo.updateUser(user);
-    if(result == 1){
+    if (result == 1) {
       return ApiResult.createSuccessReuslt();
     }
     return ApiResult.createErrorReuslt("更新失败");
@@ -143,16 +146,16 @@ public class UserService {
   @Transactional(rollbackFor = Exception.class)
   public Object addUser(String clientSn, Date clientExpireDate) {
     User user = userRepo.getByClientSN(clientSn);
-    if(user != null){
+    if (user != null) {
       return ApiResult.createErrorReuslt("此sn已存在");
     }
     user = new User();
     user.setClientSn(clientSn);
     user.setClientExpireDate(clientExpireDate);
-    int result=userRepo.insert(user);
-    if(result == 1) {
+    int result = userRepo.insert(user);
+    if (result == 1) {
       return ApiResult.createSuccessReuslt();
-    }else {
+    } else {
       return ApiResult.createErrorReuslt("创建失败");
     }
   }
@@ -165,7 +168,7 @@ public class UserService {
     }
     user.setIsEnable(isEnable);
     int result = userRepo.updateUser(user);
-    if(result > 0){
+    if (result > 0) {
       return ApiResult.createSuccessReuslt();
     }
     return ApiResult.createErrorReuslt("更新失败");
@@ -174,7 +177,7 @@ public class UserService {
   @Transactional(rollbackFor = Exception.class)
   public Object delete(Integer userId) {
     int result = userRepo.delete(userId);
-    if(result == 1){
+    if (result == 1) {
       return ApiResult.createSuccessReuslt();
     }
     return ApiResult.createErrorReuslt("删除失败");
@@ -183,15 +186,15 @@ public class UserService {
   @Transactional(rollbackFor = Exception.class)
   public Object addRobot(Integer userId, Date clientExpireDate) {
     User user = userRepo.selectById(userId);
-    if(user == null){
+    if (user == null) {
       return ApiResult.createErrorReuslt("用户不存在");
     }
     user = new User();
     user.setClientExpireDate(clientExpireDate);
-    int result=userRepo.updateUser(user);
-    if(result == 1) {
+    int result = userRepo.updateUser(user);
+    if (result == 1) {
       return ApiResult.createSuccessReuslt();
-    }else {
+    } else {
       return ApiResult.createErrorReuslt("操作机器人失败");
     }
   }
@@ -204,7 +207,7 @@ public class UserService {
     }
     user.setClientIsEnable(isEnable);
     int result = userRepo.updateUser(user);
-    if(result == 1){
+    if (result == 1) {
       return ApiResult.createSuccessReuslt();
     }
     return ApiResult.createErrorReuslt("更新失败");
@@ -218,7 +221,7 @@ public class UserService {
     user.setNickName(nickName);
     user.setPassword(EncryptUtil.md5AndSha1Upcase(password));
     int result = userRepo.updateUser(user);
-    if(result == 1){
+    if (result == 1) {
       return ApiResult.createSuccessReuslt();
     }
     return ApiResult.createErrorReuslt("更新失败");
