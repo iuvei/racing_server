@@ -9,9 +9,9 @@ logging:
   
 datasource:
   mysql:
-    url: jdbc:mysql://120.26.75.31:3306/racingdb
+    url: jdbc:mysql://60.205.163.65:3306/racingdb
     username: root
-    password: leonRemoteDB
+    password: sc!@#zxc
     driverClassName: com.mysql.jdbc.Driver
     initialSize: 5
     maxActive: 50
