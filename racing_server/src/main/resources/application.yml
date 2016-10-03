@@ -9,7 +9,7 @@ logging:
   
 datasource:
   mysql:
-    url: jdbc:mysql://60.205.163.65:3306/racingdb
+    url: jdbc:mysql://60.205.163.65:3306/racingdb?characterEncoding=UTF-8 
     username: root
     password: sc!@#zxc
     driverClassName: com.mysql.jdbc.Driver
