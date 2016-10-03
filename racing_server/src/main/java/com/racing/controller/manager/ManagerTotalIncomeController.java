@@ -12,7 +12,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/manger")
-public class TotalIncomeController {
+public class ManagerTotalIncomeController {
 
     @Autowired
     TotalDayCountIncomeService totalDayCountIncomeService;

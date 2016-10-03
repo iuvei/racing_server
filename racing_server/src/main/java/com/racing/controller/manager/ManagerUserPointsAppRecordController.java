@@ -15,7 +15,7 @@ import com.racing.service.manager.UserPointsAppRecordService;
 
 @RestController
 @RequestMapping("/manager/user")
-public class UserPointsAppRecordController {
+public class ManagerUserPointsAppRecordController {
 
   @Autowired
   UserPointsAppRecordService userPointsAppRecordService;

@@ -9,7 +9,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/manager")
-public class UserController {
+public class ManagerUserController {
     @Autowired
     UserService userService;
 
