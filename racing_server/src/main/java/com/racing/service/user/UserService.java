@@ -1,19 +1,5 @@
 package com.racing.service.user;
 
-import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.collections.CollectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.racing.constant.UserConstant;
 import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.UserPointsInfoVO;
@@ -25,8 +11,20 @@ import com.racing.model.repo.UserAccountRecordRepo;
 import com.racing.model.repo.UserRepo;
 import com.racing.util.EncryptUtil;
 import com.racing.util.PageUtil;
-
 import jodd.util.StringUtil;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -144,14 +142,14 @@ public class UserService {
   }
 
   @Transactional(rollbackFor = Exception.class)
-  public Object addUser(String clientSn, Date clientExpireDate) {
-    User user = userRepo.getByClientSN(clientSn);
+  public Object addUser(User userDto) {
+    User user = userRepo.getByClientSN(userDto.getClientSn());
     if (user != null) {
       return ApiResult.createErrorReuslt("此sn已存在");
     }
     user = new User();
-    user.setClientSn(clientSn);
-    user.setClientExpireDate(clientExpireDate);
+    user.setClientSn(userDto.getClientSn());
+    user.setClientExpireDate(userDto.getClientExpireDate());
     int result = userRepo.insert(user);
     if (result == 1) {
       return ApiResult.createSuccessReuslt();

@@ -1,17 +1,12 @@
 package com.racing.controller.manager;
 
+import com.racing.model.po.User;
+import com.racing.service.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import java.math.BigDecimal;
 import java.util.Date;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.racing.service.user.UserService;
 
 @RestController
 @RequestMapping("/manager")
@@ -31,10 +26,11 @@ public class ManagerUserController {
 
   /**
    * 新增用户
+   * clientSn,clientExpireDate
    */
   @RequestMapping(value = "/user", method = RequestMethod.POST)
-  public Object addUser(@RequestBody String clientSn, @RequestBody Date clientExpireDate) {
-    return userService.addUser(clientSn, clientExpireDate);
+  public Object addUser(@RequestBody User user) {
+    return userService.addUser(user);
   }
 
   /**
