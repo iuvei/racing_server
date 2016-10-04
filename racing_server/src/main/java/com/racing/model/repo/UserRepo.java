@@ -32,7 +32,9 @@ public class UserRepo {
   }
 
   public List<User> selectUser() {
-    List<User> users = mapper.selectByExample(new UserExample());
+    UserExample example = new UserExample();
+    example.createCriteria();
+    List<User> users = this.mapper.selectByExample(example);
     return users;
   }
 
