@@ -2,6 +2,7 @@ package com.racing.controller.user;
 
 import com.racing.controller.vo.UserVo;
 import com.racing.service.user.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,5 +21,11 @@ public class UserController {
     public Object updateUserNickName(@PathVariable Integer userId,
                                      @RequestBody UserVo userVo) {
         return userService.updateUserNickNameAndPassword(userId, userVo.getNickName(), userVo.getPassword());
+    }
+
+    @ApiOperation("分盘页面头部积分信息")
+    @RequestMapping(value = "/{userId}/point" ,method = RequestMethod.GET)
+    public Object userPoint(@PathVariable Integer userId){
+        return userService.getUserPoint(userId);
     }
 }
