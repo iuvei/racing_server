@@ -18,7 +18,8 @@ public class SwaggerConfig {
             .genericModelSubstitutes(DeferredResult.class)
             .useDefaultResponseMessages(false)
             .forCodeGeneration(true)
-            .pathMapping("60.205.163.65:8080/")// base，最终调用接口后会和paths拼接在一起
+//            .pathMapping("60.205.163.65:8080/")
+            .pathMapping("/")// base，最终调用接口后会和paths拼接在一起
             .select()
             .apis(RequestHandlerSelectors.basePackage("com.racing"))
             .build();

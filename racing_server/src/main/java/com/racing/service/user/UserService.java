@@ -142,14 +142,14 @@ public class UserService {
   }
 
   @Transactional(rollbackFor = Exception.class)
-  public Object addUser(User userDto) {
-    User user = userRepo.getByClientSN(userDto.getClientSn());
+  public Object addUser(String clientSn, Date clientExpireDat) {
+    User user = userRepo.getByClientSN(clientSn);
     if (user != null) {
       return ApiResult.createErrorReuslt("此sn已存在");
     }
     user = new User();
-    user.setClientSn(userDto.getClientSn());
-    user.setClientExpireDate(userDto.getClientExpireDate());
+    user.setClientSn(clientSn);
+    user.setClientExpireDate(clientExpireDat);
     int result = userRepo.insert(user);
     if (result == 1) {
       return ApiResult.createSuccessReuslt();

@@ -2,11 +2,11 @@ package com.racing.controller.user;
 
 import com.racing.constant.UserConstant;
 import com.racing.controller.vo.UserAppPointDealCommentVO;
+import com.racing.controller.vo.UserPointsAppRecordVo;
 import com.racing.service.manager.UserPointsAppRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 @RestController
@@ -42,8 +42,7 @@ public class UserPointsAppRecordController {
      */
     @RequestMapping(value = "/{userId}/pointsapp", method = RequestMethod.POST)
     public Object addUserPointsAppRecord(@PathVariable Integer userId,
-                                         @RequestBody BigDecimal appPoints,
-                                         @RequestBody String appComment) {
-        return userPointsAppRecordService.addUserPointsAppRecord(userId, appPoints, appComment);
+                                         @RequestBody UserPointsAppRecordVo userPointsAppRecordVo) {
+        return userPointsAppRecordService.addUserPointsAppRecord(userId, userPointsAppRecordVo.getAppPoints(), userPointsAppRecordVo.getAppComment());
     }
 }
