@@ -1,15 +1,11 @@
 package com.racing.controller.manager;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.racing.controller.vo.manager.ModifyManagerInfoVo;
 import com.racing.service.manager.ManagerService;
 import com.racing.util.LoginStatusSaveUtil;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ManagerController {
@@ -23,6 +19,7 @@ public class ManagerController {
    * 
    * @return
    */
+  @ApiOperation(value="获取全部总盘管理员信息")
   @RequestMapping(value = "/manager", method = RequestMethod.GET)
   public Object getManagerList() {
     return managerService.getManagerInfoVo();
