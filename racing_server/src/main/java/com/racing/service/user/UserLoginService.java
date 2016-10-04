@@ -44,6 +44,8 @@ public class UserLoginService {
     user.setWebAccessKey(accessKey);
     user.setWebSecurityKey(securityKey);
     user.setWebOutTime(webOutTime);
+    user.setLastLoginIp(ip);
+    user.setLastLoginTime(lastLoginTime);
 
     this.userRepo.update(user);
 
