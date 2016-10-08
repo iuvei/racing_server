@@ -14,9 +14,11 @@ public class UserController {
 
     /**
      * 分盘个人信息管理修改个人信息
+     *
      * @param userId
      * @return
      */
+    @ApiOperation("分盘个人信息管理修改个人信息")
     @RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
     public Object updateUserNickName(@PathVariable Integer userId,
                                      @RequestBody UserVo userVo) {
@@ -24,8 +26,15 @@ public class UserController {
     }
 
     @ApiOperation("分盘页面头部积分信息")
-    @RequestMapping(value = "/{userId}/point" ,method = RequestMethod.GET)
-    public Object userPoint(@PathVariable Integer userId){
+    @RequestMapping(value = "/{userId}/point", method = RequestMethod.GET)
+    public Object userPoint(@PathVariable Integer userId) {
         return userService.getUserPoint(userId);
+    }
+
+    @ApiOperation("模糊查询昵称列表")
+    @RequestMapping(value = "/{userId}/nicname", method = RequestMethod.GET)
+    public Object selectNicName(@PathVariable Integer userId,
+                                @RequestParam String nicName) {
+        return userService.selectNicName(userId, nicName);
     }
 }

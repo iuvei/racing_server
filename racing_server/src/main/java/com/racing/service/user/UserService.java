@@ -36,6 +36,7 @@ public class UserService {
     @Autowired
     UserAccountRecordRepo userAccountRecordRepo;
 
+
     public ApiResult getUserList() {
         List<UserInfoVo> result = new ArrayList<UserInfoVo>();
 
@@ -241,5 +242,13 @@ public class UserService {
             e.printStackTrace();
         }
         return ApiResult.createSuccessReuslt(userPointsInfoVO);
+    }
+
+    public Object selectNicName(Integer userId, String nicName) {
+        User user = userRepo.selectById(userId);
+        if (null == user) {
+            return ApiResult.createErrorReuslt("分盘不存在");
+        }
+        return null;
     }
 }

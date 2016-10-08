@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/manger/user")
+@RequestMapping("/manager/user")
 public class ManagerUserIncomeController {
 
     @Autowired
-    UserDayCountIncomeService userDayCountIncomeService;
+    private UserDayCountIncomeService userDayCountIncomeService;
     @Autowired
-    UserRacingIncomeService userRacingIncomeService;
+    private UserRacingIncomeService userRacingIncomeService;
 
     /**
      * 分盘盈亏报表按日期查询

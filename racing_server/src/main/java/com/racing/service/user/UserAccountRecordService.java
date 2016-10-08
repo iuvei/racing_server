@@ -15,10 +15,10 @@ public class UserAccountRecordService {
     @Autowired
     UserAccountRecordRepo userAccountRecordRepo;
 
-    public Object selectByState(Integer userId, String status, Integer page) {
-        List<UserAccountRecord> userAccountRecordList = userAccountRecordRepo.selectByState(
+    public Object selectByUserIdOrState(Integer userId, String status, Integer page) {
+        List<UserAccountRecord> userAccountRecordList = userAccountRecordRepo.selectByUserIdOrState(
             userId, status, PageUtil.createPage(page, 15));
-        int count = userAccountRecordRepo.countByState(userId, status);
+        int count = userAccountRecordRepo.countByUserIdOrState(userId, status);
         return ApiResult.createSuccessReuslt(userAccountRecordList, page, 15, count);
     }
 }

@@ -19,7 +19,7 @@ public class UserAccountRecordRepo {
         return mapper.insert(userPointsAppRecord);
     }
 
-    public List<UserAccountRecord> selectByState(Integer userId, String status, PageUtil pageUtil) {
+    public List<UserAccountRecord> selectByUserIdOrState(Integer userId, String status, PageUtil pageUtil) {
 
         UserAccountRecordExample example = new UserAccountRecordExample();
         UserAccountRecordExample.Criteria criteria = example.createCriteria();
@@ -34,7 +34,7 @@ public class UserAccountRecordRepo {
         return userAccountRecordList;
     }
 
-    public int countByState(Integer userId, String status) {
+    public int countByUserIdOrState(Integer userId, String status) {
         UserAccountRecordExample example = new UserAccountRecordExample();
         UserAccountRecordExample.Criteria criteria = example.createCriteria();
         if (StringUtil.isNotEmpty(status)) {

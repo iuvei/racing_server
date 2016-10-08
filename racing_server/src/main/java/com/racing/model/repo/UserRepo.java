@@ -25,7 +25,7 @@ public class UserRepo {
     if (StringUtil.isNotEmpty(nickName)) {
       criteria.andNickNameLike("%" + nickName + "%");
     }
-    if (null == id) {
+    if (null != id) {
       criteria.andIdEqualTo(id);
     }
     return this.mapper.countByExample(example);
@@ -112,7 +112,7 @@ public class UserRepo {
     if (StringUtil.isNotEmpty(nickName)) {
       criteria.andNickNameLike("%" + nickName + "%");
     }
-    if (null == id) {
+    if (null != id) {
       criteria.andIdEqualTo(id);
     }
     List<User> users = mapper.selectByExample(example);

@@ -20,6 +20,6 @@ public class UserAccountRecordController {
                                 @RequestParam(required = false) String status,
                                 @ApiParam(required = false, name = "page")
                                 @RequestParam(required = false, defaultValue = "1") Integer page) {
-        return userAccountRecordService.selectByState(userId, status, page);
+        return userAccountRecordService.selectByUserIdOrState(userId, status, page);
     }
 }
