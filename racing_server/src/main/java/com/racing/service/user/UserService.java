@@ -37,10 +37,10 @@ public class UserService {
     UserAccountRecordRepo userAccountRecordRepo;
 
 
-    public ApiResult getUserList() {
+    public ApiResult getUserList(String nicName, Integer userId) {
         List<UserInfoVo> result = new ArrayList<UserInfoVo>();
 
-        List<User> userList = userRepo.selectUser();
+        List<User> userList = userRepo.selectUser(nicName, userId);
         if (CollectionUtils.isNotEmpty(userList)) {
             for (User user : userList) {
                 UserInfoVo vo = new UserInfoVo();

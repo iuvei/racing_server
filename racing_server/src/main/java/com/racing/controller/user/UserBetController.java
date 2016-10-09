@@ -10,23 +10,14 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/user")
-public class UserIncomeController {
-
+public class UserBetController {
     @Autowired
-    UserDayCountIncomeService userDayCountIncomeService;
+    private UserDayCountIncomeService userDayCountIncomeService;
     @Autowired
-    UserRacingIncomeService userRacingIncomeService;
+    private UserRacingIncomeService userRacingIncomeService;
 
-    /**
-     * 分盘盈亏报表按日期查询
-     *
-     * @param startDate
-     * @param endDate
-     * @param page
-     * @return
-     */
-    @ApiOperation("分盘-盈亏报表-分盘盈亏报表-按日期")
-    @RequestMapping(value = "/{userId}/income/day", method = RequestMethod.GET)
+    @ApiOperation("分盘-押注报表-分盘押注报表-按日期")
+    @RequestMapping(value = "/{userId}/bat/day", method = RequestMethod.GET)
     public Object selectByDate(@PathVariable Integer userId,
                                @RequestParam(required = false) Date startDate,
                                @RequestParam(required = false) Date endDate,
@@ -34,17 +25,8 @@ public class UserIncomeController {
         return userDayCountIncomeService.selectByDate(userId, startDate, endDate, page);
     }
 
-    /**
-     * 分盘盈亏报表按期号查询
-     *
-     * @param startDate
-     * @param endDate
-     * @param racingNum
-     * @param page
-     * @return
-     */
-    @ApiOperation("分盘-盈亏报表-分盘盈亏报表-按期号")
-    @RequestMapping(value = "/{userId}/income/racing", method = RequestMethod.GET)
+    @ApiOperation("分盘-押注报表-分盘押注报表-按期号")
+    @RequestMapping(value = "/{userId}/bat/racing", method = RequestMethod.GET)
     public Object selectByRacing(@PathVariable Integer userId,
                                  @RequestParam(required = false) Date startDate,
                                  @RequestParam(required = false) Date endDate,

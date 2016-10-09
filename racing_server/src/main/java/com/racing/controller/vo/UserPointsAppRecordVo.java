@@ -5,17 +5,13 @@ import java.util.Date;
 
 public class UserPointsAppRecordVo {
     private Integer id;
-
     private Integer userId;
 
     private BigDecimal appPoints;
-
     private String appComment;
-
     private Date appTime;
 
     private String operationComment;
-
     private Date operationTime;
 
     private String status;

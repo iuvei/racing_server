@@ -18,7 +18,7 @@ public class UserController {
      * @param userId
      * @return
      */
-    @ApiOperation("分盘个人信息管理修改个人信息")
+    @ApiOperation("分盘-个人信息管理-修改个人信息")
     @RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
     public Object updateUserNickName(@PathVariable Integer userId,
                                      @RequestBody UserVo userVo) {

@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @RestController
 @RequestMapping("/manager")
 public class ManagerUserPointsController {
@@ -22,7 +24,7 @@ public class ManagerUserPointsController {
 
     @ApiOperation("总盘-积分-分盘申请上下分列表")
     @RequestMapping(value = "/pointsapp/status", method = RequestMethod.GET)
-    public Object selectPointsApp(@RequestParam(required = false) String status,
+    public Object selectPointsApp(@RequestParam(required = false, defaultValue = "UNTREATED") String status,
                                   @RequestParam(required = false, defaultValue = "1") Integer page) {
         return userPointsAppRecordService.selectPoints(null, null, status, page);
     }
@@ -69,7 +71,7 @@ public class ManagerUserPointsController {
     @RequestMapping(value = "/subtract/points/user/{userId}", method = RequestMethod.PUT)
     public Object managerSubtractPointsToUser(@PathVariable Integer userId,
                                               @RequestBody UserVo user) {
-        return userService.updatePoint(userId, user.getPoints());
+        return userService.updatePoint(userId, user.getPoints().subtract(user.getPoints().multiply(new BigDecimal(2))));
     }
 
     @ApiOperation(value = "总盘-积分-分盘积分列表-查看积分详情")

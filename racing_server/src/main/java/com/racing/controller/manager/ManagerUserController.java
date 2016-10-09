@@ -17,17 +17,18 @@ public class ManagerUserController {
      *
      * @return
      */
-    @ApiOperation(value="获取全部用户的基本信息和机器人状态信息")
+    @ApiOperation(value = "总盘-用户管理-分盘用户管理-获取全部用户")
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public Object selectUser() {
-        return userService.getUserList();
+    public Object selectUser(@RequestParam(required = false) String nicName,
+                             @RequestParam(required = false) Integer userId) {
+        return userService.getUserList(nicName, userId);
     }
 
     /**
      * 新增用户
      * clientSn,clientExpireDate
      */
-    @ApiOperation(value="新增用户")
+    @ApiOperation(value = "总盘-用户管理-分盘用户管理-新增用户")
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public Object addUser(@RequestBody UserVo user) {
         return userService.addUser(user.getClientSn(), user.getClientExpireDate());
@@ -36,7 +37,7 @@ public class ManagerUserController {
     /**
      * 新增机器人,设置机器人时间
      */
-    @ApiOperation(value="新增机器人,设置机器人时间")
+    @ApiOperation(value = "总盘-用户管理-分盘用户管理-新增机器人,设置机器人时间")
     @RequestMapping(value = "/user/{userId}/robot", method = RequestMethod.POST)
     public Object addRobot(@PathVariable Integer userId,
                            @RequestBody UserVo user) {
@@ -46,7 +47,7 @@ public class ManagerUserController {
     /**
      * 修改信息
      */
-    @ApiOperation(value="修改信息")
+    @ApiOperation(value = "总盘-用户管理-分盘用户管理-修改信息")
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.PUT)
     public Object updateUserNickName(@PathVariable Integer userId,
                                      @RequestBody UserVo user) {
@@ -56,7 +57,7 @@ public class ManagerUserController {
     /**
      * 启用或者禁用用户
      */
-    @ApiOperation(value="启用或者禁用用户")
+    @ApiOperation(value = "总盘-用户管理-分盘用户管理-启用或者禁用用户")
     @RequestMapping(value = "/user/{userId}/available", method = RequestMethod.PUT)
     public Object updateUserIsEnable(@PathVariable Integer userId,
                                      @RequestBody UserVo user) {
@@ -66,7 +67,7 @@ public class ManagerUserController {
     /**
      * 启用或者禁用robot
      */
-    @ApiOperation(value="启用或者禁用robot")
+    @ApiOperation(value = "总盘-用户管理-分盘用户管理-启用或者禁用robot")
     @RequestMapping(value = "/user/{userId}/robot/available", method = RequestMethod.PUT)
     public Object updateRobotIsEnable(@PathVariable Integer userId,
                                       @RequestBody UserVo user) {
@@ -76,7 +77,7 @@ public class ManagerUserController {
     /**
      * 删除用户
      */
-    @ApiOperation(value = "删除用户")
+    @ApiOperation(value = "总盘-用户管理-分盘用户管理-删除用户")
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.DELETE)
     public Object delete(@PathVariable Integer userId) {
         return userService.delete(userId);
@@ -92,5 +93,4 @@ public class ManagerUserController {
     public Object selectUserIdInfo() {
         return userService.selectUserIdInfo();
     }
-
 }

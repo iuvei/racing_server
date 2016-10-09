@@ -1,10 +1,12 @@
 package com.racing.service.manager;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
+import com.racing.controller.vo.ApiResult;
+import com.racing.controller.vo.manager.ManagerInfoVo;
+import com.racing.controller.vo.manager.ModifyManagerInfoVo;
+import com.racing.model.po.Manager;
+import com.racing.model.repo.ManagerRepo;
+import com.racing.util.EncryptUtil;
+import jodd.util.StringUtil;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -12,14 +14,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.racing.controller.vo.ApiResult;
-import com.racing.controller.vo.manager.ManagerInfoVo;
-import com.racing.controller.vo.manager.ModifyManagerInfoVo;
-import com.racing.model.po.Manager;
-import com.racing.model.repo.ManagerRepo;
-import com.racing.util.EncryptUtil;
-
-import jodd.util.StringUtil;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class ManagerService {
@@ -83,5 +81,12 @@ public class ManagerService {
 
   }
 
+  public Object deleteMangerInfo(Integer nowLoginManagerId, int managerId) {
+    int result = managerRepo.delete(managerId);
+    if(result==1){
+      return ApiResult.createSuccessReuslt();
+    }
+    return ApiResult.createErrorReuslt("删除失败");
+  }
 }
 
