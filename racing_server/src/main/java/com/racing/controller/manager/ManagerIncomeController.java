@@ -54,11 +54,17 @@ public class ManagerIncomeController {
      */
     @ApiOperation("总盘-盈亏报表-总体盈亏报表-按期号")
     @RequestMapping(value = "/income/racing", method = RequestMethod.GET)
-    public Object selectByRacing(@RequestParam(required = false) Date startDate,
-                                 @RequestParam(required = false) Date endDate,
+    public Object selectByRacing(@RequestParam(required = false) String startDate,
+                                 @RequestParam(required = false) String endDate,
                                  @RequestParam(required = false) String racingNum,
                                  @RequestParam(required = false) Integer page) {
-        return totalRacingIncomeService.selectByRacingNum(startDate, endDate, racingNum, page);
+        Date sDate = null;
+        Date eDate = null;
+        if (startDate != "" && endDate != "") {
+            sDate = new Date(Long.valueOf(startDate));
+            eDate = new Date(Long.valueOf(endDate));
+        }
+        return totalRacingIncomeService.selectByRacingNum(sDate, eDate, racingNum, page);
     }
 
     /**
@@ -96,10 +102,16 @@ public class ManagerIncomeController {
     @ApiOperation("总盘-盈亏报表-分盘盈亏报表-按期号")
     @RequestMapping(value = "/user/{userId}/income/racing", method = RequestMethod.GET)
     public Object selectByRacing(@PathVariable Integer userId,
-                                 @RequestParam(required = false) Date startDate,
-                                 @RequestParam(required = false) Date endDate,
+                                 @RequestParam(required = false) String startDate,
+                                 @RequestParam(required = false) String endDate,
                                  @RequestParam(required = false) String racingNum,
                                  @RequestParam(required = false) Integer page) {
-        return userRacingIncomeService.selectByRacingNum(userId, startDate, endDate, racingNum, page);
+        Date sDate = null;
+        Date eDate = null;
+        if (startDate != "" && endDate != "") {
+            sDate = new Date(Long.valueOf(startDate));
+            eDate = new Date(Long.valueOf(endDate));
+        }
+        return userRacingIncomeService.selectByRacingNum(userId, sDate, eDate, racingNum, page);
     }
 }
