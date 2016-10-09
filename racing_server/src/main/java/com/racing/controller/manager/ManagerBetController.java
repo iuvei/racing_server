@@ -25,10 +25,16 @@ public class ManagerBetController {
 
     @ApiOperation("总盘-押注报表-总体押注报表-按日期")
     @RequestMapping(value = "/bat/day", method = RequestMethod.GET)
-    public Object selectByDate(@RequestParam(required = false) Date startDate,
-                               @RequestParam(required = false) Date endDate,
+    public Object selectByDate(@RequestParam(required = false) String startDate,
+                               @RequestParam(required = false) String endDate,
                                @RequestParam(required = false) Integer page) {
-        return totalDayCountIncomeService.selectByDate(startDate, endDate, page);
+        Date sDate = null;
+        Date eDate = null;
+        if (startDate != "" && endDate != "") {
+            sDate = new Date(Long.valueOf(startDate));
+            eDate = new Date(Long.valueOf(endDate));
+        }
+        return totalDayCountIncomeService.selectByDate(sDate, eDate, page);
     }
 
     @ApiOperation("总盘-押注报表-总体押注报表-按期号")
@@ -43,10 +49,16 @@ public class ManagerBetController {
     @ApiOperation("总盘-押注报表-分盘押注报表-按日期")
     @RequestMapping(value = "/user/{userId}/bat/day", method = RequestMethod.GET)
     public Object selectByDate(@PathVariable Integer userId,
-                               @RequestParam(required = false) Date startDate,
-                               @RequestParam(required = false) Date endDate,
+                               @RequestParam(required = false) String startDate,
+                               @RequestParam(required = false) String endDate,
                                @RequestParam(required = false) Integer page) {
-        return userDayCountIncomeService.selectByDate(userId, startDate, endDate, page);
+        Date sDate = null;
+        Date eDate = null;
+        if (startDate != "" && endDate != "") {
+            sDate = new Date(Long.valueOf(startDate));
+            eDate = new Date(Long.valueOf(endDate));
+        }
+        return userDayCountIncomeService.selectByDate(userId, sDate, eDate, page);
     }
 
     @ApiOperation("总盘-押注报表-分盘押注报表-按期号")
