@@ -2,6 +2,7 @@ package com.racing.controller.user;
 
 import com.racing.service.manager.UserDayCountIncomeService;
 import com.racing.service.manager.UserRacingIncomeService;
+import com.racing.util.LoginStatusSaveUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,12 +27,18 @@ public class UserIncomeController {
      * @return
      */
     @ApiOperation("分盘-盈亏报表-分盘盈亏报表-按日期")
-    @RequestMapping(value = "/{userId}/income/day", method = RequestMethod.GET)
-    public Object selectByDate(@PathVariable Integer userId,
-                               @RequestParam(required = false) Date startDate,
-                               @RequestParam(required = false) Date endDate,
+    @RequestMapping(value = "/income/day", method = RequestMethod.GET)
+    public Object selectByDate(@RequestParam(required = false) String startDate,
+                               @RequestParam(required = false) String endDate,
                                @RequestParam(required = false) Integer page) {
-        return userDayCountIncomeService.selectByDate(userId, startDate, endDate, page);
+        Integer userId = LoginStatusSaveUtil.getUserWebId();
+        Date sDate = null;
+        Date eDate = null;
+        if (startDate != "" && endDate != "") {
+            sDate = new Date(Long.valueOf(startDate));
+            eDate = new Date(Long.valueOf(endDate));
+        }
+        return userDayCountIncomeService.selectByDate(userId, sDate, eDate, page);
     }
 
     /**
@@ -44,12 +51,18 @@ public class UserIncomeController {
      * @return
      */
     @ApiOperation("分盘-盈亏报表-分盘盈亏报表-按期号")
-    @RequestMapping(value = "/{userId}/income/racing", method = RequestMethod.GET)
-    public Object selectByRacing(@PathVariable Integer userId,
-                                 @RequestParam(required = false) Date startDate,
-                                 @RequestParam(required = false) Date endDate,
+    @RequestMapping(value = "/income/racing", method = RequestMethod.GET)
+    public Object selectByRacing(@RequestParam(required = false) String startDate,
+                                 @RequestParam(required = false) String endDate,
                                  @RequestParam(required = false) String racingNum,
                                  @RequestParam(required = false) Integer page) {
-        return userRacingIncomeService.selectByRacingNum(userId, startDate, endDate, racingNum, page);
+        Integer userId = LoginStatusSaveUtil.getUserWebId();
+        Date sDate = null;
+        Date eDate = null;
+        if (startDate != "" && endDate != "") {
+            sDate = new Date(Long.valueOf(startDate));
+            eDate = new Date(Long.valueOf(endDate));
+        }
+        return userRacingIncomeService.selectByRacingNum(userId, sDate, eDate, racingNum, page);
     }
 }
