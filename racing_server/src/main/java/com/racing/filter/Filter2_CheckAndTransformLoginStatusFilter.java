@@ -96,7 +96,7 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
           loginId = manager.getId();
         }
       } else {
-        if (AccessKeyUtil.checkWebUserAccessKeyIsManager(requestAccessKey)) {
+        if (AccessKeyUtil.checkAccessKeyIsWebUser(requestAccessKey)) {
           User user = userRepo.getByWebAccessKey(accessKey);
           if (user != null) {
             securityKey = user.getWebSecurityKey();
@@ -107,7 +107,7 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
         } else {
           User user = userRepo.getByClientAccessKey(accessKey);
           if (user != null) {
-            securityKey = user.getClientAccessKey();
+            securityKey = user.getClientSecurityKey();
             isWebUser = false;
             isClientUser = true;
             loginId = user.getId();
