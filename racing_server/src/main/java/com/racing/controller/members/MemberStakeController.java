@@ -16,11 +16,12 @@ public class MemberStakeController {
 
 
   @RequestMapping(value = "/member/stake", method = RequestMethod.POST)
-  public Object memberStakeController(@RequestBody List<MemberStakeVo> stakeList) {
+  public Object memberStake(@RequestBody List<MemberStakeVo> stakeList) {
     Integer userId = LoginStatusSaveUtil.getUserClientId();
     if (userId == null) {
       return ApiResult.createNoLoginReuslt();
     }
+
     return ApiResult.createSuccessReuslt();
   }
 

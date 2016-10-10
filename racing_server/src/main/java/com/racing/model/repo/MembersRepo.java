@@ -25,4 +25,9 @@ public class MembersRepo {
         List<Members> membersList = mapper.selectByExample(example);
         return membersList;
     }
+    
+    public Members getById(Integer id){
+      Members members = mapper.selectByPrimaryKey(id);
+      return members;
+    }
 }
