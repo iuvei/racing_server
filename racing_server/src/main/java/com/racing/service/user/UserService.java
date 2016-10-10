@@ -244,6 +244,7 @@ public class UserService {
         return ApiResult.createSuccessReuslt(userPointsInfoVO);
     }
 
+    //todo
     public Object selectNicName(Integer userId, String nicName) {
         User user = userRepo.selectById(userId);
         if (null == user) {
