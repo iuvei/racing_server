@@ -46,10 +46,11 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
 
 
     HttpServletRequest httpRequest = (HttpServletRequest) request;
-    if(httpRequest.getMethod().equalsIgnoreCase("OPTIONS")){
-      return;
-    }
     HttpServletResponse httpResponse = (HttpServletResponse) response;
+    if(httpRequest.getMethod().equalsIgnoreCase("OPTIONS")){
+      chain.doFilter(httpRequest, httpResponse);
+
+    }
     String requestURI = httpRequest.getRequestURI();
     LOGGER.info("request URI is :" + requestURI);
     if (!requestURI.contains(".") && !requestURI.contains("login")) {
