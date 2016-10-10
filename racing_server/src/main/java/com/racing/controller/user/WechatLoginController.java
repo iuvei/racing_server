@@ -32,7 +32,7 @@ public class WechatLoginController {
     return ApiResult.createSuccessReuslt();
   }
 
-  @RequestMapping(value = "/user/client/check", method = RequestMethod.GET)
+  @RequestMapping(value = "/user/client/login/check", method = RequestMethod.GET)
   public Object clientCheckIsEnable(@RequestHeader("Client") String clientSN) {
     return userLoginService.checkClientIsEnable(clientSN);
   }
