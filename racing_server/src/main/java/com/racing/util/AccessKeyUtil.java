@@ -24,7 +24,7 @@ public class AccessKeyUtil {
     return accessKey + "_UB";
   }
 
-  public static boolean checkWebUserAccessKeyIsManager(String requestAccessKey) {
+  public static boolean checkAccessKeyIsWebUser(String requestAccessKey) {
     String[] access = requestAccessKey.split("_");
     if (access.length == 2 && access[1].equals("UB")) {
       return true;
@@ -36,7 +36,7 @@ public class AccessKeyUtil {
     return accessKey + "_UC";
   }
 
-  public static boolean checkClientUserAccessKeyIsManager(String requestAccessKey) {
+  public static boolean checkAccessKeyIsClientUser(String requestAccessKey) {
     String[] access = requestAccessKey.split("_");
     if (access.length == 2 && access[1].equals("UC")) {
       return true;
