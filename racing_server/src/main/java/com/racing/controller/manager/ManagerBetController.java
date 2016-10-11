@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/manger")
+@RequestMapping("/manager")
 public class ManagerBetController {
 
     @Autowired
