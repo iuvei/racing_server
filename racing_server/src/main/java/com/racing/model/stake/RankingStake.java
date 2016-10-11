@@ -6,13 +6,13 @@ public class RankingStake {
 
   private Integer rankingNum;
 
-  private BigDecimal big;
+  private BigDecimal big = BigDecimal.ZERO;
 
-  private BigDecimal small;
+  private BigDecimal small = BigDecimal.ZERO;
 
-  private BigDecimal odd;
+  private BigDecimal odd = BigDecimal.ZERO;
 
-  private BigDecimal even;
+  private BigDecimal even = BigDecimal.ZERO;
 
   public Integer getRankingNum() {
     return rankingNum;

@@ -8,6 +8,7 @@ import jodd.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -29,5 +30,16 @@ public class MembersRepo {
     public Members getById(Integer id){
       Members members = mapper.selectByPrimaryKey(id);
       return members;
+    }
+    
+    public boolean updatePoints(Integer memberId, BigDecimal addPoints){
+    	if(addPoints == null || addPoints.compareTo(BigDecimal.ZERO) == 0){
+    		return true;
+    	}
+    	int i = mapper.updatePoints(memberId, addPoints);
+    	if(i == 1){
+    		return true;
+    	}
+    	return false;
     }
 }

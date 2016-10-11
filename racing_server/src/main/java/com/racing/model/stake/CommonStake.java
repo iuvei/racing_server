@@ -4,67 +4,67 @@ import java.math.BigDecimal;
 
 public class CommonStake {
 
-  private BigDecimal firstUp;
+  private BigDecimal firstUp = BigDecimal.ZERO;
 
-  private BigDecimal firstDowm;
+  private BigDecimal firstDowm = BigDecimal.ZERO;
 
-  private BigDecimal secondUp;
+  private BigDecimal secondUp = BigDecimal.ZERO;
 
-  private BigDecimal secondDowm;
+  private BigDecimal secondDowm = BigDecimal.ZERO;
 
-  private BigDecimal thirdUp;
+  private BigDecimal thirdUp = BigDecimal.ZERO;
 
-  private BigDecimal thirdDowm;
+  private BigDecimal thirdDowm = BigDecimal.ZERO;
 
-  private BigDecimal fourthUp;
+  private BigDecimal fourthUp = BigDecimal.ZERO;
 
-  private BigDecimal fourthDowm;
+  private BigDecimal fourthDowm = BigDecimal.ZERO;
 
-  private BigDecimal fifthUp;
+  private BigDecimal fifthUp = BigDecimal.ZERO;
 
-  private BigDecimal fifthDowm;
+  private BigDecimal fifthDowm = BigDecimal.ZERO;
 
-  private BigDecimal firstSecondOdd;
+  private BigDecimal firstSecondOdd = BigDecimal.ZERO;
 
-  private BigDecimal firstSecondEven;
+  private BigDecimal firstSecondEven = BigDecimal.ZERO;
 
-  private BigDecimal firstSecondBig;
+  private BigDecimal firstSecondBig = BigDecimal.ZERO;
 
-  private BigDecimal firstSecondSmall;
+  private BigDecimal firstSecondSmall = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond3;
+  private BigDecimal firstSecond3 = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond4;
+  private BigDecimal firstSecond4 = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond5;
+  private BigDecimal firstSecond5 = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond6;
+  private BigDecimal firstSecond6 = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond7;
+  private BigDecimal firstSecond7 = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond8;
+  private BigDecimal firstSecond8 = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond9;
+  private BigDecimal firstSecond9 = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond10;
+  private BigDecimal firstSecond10 = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond11;
+  private BigDecimal firstSecond11 = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond12;
+  private BigDecimal firstSecond12 = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond13;
+  private BigDecimal firstSecond13 = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond14;
+  private BigDecimal firstSecond14 = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond15;
+  private BigDecimal firstSecond15 = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond16;
+  private BigDecimal firstSecond16 = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond17;
+  private BigDecimal firstSecond17 = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond18;
+  private BigDecimal firstSecond18 = BigDecimal.ZERO;
 
-  private BigDecimal firstSecond19;
+  private BigDecimal firstSecond19 = BigDecimal.ZERO;
 
   public BigDecimal getFirstUp() {
     return firstUp;

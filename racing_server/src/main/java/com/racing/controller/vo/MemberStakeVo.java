@@ -1,5 +1,7 @@
 package com.racing.controller.vo;
 
+import com.racing.model.stake.StakeVo;
+
 public class MemberStakeVo {
 
   private Integer memberId;

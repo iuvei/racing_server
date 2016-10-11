@@ -6,25 +6,25 @@ public class AppointStake {
 
   private Integer carNum;
 
-  private BigDecimal first;
+  private BigDecimal first = BigDecimal.ZERO;
 
-  private BigDecimal second;
+  private BigDecimal second = BigDecimal.ZERO;
 
-  private BigDecimal third;
+  private BigDecimal third = BigDecimal.ZERO;
 
-  private BigDecimal fourth;
+  private BigDecimal fourth = BigDecimal.ZERO;
 
-  private BigDecimal fifth;
+  private BigDecimal fifth = BigDecimal.ZERO;
 
-  private BigDecimal sixth;
+  private BigDecimal sixth = BigDecimal.ZERO;
 
-  private BigDecimal seventh;
+  private BigDecimal seventh = BigDecimal.ZERO;
 
-  private BigDecimal eighth;
+  private BigDecimal eighth = BigDecimal.ZERO;
 
-  private BigDecimal ninth;
+  private BigDecimal ninth = BigDecimal.ZERO;
 
-  private BigDecimal tenth;
+  private BigDecimal tenth = BigDecimal.ZERO;
 
   public Integer getCarNum() {
     return carNum;

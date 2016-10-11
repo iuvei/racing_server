@@ -31,4 +31,10 @@ public class MembersAccountRecordRepo {
         List<MembersAccountRecord> list = mapper.selectByExample(example);
         return list;
     }
+    
+    public MembersAccountRecord addNew(MembersAccountRecord accountRecord){
+    	mapper.insertSelective(accountRecord);
+    	return accountRecord;
+    }
+    
 }

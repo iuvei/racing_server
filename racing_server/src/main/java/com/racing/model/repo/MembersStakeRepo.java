@@ -18,6 +18,8 @@ public class MembersStakeRepo {
     mapper.insert(memberStake);
     return memberStake;
   }
+  
+  
 
 
 }
