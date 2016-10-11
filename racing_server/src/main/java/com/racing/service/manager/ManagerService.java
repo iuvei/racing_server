@@ -35,6 +35,7 @@ public class ManagerService {
         ManagerInfoVo vo = new ManagerInfoVo();
         try {
           PropertyUtils.copyProperties(vo, manager);
+          result.add(vo);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
           LOGGER.error("拷贝bean出现异常", e);
         }
