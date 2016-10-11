@@ -6,7 +6,6 @@ import com.racing.controller.vo.manager.ModifyManagerInfoVo;
 import com.racing.model.po.Manager;
 import com.racing.model.repo.ManagerRepo;
 import com.racing.util.EncryptUtil;
-import jodd.util.StringUtil;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -35,6 +34,7 @@ public class ManagerService {
         ManagerInfoVo vo = new ManagerInfoVo();
         try {
           PropertyUtils.copyProperties(vo, manager);
+          result.add(vo);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
           LOGGER.error("拷贝bean出现异常", e);
         }
@@ -61,9 +61,9 @@ public class ManagerService {
     if (vo.getPassword() != null && vo.getPassword().equals("")) {
       return ApiResult.createErrorReuslt("密码不能为空");
     }
-    if (StringUtil.isNotEmpty(vo.getPassword()) && !vo.getPassword().equals(vo.getRepassword())) {
-      return ApiResult.createErrorReuslt("密码、确认密码必须一致");
-    }
+//    if (StringUtil.isNotEmpty(vo.getPassword()) && !vo.getPassword().equals(vo.getRepassword())) {
+//      return ApiResult.createErrorReuslt("密码、确认密码必须一致");
+//    }
     Manager manager = new Manager();
     manager.setId(managerId);
     if (vo.getNickName() != null) {
@@ -73,6 +73,7 @@ public class ManagerService {
       manager.setPassword(EncryptUtil.md5AndSha1Upcase(vo.getPassword()));
       if (nowLoginManagerId != managerId) {
         manager.setWebOutTime(new Date());// 超时时间为当前时间，强制该管理员重新登录
+        return ApiResult.createErrorReuslt("登录超时");
       }
     }
 
@@ -90,12 +91,16 @@ public class ManagerService {
   }
 
   public Object addManger(String nickName, String userName, String password) {
-    Manager manager=new Manager();
+    Manager manager=managerRepo.selectByUserName(userName);
+    if(manager!=null){
+      return ApiResult.createErrorReuslt("用户名已被占用");
+    }
+    manager=new Manager();
     manager.setUserName(userName);
     manager.setNickName(nickName);
     manager.setPassword(EncryptUtil.md5AndSha1Upcase(password));
     manager.setCreateTime(new Date());
-    manager.setIsEnable(false);
+    manager.setIsEnable(true);
     managerRepo.add(manager);
     return ApiResult.createSuccessReuslt();
   }

@@ -2,12 +2,11 @@ package com.racing.filter;
 
 import com.racing.constant.APIRequestHeaderConstant;
 import com.racing.controller.vo.ApiResult;
+import com.racing.model.po.Manager;
+import com.racing.model.po.User;
 import com.racing.model.repo.ManagerRepo;
 import com.racing.model.repo.UserRepo;
-import com.racing.util.EncryptUtil;
-import com.racing.util.JsonUtils;
-import com.racing.util.ListUtil;
-import com.racing.util.ServeltRequestUtil;
+import com.racing.util.*;
 import jodd.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +19,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +47,7 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
 
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
-  /*  if (httpRequest.getMethod().equalsIgnoreCase("OPTIONS")) {
+    if (httpRequest.getMethod().equalsIgnoreCase("OPTIONS")) {
       chain.doFilter(httpRequest, httpResponse);
       return;
     }
@@ -119,7 +119,7 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
           LoginStatusSaveUtil.setUserClientLoginInfo(loginId);
         }
       }
-    }*/
+    }
     chain.doFilter(httpRequest, httpResponse);
 
 
