@@ -14,6 +14,8 @@ import com.racing.model.po.User;
 import com.racing.model.repo.MembersRepo;
 import com.racing.model.repo.MembersStakeRepo;
 import com.racing.model.repo.UserRepo;
+import com.racing.model.stake.StakeCountInfoVo;
+import com.racing.model.stake.util.StakeVoUtil;
 
 @Service
 public class MemberStakeService {
@@ -35,7 +37,9 @@ public class MemberStakeService {
     int totalStakeCount = 0;
     if (stakeList != null) {
       for (MemberStakeVo stake : stakeList) {
-        totalStakeAmount = totalStakeAmount.add(this.invokeMemberStake(stake, userId, totalStakeCount));
+        StakeCountInfoVo countInfoVo = this.invokeMemberStake(stake, userId);
+        totalStakeAmount = totalStakeAmount.add(countInfoVo.getTotalStakeAmount());
+        totalStakeCount = totalStakeCount + countInfoVo.getTotalStakeCount();
       }
     }
 
@@ -44,17 +48,26 @@ public class MemberStakeService {
   }
 
 
-  private BigDecimal invokeMemberStake(MemberStakeVo stake, Integer userId, int totalStakeCount) {
+  private StakeCountInfoVo invokeMemberStake(MemberStakeVo stake, Integer userId) {
+    StakeCountInfoVo result = new StakeCountInfoVo();
     BigDecimal totalStakeAmount = BigDecimal.ZERO;
+    int totalStakeCount = 0;
     if (stake != null) {
       Members members = membersRepo.getById(stake.getMemberId());
       if (members == null || !members.getUserId().equals(userId)) {// 未查询到members或members的userId不是该用户的ID
         throw new RuntimeException("memberId为" + stake.getMemberId() + "的用户不存在！");
       }
       StakeVo stakeVo = stake.getStakeVo();
+      StakeCountInfoVo stakeCountInfoVo = StakeVoUtil.getStakeCountInfo(stakeVo);
+      totalStakeAmount = stakeCountInfoVo.getTotalStakeAmount();
+      totalStakeCount = stakeCountInfoVo.getTotalStakeCount();
+
+
 
     }
-    return null;
+    result.setTotalStakeAmount(totalStakeAmount);
+    result.setTotalStakeCount(totalStakeCount);
+    return result;
   }
 
 }
