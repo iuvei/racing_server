@@ -96,11 +96,12 @@ public class ManagerService {
     if(manager!=null){
       return ApiResult.createErrorReuslt("用户名已被占用");
     }
+    manager=new Manager();
     manager.setUserName(userName);
     manager.setNickName(nickName);
     manager.setPassword(EncryptUtil.md5AndSha1Upcase(password));
     manager.setCreateTime(new Date());
-    manager.setIsEnable(false);
+    manager.setIsEnable(true);
     managerRepo.add(manager);
     return ApiResult.createSuccessReuslt();
   }
