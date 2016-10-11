@@ -24,14 +24,10 @@ public class ManagerUserController {
         return userService.getUserList(nicName, userId);
     }
 
-    /**
-     * 新增用户
-     * clientSn,clientExpireDate
-     */
     @ApiOperation(value = "总盘-用户管理-分盘用户管理-新增用户")
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public Object addUser(@RequestBody UserVo user) {
-        return userService.addUser(user.getClientSn(), user.getClientExpireDate());
+        return userService.addUser(user.getNickName(), user.getUserName(), user.getPassword());
     }
 
     /**
@@ -41,7 +37,7 @@ public class ManagerUserController {
     @RequestMapping(value = "/user/{userId}/robot", method = RequestMethod.POST)
     public Object addRobot(@PathVariable Integer userId,
                            @RequestBody UserVo user) {
-        return userService.addRobot(userId, user.getClientExpireDate());
+        return userService.addRobot(userId, user.getClientSn(), user.getClientExpireDate());
     }
 
     /**
@@ -71,7 +67,7 @@ public class ManagerUserController {
     @RequestMapping(value = "/user/{userId}/robot/available", method = RequestMethod.PUT)
     public Object updateRobotIsEnable(@PathVariable Integer userId,
                                       @RequestBody UserVo user) {
-        return userService.updateRobotIsEnable(userId, user.getIsEnable());
+        return userService.updateRobotIsEnable(userId, user.getClientIsEnable());
     }
 
     /**

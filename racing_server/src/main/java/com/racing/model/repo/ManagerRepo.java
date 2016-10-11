@@ -58,4 +58,8 @@ public class ManagerRepo {
   public int delete(int managerId) {
     return this.mapper.deleteByPrimaryKey(managerId);
   }
+
+  public int add(Manager manager) {
+    return mapper.insert(manager);
+  }
 }

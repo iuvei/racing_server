@@ -88,5 +88,16 @@ public class ManagerService {
     }
     return ApiResult.createErrorReuslt("删除失败");
   }
+
+  public Object addManger(String nickName, String userName, String password) {
+    Manager manager=new Manager();
+    manager.setUserName(userName);
+    manager.setNickName(nickName);
+    manager.setPassword(EncryptUtil.md5AndSha1Upcase(password));
+    manager.setCreateTime(new Date());
+    manager.setIsEnable(false);
+    managerRepo.add(manager);
+    return ApiResult.createSuccessReuslt();
+  }
 }
 

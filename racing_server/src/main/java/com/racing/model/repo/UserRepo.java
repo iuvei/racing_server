@@ -158,4 +158,14 @@ public class UserRepo {
   public int delete(Integer userId) {
     return mapper.deleteByPrimaryKey(userId);
   }
+
+  public User getByUserName(String userName) {
+    UserExample example = new UserExample();
+    example.createCriteria().andUserNameEqualTo(userName);
+    List<User> list = this.mapper.selectByExample(example);
+    if (CollectionUtils.isNotEmpty(list)) {
+      return list.get(0);
+    }
+    return null;
+  }
 }

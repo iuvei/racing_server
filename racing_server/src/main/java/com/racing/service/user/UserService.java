@@ -143,14 +143,20 @@ public class UserService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public Object addUser(String clientSn, Date clientExpireDat) {
-        User user = userRepo.getByClientSN(clientSn);
+    public Object addUser(String nickName, String userName, String password) {
+        User user = userRepo.getByUserName(userName);
         if (user != null) {
-            return ApiResult.createErrorReuslt("此sn已存在");
+            return ApiResult.createErrorReuslt("此用户名已存在");
         }
         user = new User();
-        user.setClientSn(clientSn);
-        user.setClientExpireDate(clientExpireDat);
+        user.setNickName(nickName);
+        user.setUserName(userName);
+        user.setPassword(EncryptUtil.md5AndSha1Upcase(password));
+        user.setCreateTime(new Date());
+        user.setIsEnable(false);
+        user.setMembersPoints(BigDecimal.ZERO);
+        user.setTotalPoints(BigDecimal.ZERO);
+        user.setUserPoints(BigDecimal.ZERO);
         int result = userRepo.insert(user);
         if (result == 1) {
             return ApiResult.createSuccessReuslt();
@@ -183,13 +189,16 @@ public class UserService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public Object addRobot(Integer userId, Date clientExpireDate) {
+    public Object addRobot(Integer userId, String clientSn, Date clientExpireDate) {
         User user = userRepo.selectById(userId);
         if (user == null) {
             return ApiResult.createErrorReuslt("用户不存在");
         }
         user = new User();
         user.setClientExpireDate(clientExpireDate);
+        if(StringUtil.isNotEmpty(clientSn)){
+            user.setClientSn(clientSn);
+        }
         int result = userRepo.updateUser(user);
         if (result == 1) {
             return ApiResult.createSuccessReuslt();
