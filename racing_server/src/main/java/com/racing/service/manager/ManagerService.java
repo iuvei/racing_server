@@ -6,7 +6,6 @@ import com.racing.controller.vo.manager.ModifyManagerInfoVo;
 import com.racing.model.po.Manager;
 import com.racing.model.repo.ManagerRepo;
 import com.racing.util.EncryptUtil;
-import jodd.util.StringUtil;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -62,9 +61,9 @@ public class ManagerService {
     if (vo.getPassword() != null && vo.getPassword().equals("")) {
       return ApiResult.createErrorReuslt("密码不能为空");
     }
-    if (StringUtil.isNotEmpty(vo.getPassword()) && !vo.getPassword().equals(vo.getRepassword())) {
-      return ApiResult.createErrorReuslt("密码、确认密码必须一致");
-    }
+//    if (StringUtil.isNotEmpty(vo.getPassword()) && !vo.getPassword().equals(vo.getRepassword())) {
+//      return ApiResult.createErrorReuslt("密码、确认密码必须一致");
+//    }
     Manager manager = new Manager();
     manager.setId(managerId);
     if (vo.getNickName() != null) {
