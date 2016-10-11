@@ -74,6 +74,7 @@ public class ManagerService {
       manager.setPassword(EncryptUtil.md5AndSha1Upcase(vo.getPassword()));
       if (nowLoginManagerId != managerId) {
         manager.setWebOutTime(new Date());// 超时时间为当前时间，强制该管理员重新登录
+        return ApiResult.createErrorReuslt("登录超时");
       }
     }
 
@@ -91,7 +92,10 @@ public class ManagerService {
   }
 
   public Object addManger(String nickName, String userName, String password) {
-    Manager manager=new Manager();
+    Manager manager=managerRepo.selectByUserName(userName);
+    if(manager!=null){
+      return ApiResult.createErrorReuslt("用户名已被占用");
+    }
     manager.setUserName(userName);
     manager.setNickName(nickName);
     manager.setPassword(EncryptUtil.md5AndSha1Upcase(password));

@@ -62,4 +62,14 @@ public class ManagerRepo {
   public int add(Manager manager) {
     return mapper.insert(manager);
   }
+
+  public Manager selectByUserName(String userName) {
+    ManagerExample example = new ManagerExample();
+    example.createCriteria().andUserNameEqualTo(userName);
+    List<Manager> list = this.mapper.selectByExample(example);
+    if (CollectionUtils.isNotEmpty(list)) {
+      return list.get(0);
+    }
+    return null;
+  }
 }
