@@ -19,20 +19,32 @@ public class UserBetController {
 
     @ApiOperation("分盘-押注报表-分盘押注报表-按日期")
     @RequestMapping(value = "/bat/day", method = RequestMethod.GET)
-    public Object selectByDate(@RequestParam(required = false) Date startDate,
-                               @RequestParam(required = false) Date endDate,
+    public Object selectByDate(@RequestParam(required = false) String startDate,
+                               @RequestParam(required = false) String endDate,
                                @RequestParam(required = false) Integer page) {
         Integer userId = LoginStatusSaveUtil.getUserWebId();
-        return userDayCountIncomeService.selectByDate(userId, startDate, endDate, page);
+        Date sDate = null;
+        Date eDate = null;
+        if (startDate != "" && endDate != "") {
+            sDate = new Date(Long.valueOf(startDate));
+            eDate = new Date(Long.valueOf(endDate));
+        }
+        return userDayCountIncomeService.selectByDate(userId, sDate, eDate, page);
     }
 
     @ApiOperation("分盘-押注报表-分盘押注报表-按期号")
     @RequestMapping(value = "/bat/racing", method = RequestMethod.GET)
-    public Object selectByRacing(@RequestParam(required = false) Date startDate,
-                                 @RequestParam(required = false) Date endDate,
+    public Object selectByRacing(@RequestParam(required = false) String startDate,
+                                 @RequestParam(required = false) String endDate,
                                  @RequestParam(required = false) String racingNum,
                                  @RequestParam(required = false) Integer page) {
         Integer userId = LoginStatusSaveUtil.getUserWebId();
-        return userRacingIncomeService.selectByRacingNum(userId, startDate, endDate, racingNum, page);
+        Date sDate = null;
+        Date eDate = null;
+        if (startDate != "" && endDate != "") {
+            sDate = new Date(Long.valueOf(startDate));
+            eDate = new Date(Long.valueOf(endDate));
+        }
+        return userRacingIncomeService.selectByRacingNum(userId, sDate, eDate, racingNum, page);
     }
 }

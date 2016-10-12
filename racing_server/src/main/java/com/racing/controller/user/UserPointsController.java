@@ -32,12 +32,18 @@ public class UserPointsController {
     @ApiOperation("分盘-积分-申请积分-搜索")
     @RequestMapping(value = "/points", method = RequestMethod.GET)
     public Object selectPointsApp(@RequestParam(required = false, defaultValue = "UNTREATED") String status,
-                                  @RequestParam(required = false) Date startDate,
-                                  @RequestParam(required = false) Date endDate,
+                                  @RequestParam(required = false) String startDate,
+                                  @RequestParam(required = false) String endDate,
                                   @RequestParam(required = false, defaultValue = "1") Integer page) {
         Integer userId = LoginStatusSaveUtil.getUserWebId();
+        Date sDate = null;
+        Date eDate = null;
+        if (startDate != "" && endDate != "") {
+            sDate = new Date(Long.valueOf(startDate));
+            eDate = new Date(Long.valueOf(endDate));
+        }
         return userPointsAppRecordService.userSelectPointsByDate(
-            userId, status, startDate, endDate, page);
+            userId, status, sDate, eDate, page);
     }
 
     @ApiOperation("分盘-积分-申请积分-取消")
