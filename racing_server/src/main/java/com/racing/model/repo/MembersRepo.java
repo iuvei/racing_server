@@ -5,6 +5,8 @@ import com.racing.model.po.Members;
 import com.racing.model.po.MembersExample;
 import com.racing.util.PageUtil;
 import jodd.util.StringUtil;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -41,5 +43,15 @@ public class MembersRepo {
     		return true;
     	}
     	return false;
+    }
+    
+    public Members getByWechatSnAndUserId(String wechatSn, Integer userId){
+    	MembersExample example = new MembersExample();
+    	example.createCriteria().andUserIdEqualTo(userId).andWechatSnEqualTo(wechatSn);
+    	List<Members> membersList = mapper.selectByExample(example);
+    	if(CollectionUtils.isEmpty(membersList)){
+    		return null;
+    	}
+    	return membersList.get(0);
     }
 }

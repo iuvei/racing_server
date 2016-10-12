@@ -4,24 +4,24 @@ import com.racing.model.stake.StakeVo;
 
 public class MemberStakeVo {
 
-  private Integer memberId;
+	private String wechatSn;
 
-  private StakeVo stakeVo;
+	private StakeVo stakeVo;
 
-  public Integer getMemberId() {
-    return memberId;
-  }
+	public StakeVo getStakeVo() {
+		return stakeVo;
+	}
 
-  public void setMemberId(Integer memberId) {
-    this.memberId = memberId;
-  }
+	public void setStakeVo(StakeVo stakeVo) {
+		this.stakeVo = stakeVo;
+	}
 
-  public StakeVo getStakeVo() {
-    return stakeVo;
-  }
+	public String getWechatSn() {
+		return wechatSn;
+	}
 
-  public void setStakeVo(StakeVo stakeVo) {
-    this.stakeVo = stakeVo;
-  }
+	public void setWechatSn(String wechatSn) {
+		this.wechatSn = wechatSn;
+	}
 
 }
