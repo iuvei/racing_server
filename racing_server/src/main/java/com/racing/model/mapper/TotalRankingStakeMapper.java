@@ -2,10 +2,15 @@ package com.racing.model.mapper;
 
 import com.racing.model.po.TotalRankingStake;
 import com.racing.model.po.TotalRankingStakeExample;
+import com.racing.model.stake.RankingStake;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TotalRankingStakeMapper {
+	
+	int updateStake(@Param("racingNum")String racingNum, @Param("rankingStake")RankingStake rankingStake);
+	
     int countByExample(TotalRankingStakeExample example);
 
     int deleteByExample(TotalRankingStakeExample example);

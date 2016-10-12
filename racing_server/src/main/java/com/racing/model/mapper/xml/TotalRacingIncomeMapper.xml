@@ -10,6 +10,18 @@
     <result column="stake_count" property="stakeCount" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  
+  <update id="updateIncome">
+  UPDATE user_racing_income
+SET
+ stake_amount  = stake_amount + ${racingIncome.stakeAmount},
+ income_amount  = income_amount + ${racingIncome.incomeAmount},
+ deficit_amount  = deficit_amount + ${racingIncome.deficitAmount},
+ stake_count  = stake_count + ${racingIncome.stakeCount},
+WHERE  
+racing_num = ${racingIncome.racingNum}
+  </update>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

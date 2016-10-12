@@ -17,6 +17,29 @@
     <result column="ninth" property="ninth" jdbcType="DECIMAL" />
     <result column="tenth" property="tenth" jdbcType="DECIMAL" />
   </resultMap>
+  
+  <update id="updateUserStake">
+  	UPDATE user_appoint_stake
+SET
+ first  = first + ${appointStake.first},
+ second  = second + ${appointStake.second},
+ third  = third + ${appointStake.third},
+ fourth  = fourth + ${appointStake.fourth},
+ fifth  = fifth + ${appointStake.fifth},
+ sixth  = sixth + ${appointStake.sixth},
+ seventh  = seventh + ${appointStake.seventh},
+ eighth  = eighth + ${appointStake.eighth},
+ ninth  = ninth + ${appointStake.ninth},
+ tenth  = tenth + ${appointStake.tenth}
+WHERE 
+	user_id = ${userId}
+  	and
+  	racing_num = ${racingNum}
+  	and
+  	car_num = ${appointStake.carNum};
+  </update>
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

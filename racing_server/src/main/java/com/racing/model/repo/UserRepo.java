@@ -143,6 +143,16 @@ public class UserRepo {
     return this.mapper.updatePoints(userId, points, points, BigDecimal.ZERO);
   }
 
+  public int updatePoint(Integer userId, BigDecimal userPoints, BigDecimal memberPoints){
+	  if(userPoints == null){
+		  userPoints = BigDecimal.ZERO;
+	  }
+	  if(memberPoints == null){
+		  memberPoints = BigDecimal.ZERO;
+	  }
+	  return this.mapper.updatePoints(userId, userPoints.add(memberPoints), userPoints, memberPoints);  
+  }
+  
   public User selectById(Integer userId) {
     return this.mapper.selectByPrimaryKey(userId);
   }
@@ -168,4 +178,6 @@ public class UserRepo {
     }
     return null;
   }
+  
+  
 }

@@ -19,6 +19,28 @@
     <result column="members_stake_count" property="membersStakeCount" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  
+  <update id="updateIncome">
+  UPDATE user_racing_income
+SET
+ total_stake_amount  = total_stake_amount + ${racingIncome.totalStakeAmount},
+ user_stake_amount  = user_stake_amount + ${racingIncome.userStakeAmount},
+ members_stake_amount  = members_stake_amount + ${racingIncome.membersStakeAmount},
+ total_income_amount  = total_income_amount + ${racingIncome.totalIncomeAmount},
+ user_income_amount  = user_income_amount + ${racingIncome.userIncomeAmount},
+ members_income_amount  = members_income_amount + ${racingIncome.membersIncomeAmount},
+ total_deficit_amount  = total_deficit_amount + ${racingIncome.totalDeficitAmount},
+ user_deficit_amount  = user_deficit_amount + ${racingIncome.userDeficitAmount},
+ members_deficit_amount  = members_deficit_amount + ${racingIncome.membersDeficitAmount},
+ total_stake_count  = total_stake_count + ${racingIncome.totalStakeCount},
+ user_stake_count  = user_stake_count + ${racingIncome.userStakeCount},
+ members_stake_count  = members_stake_count + ${racingIncome.membersStakeCount}
+WHERE  
+user_id  = ${racingIncome.userId}
+and
+racing_num = ${racingIncome.racingNum}
+  </update>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.racing.model.mapper.UserCommonStakeMapper;
 import com.racing.model.po.UserCommonStake;
 import com.racing.model.po.UserCommonStakeExample;
+import com.racing.model.stake.CommonStake;
 
 
 @Repository
@@ -28,6 +29,18 @@ public class UserCommonStakeRepo {
 		
 		return null;
 		
+	}
+	
+	public UserCommonStake addNew(UserCommonStake userCommonStake, Integer userId, String racingNum){
+		userCommonStake.setUserId(userId);
+		userCommonStake.setRacingNum(racingNum);;
+		mapper.insertSelective(userCommonStake);
+		return userCommonStake;
+	}
+	
+	public boolean updateUserStake(Integer userId, String racingNum, CommonStake commonStake){
+		mapper.updateUserStake(userId, racingNum, commonStake);
+		return true;
 	}
 	
 }

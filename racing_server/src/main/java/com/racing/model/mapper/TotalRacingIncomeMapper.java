@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TotalRacingIncomeMapper {
+	
+	int updateIncome(@Param("racingIncome")TotalRacingIncome racingIncome);
+	
     int countByExample(TotalRacingIncomeExample example);
 
     int deleteByExample(TotalRacingIncomeExample example);

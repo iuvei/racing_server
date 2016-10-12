@@ -2,10 +2,15 @@ package com.racing.model.mapper;
 
 import com.racing.model.po.TotalAppointStake;
 import com.racing.model.po.TotalAppointStakeExample;
+import com.racing.model.stake.AppointStake;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TotalAppointStakeMapper {
+	
+	int updateStake(@Param("racingNum")String racingNum, @Param("appointStake")AppointStake appointStake);
+	
     int countByExample(TotalAppointStakeExample example);
 
     int deleteByExample(TotalAppointStakeExample example);

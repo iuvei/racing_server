@@ -11,6 +11,23 @@
     <result column="odd" property="odd" jdbcType="DECIMAL" />
     <result column="even" property="even" jdbcType="DECIMAL" />
   </resultMap>
+  
+  <update id="updateUserStake">
+  	UPDATE user_ranking_stake
+SET
+ big  = big + ${rankingStake.big},
+ small  = small + ${rankingStake.small},
+ odd  = odd + ${rankingStake.odd},
+ even  = even + ${rankingStake.even}
+WHERE  
+user_id  = ${userId}
+and
+ racing_num  = ${racingNum}
+ and
+ ranking_num  = ${rankingStake.rankingNum};
+  	
+  </update>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

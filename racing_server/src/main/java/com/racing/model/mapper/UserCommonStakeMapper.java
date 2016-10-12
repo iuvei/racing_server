@@ -2,10 +2,16 @@ package com.racing.model.mapper;
 
 import com.racing.model.po.UserCommonStake;
 import com.racing.model.po.UserCommonStakeExample;
+import com.racing.model.stake.AppointStake;
+import com.racing.model.stake.CommonStake;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserCommonStakeMapper {
+	
+	int updateUserStake(@Param("userId") Integer userId, @Param("racingNum")String racingNum, @Param("commonStake")CommonStake commonStake);
+	
     int countByExample(UserCommonStakeExample example);
 
     int deleteByExample(UserCommonStakeExample example);

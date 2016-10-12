@@ -5,6 +5,8 @@ import com.racing.model.po.UserRacingIncome;
 import com.racing.model.po.UserRacingIncomeExample;
 import com.racing.util.PageUtil;
 import jodd.util.StringUtil;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -47,4 +49,16 @@ public class UserRacingIncomeRepo {
         }
         return mapper.countByExample(example);
     }
+    
+    public void updateIncome(UserRacingIncome racingIncome){
+    	UserRacingIncomeExample example = new UserRacingIncomeExample();
+    	example.createCriteria().andUserIdEqualTo(racingIncome.getUserId()).andRacingNumEqualTo(racingIncome.getRacingNum());
+    	if(CollectionUtils.isEmpty(mapper.selectByExample(example))){
+    		racingIncome.setCreateTime(new Date());
+    		mapper.insertSelective(racingIncome);
+    	}else{
+    		mapper.updateIncome(racingIncome);
+    	}
+    }
+    
 }

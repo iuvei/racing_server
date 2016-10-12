@@ -3,8 +3,11 @@ package com.racing.model.repo;
 import com.racing.model.mapper.TotalRacingIncomeMapper;
 import com.racing.model.po.TotalRacingIncome;
 import com.racing.model.po.TotalRacingIncomeExample;
+import com.racing.model.po.UserRacingIncome;
 import com.racing.util.PageUtil;
 import jodd.util.StringUtil;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -47,4 +50,15 @@ public class TotalRacingIncomeRepo {
         }
         return mapper.countByExample(example);
     }
+    
+    public void updateRacingIncome(TotalRacingIncome racingIncome){
+    	TotalRacingIncomeExample example = new TotalRacingIncomeExample();
+    	example.createCriteria().andRacingNumEqualTo(racingIncome.getRacingNum());
+    	if(CollectionUtils.isEmpty(mapper.selectByExample(example))){
+    		mapper.insertSelective(racingIncome);
+    	}else{
+    		mapper.updateIncome(racingIncome);
+    	}
+    }
+    
 }
