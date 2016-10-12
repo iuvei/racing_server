@@ -55,7 +55,7 @@ public class MembersController {
     }
 
     @ApiOperation("客户端-查询积分记录")
-    @RequestMapping(value = "/point", method = RequestMethod.GET)
+    @RequestMapping(value = "/point/record", method = RequestMethod.GET)
     public Object selectMembersAccountRecord(@RequestHeader("Client") String wechatSn,
                                              @RequestParam(required = false, defaultValue = "1") Integer page) {
         Integer userId = LoginStatusSaveUtil.getUserWebId();
