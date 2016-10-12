@@ -47,10 +47,10 @@ public class UserPointsController {
     }
 
     @ApiOperation("分盘-积分-申请积分-取消")
-    @RequestMapping(value = "/points/status/cancel", method = RequestMethod.PUT)
-    public Object toUserPointUntreated( @RequestBody UserAppPointDealCommentVO commentVO) {
-        Integer userId = LoginStatusSaveUtil.getUserWebId();
-        return userPointsAppRecordService.updateStatus(userId, UserConstant.POINTS_APP_STATUS_CANCEL, commentVO.getComments());
+    @RequestMapping(value = "/points/{pointsAppRecordId}/status/cancel", method = RequestMethod.PUT)
+    public Object toUserPointUntreated(@PathVariable Integer pointsAppRecordId,
+                                       @RequestBody UserAppPointDealCommentVO commentVO) {
+        return userPointsAppRecordService.updateStatus(pointsAppRecordId, UserConstant.POINTS_APP_STATUS_CANCEL, commentVO.getComments());
     }
 
     @ApiOperation("分盘积分管理操作记录")
