@@ -31,10 +31,21 @@ public class MembersAccountRecordRepo {
         List<MembersAccountRecord> list = mapper.selectByExample(example);
         return list;
     }
-    
+
     public MembersAccountRecord addNew(MembersAccountRecord accountRecord){
     	mapper.insertSelective(accountRecord);
     	return accountRecord;
     }
-    
+
+    public int add(MembersAccountRecord membersAccountRecord) {
+        return mapper.insert(membersAccountRecord);
+    }
+
+    public List<MembersAccountRecord> selectMembersAccountRecord(Integer id, PageUtil pageUtil) {
+        MembersAccountRecordExample example = new MembersAccountRecordExample();
+        example.createCriteria().andMembersIdEqualTo(id);
+        example.setOrderByClause(" id desc " + pageUtil.getLimit());
+        List<MembersAccountRecord> list = mapper.selectByExample(example);
+        return list;
+    }
 }

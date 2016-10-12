@@ -10,5 +10,5 @@ public class MembersConstant {
 	public static final String ACCOUNT_RECORD_TYPE_LOTTERY = "LOTTERY";
 	public static final String ACCOUNT_RECORD_TYPE_ADD = "ADD";
 	public static final String ACCOUNT_RECORD_TYPE_SUBTRACT = "SUBTRACT";
-	
+
 }
