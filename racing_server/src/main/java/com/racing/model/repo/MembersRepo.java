@@ -7,7 +7,6 @@ import com.racing.util.PageUtil;
 import jodd.util.StringUtil;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
