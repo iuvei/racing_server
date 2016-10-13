@@ -1,9 +1,6 @@
 package com.racing.model.repo;
 
 import com.racing.model.mapper.UserDayCountIncomeMapper;
-import com.racing.model.po.TotalDayCountIncome;
-import com.racing.model.po.TotalDayCountIncomeExample;
-import com.racing.model.po.TotalDayCountIncomeWithBLOBs;
 import com.racing.model.po.UserDayCountIncome;
 import com.racing.model.po.UserDayCountIncomeExample;
 import com.racing.model.po.UserDayCountIncomeWithBLOBs;

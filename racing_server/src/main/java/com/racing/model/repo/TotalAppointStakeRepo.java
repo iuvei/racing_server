@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.racing.model.mapper.TotalAppointStakeMapper;
 import com.racing.model.po.TotalAppointStake;
+import com.racing.model.po.TotalAppointStakeExample;
 import com.racing.model.stake.AppointStake;
 
 @Repository
@@ -28,5 +29,12 @@ public class TotalAppointStakeRepo {
 			totalAppointStake.setRacingNum(racingNum);
 			mapper.insertSelective(totalAppointStake);
 		}
+	}
+	
+	public List<TotalAppointStake> getByRacingNum(String racingNum){
+		TotalAppointStakeExample example = new TotalAppointStakeExample();
+		example.createCriteria().andRacingNumEqualTo(racingNum);
+		example.setOrderByClause(" car_num ASC");
+		return mapper.selectByExample(example);
 	}
 }

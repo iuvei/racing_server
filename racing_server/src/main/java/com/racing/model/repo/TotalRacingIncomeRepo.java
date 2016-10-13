@@ -3,7 +3,6 @@ package com.racing.model.repo;
 import com.racing.model.mapper.TotalRacingIncomeMapper;
 import com.racing.model.po.TotalRacingIncome;
 import com.racing.model.po.TotalRacingIncomeExample;
-import com.racing.model.po.UserRacingIncome;
 import com.racing.util.PageUtil;
 import jodd.util.StringUtil;
 
@@ -59,6 +58,16 @@ public class TotalRacingIncomeRepo {
     	}else{
     		mapper.updateIncome(racingIncome);
     	}
+    }
+    
+    public TotalRacingIncome selectByRacingNum(String racingNum){
+    	TotalRacingIncomeExample example = new TotalRacingIncomeExample();
+    	example.createCriteria().andRacingNumEqualTo(racingNum);
+    	List<TotalRacingIncome> list = mapper.selectByExample(example);
+    	if(CollectionUtils.isNotEmpty(list)){
+    		return list.get(0);
+    	}
+    	return null;
     }
     
 }

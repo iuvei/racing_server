@@ -19,7 +19,7 @@ public class UserRankingStakeRepo {
 	public List<UserRankingStake> getByRacingNumAndUserId(String racingNum, Integer userId){
 		UserRankingStakeExample example = new UserRankingStakeExample();
 		example.createCriteria().andRacingNumEqualTo(racingNum).andUserIdEqualTo(userId);
-		example.setOrderByClause(" rankingNum ASC");
+		example.setOrderByClause(" ranking_num ASC");
 		return mapper.selectByExample(example);
 	}
 	

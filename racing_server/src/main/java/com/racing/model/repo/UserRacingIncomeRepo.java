@@ -61,4 +61,14 @@ public class UserRacingIncomeRepo {
     	}
     }
     
+    public UserRacingIncome selectByRacingNumAndUserId(String racingNum, Integer userId){
+    	UserRacingIncomeExample example = new UserRacingIncomeExample();
+    	example.createCriteria().andUserIdEqualTo(userId).andRacingNumEqualTo(racingNum);
+    	List<UserRacingIncome> list = mapper.selectByExample(example);
+    	if(CollectionUtils.isNotEmpty(list)){
+    		return list.get(0);
+    	}
+    	return null;
+    }
+    
 }

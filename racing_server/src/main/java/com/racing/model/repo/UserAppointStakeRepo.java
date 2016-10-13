@@ -19,7 +19,7 @@ public class UserAppointStakeRepo {
 	public List<UserAppointStake> getByRacingNumAndUserId(String racingNum, Integer userId){
 		UserAppointStakeExample example = new UserAppointStakeExample();
 		example.createCriteria().andRacingNumEqualTo(racingNum).andUserIdEqualTo(userId);
-		example.setOrderByClause(" carNum ASC");
+		example.setOrderByClause(" car_num ASC");
 		return mapper.selectByExample(example);
 	}
 	
