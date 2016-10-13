@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -29,6 +30,7 @@ public class MembersService {
         return ApiResult.createSuccessReuslt(membersList);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public Object selectPoint(Integer userId, String wechatSn, String nickName) {
         Members members = membersRepo.selectPoint(userId, wechatSn);
         if (members == null) {
@@ -47,6 +49,7 @@ public class MembersService {
         return ApiResult.createSuccessReuslt(members);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public Object updatePoint(Integer userId, String wechatSn,
                               String nickName, BigDecimal points, String type) {
         Members members = membersRepo.selectPoint(userId, wechatSn);
@@ -72,16 +75,19 @@ public class MembersService {
             members.setNickName(nickName);
             members.setPoints(members.getPoints().add(points));
             membersRepo.updateMember(members);
+            members = membersRepo.selectPoint(userId, wechatSn);
             MembersAccountRecord membersAccountRecord = new MembersAccountRecord();
             membersAccountRecord.setMembersId(members.getId());
             membersAccountRecord.setOperationPoints(points);
             membersAccountRecord.setOperationTime(new Date());
             membersAccountRecord.setType(type);
+            membersAccountRecord.setResultPoints(members.getPoints());
             membersAccountRecordRepo.add(membersAccountRecord);
             return ApiResult.createSuccessReuslt(members);
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public Object selectMembersAccountRecord(Integer userId, String wechatSn, Integer page) {
         Members members = membersRepo.selectPoint(userId, wechatSn);
         if (members == null) {
