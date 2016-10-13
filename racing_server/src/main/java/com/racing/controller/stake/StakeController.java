@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.MemberStakeVo;
+import com.racing.controller.vo.ModifyRacordResultVo;
 import com.racing.model.stake.StakeVo;
 import com.racing.service.stake.ConfigService;
+import com.racing.service.stake.RecordResultService;
 import com.racing.service.stake.StakeService;
 import com.racing.util.LoginStatusSaveUtil;
 
@@ -24,6 +26,9 @@ public class StakeController {
 
 	@Autowired
 	private ConfigService configService;
+	
+	@Autowired
+	private RecordResultService recordResultService; 
 	
 	@ApiOperation("客户端-押注")
 	@RequestMapping(value = "/member/stake", method = RequestMethod.POST)
@@ -85,6 +90,15 @@ public class StakeController {
 		return configService.getWebStakeConfigAndStakeInfo(true, loginId);
 	}
 
+	@ApiOperation("总盘-修改比赛结果")
+	@RequestMapping(value = "/manager/stake/configer", method = RequestMethod.PUT)
+	public Object managerModifyRacingResult(@RequestBody ModifyRacordResultVo req){
+		Integer loginId = LoginStatusSaveUtil.getManagerId();
+		if (loginId == null) {
+			return ApiResult.createNoLoginReuslt();
+		}
+		return recordResultService.updateRacingResult(req.getResult().toArray(new Integer[req.getResult().size()]), req.getRacingNum());
+	}
 	
 	
 }
