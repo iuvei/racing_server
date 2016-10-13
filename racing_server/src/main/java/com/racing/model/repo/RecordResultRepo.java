@@ -1,16 +1,16 @@
 package com.racing.model.repo;
 
-import java.util.Date;
-import java.util.List;
-
+import com.racing.model.mapper.RecordResultMapper;
+import com.racing.model.po.RecordResult;
+import com.racing.model.po.RecordResultExample;
+import com.racing.util.PageUtil;
+import com.racing.util.RacingNumUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.racing.model.mapper.RecordResultMapper;
-import com.racing.model.po.RecordResult;
-import com.racing.model.po.RecordResultExample;
-import com.racing.util.RacingNumUtil;
+import java.util.Date;
+import java.util.List;
 
 @Repository
 public class RecordResultRepo {
@@ -105,7 +105,14 @@ public class RecordResultRepo {
 		RecordResultExample example = new RecordResultExample();
 		example.createCriteria().andStartTimeGreaterThanOrEqualTo(startDate).andStartTimeLessThanOrEqualTo(endDate);
 		List<RecordResult> result = mapper.selectByExample(example);
+		return result;
+	}
 
+	public List<RecordResult> selectRacingResult(Date date, PageUtil pageUtil) {
+		RecordResultExample example = new RecordResultExample();
+		example.createCriteria().andComplateCalculationTimeLessThanOrEqualTo(date);
+		example.setOrderByClause(" id desc " + pageUtil.getLimit());
+		List<RecordResult> result = mapper.selectByExample(example);
 		return result;
 	}
 }
