@@ -64,75 +64,75 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
       chain.doFilter(httpRequest, httpResponse);
       return;
     }
-    String requestURI = httpRequest.getRequestURI();
-    LOGGER.info("request URI is :" + requestURI);
-    if (!requestURI.contains(".") && !requestURI.contains("login")) {
-
-      boolean isManagerRquest = requestURI.startsWith("/manager");
-
-      String requestAccessKey = httpRequest.getHeader(APIRequestHeaderConstant.ACCESSKEY);
-
-      if (StringUtil.isEmpty(requestAccessKey)) {
-        this.setSignErrorResponse(httpResponse);
-        return;
-      }
-
-      boolean isManager = AccessKeyUtil.checkAccessKeyIsManager(requestAccessKey);
-
-      if (isManagerRquest != isManager) {
-        this.setSignErrorResponse(httpResponse);
-        return;
-      }
-
-      Integer loginId = null;
-      boolean isWebUser = true;
-      boolean isClientUser = false;
-      String securityKey = "";
-      String accessKey = AccessKeyUtil.getAccessKey(requestAccessKey);
-      if (isManager) {
-        Manager manager = managerRepo.getByAccessKey(accessKey);
-        if (manager.getWebOutTime().compareTo(new Date()) > 0) {
-          securityKey = manager.getSecurityKey();
-          loginId = manager.getId();
-        }
-      } else {
-        if (AccessKeyUtil.checkAccessKeyIsWebUser(requestAccessKey)) {
-          User user = userRepo.getByWebAccessKey(accessKey);
-          if (user != null) {
-            securityKey = user.getWebSecurityKey();
-            isWebUser = true;
-            isClientUser = false;
-            loginId = user.getId();
-          }
-        } else {
-          User user = userRepo.getByClientAccessKey(accessKey);
-          if (user != null) {
-            securityKey = user.getClientSecurityKey();
-            isWebUser = false;
-            isClientUser = true;
-            loginId = user.getId();
-          }
-        }
-      }
-
-      if (StringUtil.isEmpty(securityKey)) {
-        this.setSignErrorResponse(httpResponse);
-        return;
-      }
-
-      if (!this.checkSign(httpRequest, requestURI, securityKey)) {
-        this.setSignErrorResponse(httpResponse);
-        return;
-      } else {
-        if (isManager) {
-          LoginStatusSaveUtil.setManagerLoginInfo(loginId);
-        } else if (isWebUser) {
-          LoginStatusSaveUtil.setUserWebLoginInfo(loginId);
-        } else if (isClientUser) {
-          LoginStatusSaveUtil.setUserClientLoginInfo(loginId);
-        }
-      }
-    }
+//    String requestURI = httpRequest.getRequestURI();
+//    LOGGER.info("request URI is :" + requestURI);
+//    if (!requestURI.contains(".") && !requestURI.contains("login")) {
+//
+//      boolean isManagerRquest = requestURI.startsWith("/manager");
+//
+//      String requestAccessKey = httpRequest.getHeader(APIRequestHeaderConstant.ACCESSKEY);
+//
+//      if (StringUtil.isEmpty(requestAccessKey)) {
+//        this.setSignErrorResponse(httpResponse);
+//        return;
+//      }
+//
+//      boolean isManager = AccessKeyUtil.checkAccessKeyIsManager(requestAccessKey);
+//
+//      if (isManagerRquest != isManager) {
+//        this.setSignErrorResponse(httpResponse);
+//        return;
+//      }
+//
+//      Integer loginId = null;
+//      boolean isWebUser = true;
+//      boolean isClientUser = false;
+//      String securityKey = "";
+//      String accessKey = AccessKeyUtil.getAccessKey(requestAccessKey);
+//      if (isManager) {
+//        Manager manager = managerRepo.getByAccessKey(accessKey);
+//        if (manager.getWebOutTime().compareTo(new Date()) > 0) {
+//          securityKey = manager.getSecurityKey();
+//          loginId = manager.getId();
+//        }
+//      } else {
+//        if (AccessKeyUtil.checkAccessKeyIsWebUser(requestAccessKey)) {
+//          User user = userRepo.getByWebAccessKey(accessKey);
+//          if (user != null) {
+//            securityKey = user.getWebSecurityKey();
+//            isWebUser = true;
+//            isClientUser = false;
+//            loginId = user.getId();
+//          }
+//        } else {
+//          User user = userRepo.getByClientAccessKey(accessKey);
+//          if (user != null) {
+//            securityKey = user.getClientSecurityKey();
+//            isWebUser = false;
+//            isClientUser = true;
+//            loginId = user.getId();
+//          }
+//        }
+//      }
+//
+//      if (StringUtil.isEmpty(securityKey)) {
+//        this.setSignErrorResponse(httpResponse);
+//        return;
+//      }
+//
+//      if (!this.checkSign(httpRequest, requestURI, securityKey)) {
+//        this.setSignErrorResponse(httpResponse);
+//        return;
+//      } else {
+//        if (isManager) {
+//          LoginStatusSaveUtil.setManagerLoginInfo(loginId);
+//        } else if (isWebUser) {
+//          LoginStatusSaveUtil.setUserWebLoginInfo(loginId);
+//        } else if (isClientUser) {
+//          LoginStatusSaveUtil.setUserClientLoginInfo(loginId);
+//        }
+//      }
+//    }
     chain.doFilter(httpRequest, httpResponse);
 
 
