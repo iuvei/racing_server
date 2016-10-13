@@ -46,7 +46,7 @@ public class StakeController {
 	}
 
 	@ApiOperation("分盘-实时开奖")
-	@RequestMapping(value = "/user/stake/configer", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/stake/configer/info", method = RequestMethod.GET)
 	public Object getUserStakeConfigerAndStakeInfo() {
 		Integer loginId = LoginStatusSaveUtil.getUserClientId();
 		if (loginId == null) {
@@ -66,7 +66,7 @@ public class StakeController {
 	}
 	
 	@ApiOperation("客户端-押注控制")
-	@RequestMapping(value = "/user/stake/configer", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/client/stake/configer", method = RequestMethod.GET)
 	public Object getClientStakeConfiger() {
 		Integer loginId = LoginStatusSaveUtil.getUserClientId();
 		if (loginId == null) {
