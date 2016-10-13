@@ -6,6 +6,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.StakeConfigVo;
 import com.racing.model.po.RecordResult;
 import com.racing.model.po.TotalDayCountIncomeWithBLOBs;
@@ -34,7 +35,7 @@ public class ConfigService {
 	@Autowired
 	private UserDayCountIncomeRepo userDayCountIncomeRepo;
 	
-	public StakeConfigVo getWebStakeConfig(boolean isManager, Integer loginId) {
+	public ApiResult getWebStakeConfig(boolean isManager, Integer loginId) {
 	    StakeConfigVo result = new StakeConfigVo();
 	    Date nowDate = DateUtil.setDateMillisecondZero(new Date());
 	    RecordResult recordResult = recordResultRepo.getNowNextRecordResult(nowDate);
@@ -88,10 +89,10 @@ public class ConfigService {
 	    }
 
 
-	    return result;
+	    return ApiResult.createSuccessReuslt(result);
 	  }
 	
-	public StakeConfigVo getWebStakeConfigAndStakeInfo(boolean isManager, Integer loginId) {
+	public ApiResult getWebStakeConfigAndStakeInfo(boolean isManager, Integer loginId) {
 	    StakeConfigVo result = new StakeConfigVo();
 	    Date nowDate = DateUtil.setDateMillisecondZero(new Date());
 	    RecordResult recordResult = recordResultRepo.getNowNextRecordResult(nowDate);
@@ -164,6 +165,6 @@ public class ConfigService {
 	    }
 
 
-	    return result;
+	    return ApiResult.createSuccessReuslt(result);
 	  }
 }
