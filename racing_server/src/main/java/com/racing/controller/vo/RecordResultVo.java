@@ -2,6 +2,8 @@ package com.racing.controller.vo;
 
 public class RecordResultVo {
 
+	private String racingNum;
+	
 	private Integer[] result;
 	
 	private Integer firstAddSecond;
@@ -90,6 +92,14 @@ public class RecordResultVo {
 
 	public void setIsFifthUp(Boolean isFifthUp) {
 		this.isFifthUp = isFifthUp;
+	}
+
+	public String getRacingNum() {
+		return racingNum;
+	}
+
+	public void setRacingNum(String racingNum) {
+		this.racingNum = racingNum;
 	}
 	
 }

@@ -80,6 +80,7 @@ public class RecordResultService {
         if(CollectionUtils.isNotEmpty(list)){
         	for(RecordResult recordResult : list){
         		RecordResultVo resultVo = new RecordResultVo();
+        		resultVo.setRacingNum(recordResult.getRacingNum());
         		resultVo.setResult(RecordResultPOUtil.convertResult(recordResult));
         		resultVo.setFirstAddSecond(recordResult.getFirstAddSecond());
         		resultVo.setIsFifthUp(recordResult.getIsFifthUp());
