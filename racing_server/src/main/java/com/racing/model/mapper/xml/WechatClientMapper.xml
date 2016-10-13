@@ -8,7 +8,7 @@
     <result column="ranking_stake_rate" property="rankingStakeRate" jdbcType="DECIMAL" />
     <result column="up_or_down_rate" property="upOrDownRate" jdbcType="DECIMAL" />
     <result column="first_add_second_odd_rate" property="firstAddSecondOddRate" jdbcType="DECIMAL" />
-    <result column="first_ddd_second_even_rate" property="firstDddSecondEvenRate" jdbcType="DECIMAL" />
+    <result column="first_add_second_even_rate" property="firstAddSecondEvenRate" jdbcType="DECIMAL" />
     <result column="first_add_second_big_rate" property="firstAddSecondBigRate" jdbcType="DECIMAL" />
     <result column="first_add_second_small_rate" property="firstAddSecondSmallRate" jdbcType="DECIMAL" />
     <result column="first_add_second_appoint3_stake_rate" property="firstAddSecondAppoint3StakeRate" jdbcType="DECIMAL" />
@@ -89,7 +89,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, user_id, appoint_stake_rate, ranking_stake_rate, up_or_down_rate, first_add_second_odd_rate, 
-    first_ddd_second_even_rate, first_add_second_big_rate, first_add_second_small_rate, 
+    first_add_second_even_rate, first_add_second_big_rate, first_add_second_small_rate, 
     first_add_second_appoint3_stake_rate, first_add_second_appoint4_stake_rate, first_add_second_appoint5_stake_rate, 
     first_add_second_appoint6_stake_rate, first_add_second_appoint7_stake_rate, first_add_second_appoint8_stake_rate, 
     first_add_second_appoint9_stake_rate, first_add_second_appoint10_stake_rate, first_add_second_appoint11_stake_rate, 
@@ -130,7 +130,7 @@
   <insert id="insert" parameterType="com.racing.model.po.WechatClient" useGeneratedKeys="true" keyProperty="id" >
     insert into wechat_client (id, user_id, appoint_stake_rate, 
       ranking_stake_rate, up_or_down_rate, first_add_second_odd_rate, 
-      first_ddd_second_even_rate, first_add_second_big_rate, 
+      first_add_second_even_rate, first_add_second_big_rate, 
       first_add_second_small_rate, first_add_second_appoint3_stake_rate, 
       first_add_second_appoint4_stake_rate, first_add_second_appoint5_stake_rate, 
       first_add_second_appoint6_stake_rate, first_add_second_appoint7_stake_rate, 
@@ -143,7 +143,7 @@
       )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{appointStakeRate,jdbcType=DECIMAL}, 
       #{rankingStakeRate,jdbcType=DECIMAL}, #{upOrDownRate,jdbcType=DECIMAL}, #{firstAddSecondOddRate,jdbcType=DECIMAL}, 
-      #{firstDddSecondEvenRate,jdbcType=DECIMAL}, #{firstAddSecondBigRate,jdbcType=DECIMAL}, 
+      #{firstAddSecondEvenRate,jdbcType=DECIMAL}, #{firstAddSecondBigRate,jdbcType=DECIMAL}, 
       #{firstAddSecondSmallRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint3StakeRate,jdbcType=DECIMAL}, 
       #{firstAddSecondAppoint4StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint5StakeRate,jdbcType=DECIMAL}, 
       #{firstAddSecondAppoint6StakeRate,jdbcType=DECIMAL}, #{firstAddSecondAppoint7StakeRate,jdbcType=DECIMAL}, 
@@ -176,8 +176,8 @@
       <if test="firstAddSecondOddRate != null" >
         first_add_second_odd_rate,
       </if>
-      <if test="firstDddSecondEvenRate != null" >
-        first_ddd_second_even_rate,
+      <if test="firstAddSecondEvenRate != null" >
+        first_add_second_even_rate,
       </if>
       <if test="firstAddSecondBigRate != null" >
         first_add_second_big_rate,
@@ -256,8 +256,8 @@
       <if test="firstAddSecondOddRate != null" >
         #{firstAddSecondOddRate,jdbcType=DECIMAL},
       </if>
-      <if test="firstDddSecondEvenRate != null" >
-        #{firstDddSecondEvenRate,jdbcType=DECIMAL},
+      <if test="firstAddSecondEvenRate != null" >
+        #{firstAddSecondEvenRate,jdbcType=DECIMAL},
       </if>
       <if test="firstAddSecondBigRate != null" >
         #{firstAddSecondBigRate,jdbcType=DECIMAL},
@@ -345,8 +345,8 @@
       <if test="record.firstAddSecondOddRate != null" >
         first_add_second_odd_rate = #{record.firstAddSecondOddRate,jdbcType=DECIMAL},
       </if>
-      <if test="record.firstDddSecondEvenRate != null" >
-        first_ddd_second_even_rate = #{record.firstDddSecondEvenRate,jdbcType=DECIMAL},
+      <if test="record.firstAddSecondEvenRate != null" >
+        first_add_second_even_rate = #{record.firstAddSecondEvenRate,jdbcType=DECIMAL},
       </if>
       <if test="record.firstAddSecondBigRate != null" >
         first_add_second_big_rate = #{record.firstAddSecondBigRate,jdbcType=DECIMAL},
@@ -418,7 +418,7 @@
       ranking_stake_rate = #{record.rankingStakeRate,jdbcType=DECIMAL},
       up_or_down_rate = #{record.upOrDownRate,jdbcType=DECIMAL},
       first_add_second_odd_rate = #{record.firstAddSecondOddRate,jdbcType=DECIMAL},
-      first_ddd_second_even_rate = #{record.firstDddSecondEvenRate,jdbcType=DECIMAL},
+      first_add_second_even_rate = #{record.firstAddSecondEvenRate,jdbcType=DECIMAL},
       first_add_second_big_rate = #{record.firstAddSecondBigRate,jdbcType=DECIMAL},
       first_add_second_small_rate = #{record.firstAddSecondSmallRate,jdbcType=DECIMAL},
       first_add_second_appoint3_stake_rate = #{record.firstAddSecondAppoint3StakeRate,jdbcType=DECIMAL},
@@ -460,8 +460,8 @@
       <if test="firstAddSecondOddRate != null" >
         first_add_second_odd_rate = #{firstAddSecondOddRate,jdbcType=DECIMAL},
       </if>
-      <if test="firstDddSecondEvenRate != null" >
-        first_ddd_second_even_rate = #{firstDddSecondEvenRate,jdbcType=DECIMAL},
+      <if test="firstAddSecondEvenRate != null" >
+        first_add_second_even_rate = #{firstAddSecondEvenRate,jdbcType=DECIMAL},
       </if>
       <if test="firstAddSecondBigRate != null" >
         first_add_second_big_rate = #{firstAddSecondBigRate,jdbcType=DECIMAL},
@@ -530,7 +530,7 @@
       ranking_stake_rate = #{rankingStakeRate,jdbcType=DECIMAL},
       up_or_down_rate = #{upOrDownRate,jdbcType=DECIMAL},
       first_add_second_odd_rate = #{firstAddSecondOddRate,jdbcType=DECIMAL},
-      first_ddd_second_even_rate = #{firstDddSecondEvenRate,jdbcType=DECIMAL},
+      first_add_second_even_rate = #{firstAddSecondEvenRate,jdbcType=DECIMAL},
       first_add_second_big_rate = #{firstAddSecondBigRate,jdbcType=DECIMAL},
       first_add_second_small_rate = #{firstAddSecondSmallRate,jdbcType=DECIMAL},
       first_add_second_appoint3_stake_rate = #{firstAddSecondAppoint3StakeRate,jdbcType=DECIMAL},

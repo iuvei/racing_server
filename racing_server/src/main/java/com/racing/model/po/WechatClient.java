@@ -15,7 +15,7 @@ public class WechatClient {
 
     private BigDecimal firstAddSecondOddRate;
 
-    private BigDecimal firstDddSecondEvenRate;
+    private BigDecimal firstAddSecondEvenRate;
 
     private BigDecimal firstAddSecondBigRate;
 
@@ -103,12 +103,12 @@ public class WechatClient {
         this.firstAddSecondOddRate = firstAddSecondOddRate;
     }
 
-    public BigDecimal getFirstDddSecondEvenRate() {
-        return firstDddSecondEvenRate;
+    public BigDecimal getFirstAddSecondEvenRate() {
+        return firstAddSecondEvenRate;
     }
 
-    public void setFirstDddSecondEvenRate(BigDecimal firstDddSecondEvenRate) {
-        this.firstDddSecondEvenRate = firstDddSecondEvenRate;
+    public void setFirstAddSecondEvenRate(BigDecimal firstAddSecondEvenRate) {
+        this.firstAddSecondEvenRate = firstAddSecondEvenRate;
     }
 
     public BigDecimal getFirstAddSecondBigRate() {

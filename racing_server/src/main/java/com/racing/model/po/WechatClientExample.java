@@ -465,63 +465,63 @@ public class WechatClientExample {
             return (Criteria) this;
         }
 
-        public Criteria andFirstDddSecondEvenRateIsNull() {
-            addCriterion("first_ddd_second_even_rate is null");
+        public Criteria andFirstAddSecondEvenRateIsNull() {
+            addCriterion("first_add_second_even_rate is null");
             return (Criteria) this;
         }
 
-        public Criteria andFirstDddSecondEvenRateIsNotNull() {
-            addCriterion("first_ddd_second_even_rate is not null");
+        public Criteria andFirstAddSecondEvenRateIsNotNull() {
+            addCriterion("first_add_second_even_rate is not null");
             return (Criteria) this;
         }
 
-        public Criteria andFirstDddSecondEvenRateEqualTo(BigDecimal value) {
-            addCriterion("first_ddd_second_even_rate =", value, "firstDddSecondEvenRate");
+        public Criteria andFirstAddSecondEvenRateEqualTo(BigDecimal value) {
+            addCriterion("first_add_second_even_rate =", value, "firstAddSecondEvenRate");
             return (Criteria) this;
         }
 
-        public Criteria andFirstDddSecondEvenRateNotEqualTo(BigDecimal value) {
-            addCriterion("first_ddd_second_even_rate <>", value, "firstDddSecondEvenRate");
+        public Criteria andFirstAddSecondEvenRateNotEqualTo(BigDecimal value) {
+            addCriterion("first_add_second_even_rate <>", value, "firstAddSecondEvenRate");
             return (Criteria) this;
         }
 
-        public Criteria andFirstDddSecondEvenRateGreaterThan(BigDecimal value) {
-            addCriterion("first_ddd_second_even_rate >", value, "firstDddSecondEvenRate");
+        public Criteria andFirstAddSecondEvenRateGreaterThan(BigDecimal value) {
+            addCriterion("first_add_second_even_rate >", value, "firstAddSecondEvenRate");
             return (Criteria) this;
         }
 
-        public Criteria andFirstDddSecondEvenRateGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("first_ddd_second_even_rate >=", value, "firstDddSecondEvenRate");
+        public Criteria andFirstAddSecondEvenRateGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("first_add_second_even_rate >=", value, "firstAddSecondEvenRate");
             return (Criteria) this;
         }
 
-        public Criteria andFirstDddSecondEvenRateLessThan(BigDecimal value) {
-            addCriterion("first_ddd_second_even_rate <", value, "firstDddSecondEvenRate");
+        public Criteria andFirstAddSecondEvenRateLessThan(BigDecimal value) {
+            addCriterion("first_add_second_even_rate <", value, "firstAddSecondEvenRate");
             return (Criteria) this;
         }
 
-        public Criteria andFirstDddSecondEvenRateLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("first_ddd_second_even_rate <=", value, "firstDddSecondEvenRate");
+        public Criteria andFirstAddSecondEvenRateLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("first_add_second_even_rate <=", value, "firstAddSecondEvenRate");
             return (Criteria) this;
         }
 
-        public Criteria andFirstDddSecondEvenRateIn(List<BigDecimal> values) {
-            addCriterion("first_ddd_second_even_rate in", values, "firstDddSecondEvenRate");
+        public Criteria andFirstAddSecondEvenRateIn(List<BigDecimal> values) {
+            addCriterion("first_add_second_even_rate in", values, "firstAddSecondEvenRate");
             return (Criteria) this;
         }
 
-        public Criteria andFirstDddSecondEvenRateNotIn(List<BigDecimal> values) {
-            addCriterion("first_ddd_second_even_rate not in", values, "firstDddSecondEvenRate");
+        public Criteria andFirstAddSecondEvenRateNotIn(List<BigDecimal> values) {
+            addCriterion("first_add_second_even_rate not in", values, "firstAddSecondEvenRate");
             return (Criteria) this;
         }
 
-        public Criteria andFirstDddSecondEvenRateBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("first_ddd_second_even_rate between", value1, value2, "firstDddSecondEvenRate");
+        public Criteria andFirstAddSecondEvenRateBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("first_add_second_even_rate between", value1, value2, "firstAddSecondEvenRate");
             return (Criteria) this;
         }
 
-        public Criteria andFirstDddSecondEvenRateNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("first_ddd_second_even_rate not between", value1, value2, "firstDddSecondEvenRate");
+        public Criteria andFirstAddSecondEvenRateNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("first_add_second_even_rate not between", value1, value2, "firstAddSecondEvenRate");
             return (Criteria) this;
         }
 
