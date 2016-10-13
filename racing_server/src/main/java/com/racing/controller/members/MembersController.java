@@ -42,7 +42,7 @@ public class MembersController {
             membersVo.getNickName(), membersVo.getPoints(), "ADD");
     }
 
-    @ApiOperation("客户端-查询积分-上分")
+    @ApiOperation("客户端-查询积分-下分")
     @RequestMapping(value = "/point/subtract", method = RequestMethod.PUT)
     public Object subtractPoint(@RequestHeader("Client") String wechatSn,
                                 @RequestBody MembersVo membersVo) {

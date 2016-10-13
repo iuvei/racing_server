@@ -27,7 +27,7 @@ public class ManagerBetController {
     @RequestMapping(value = "/bat/day", method = RequestMethod.GET)
     public Object selectByDate(@RequestParam(required = false) String startDate,
                                @RequestParam(required = false) String endDate,
-                               @RequestParam(required = false) Integer page) {
+                               @RequestParam(required = false,defaultValue = "1") Integer page) {
         Date sDate = null;
         Date eDate = null;
         if (startDate != "" && endDate != "") {
@@ -42,7 +42,7 @@ public class ManagerBetController {
     public Object selectByRacing(@RequestParam(required = false) String startDate,
                                  @RequestParam(required = false) String endDate,
                                  @RequestParam(required = false) String racingNum,
-                                 @RequestParam(required = false) Integer page) {
+                                 @RequestParam(required = false,defaultValue = "1") Integer page) {
         Date sDate = null;
         Date eDate = null;
         if (startDate != "" && endDate != "") {
@@ -57,7 +57,7 @@ public class ManagerBetController {
     public Object selectByDate(@PathVariable Integer userId,
                                @RequestParam(required = false) String startDate,
                                @RequestParam(required = false) String endDate,
-                               @RequestParam(required = false) Integer page) {
+                               @RequestParam(required = false,defaultValue = "1") Integer page) {
         Date sDate = null;
         Date eDate = null;
         if (startDate != "" && endDate != "") {
@@ -73,7 +73,7 @@ public class ManagerBetController {
                                  @RequestParam(required = false) String startDate,
                                  @RequestParam(required = false) String endDate,
                                  @RequestParam(required = false) String racingNum,
-                                 @RequestParam(required = false) Integer page) {
+                                 @RequestParam(required = false,defaultValue = "1") Integer page) {
         Date sDate = null;
         Date eDate = null;
         if (startDate != "" && endDate != "") {
