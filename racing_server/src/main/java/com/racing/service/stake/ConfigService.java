@@ -18,6 +18,7 @@ import com.racing.model.stake.CommonStake;
 import com.racing.model.stake.RankingStake;
 import com.racing.model.stake.StakeVo;
 import com.racing.model.stake.util.RecordResultPOUtil;
+import com.racing.model.stake.util.StakeVoUtil;
 import com.racing.util.DateUtil;
 import com.racing.util.JsonUtils;
 
@@ -128,7 +129,11 @@ public class ConfigService {
 	    		stakeVo.setRankingStakeList(JsonUtils.toObjList(totalDayCountIncomeWithBLOBs.getRankingStake(), RankingStake.class));
 	    		stakeVo.setRacingNum(recordResult.getRacingNum());
 	    		result.setStakeVo(stakeVo);
+	    	}else{
+	    		result.setTodayIncome(BigDecimal.ZERO);
+	    		result.setStakeVo(StakeVoUtil.createNewStake(recordResult.getRacingNum()));
 	    	}
+	    		
 	    }else{//分盘web
 	    	if (betweenTime > 60) {
 	    		result.setStage(1);// 下注阶段
@@ -146,6 +151,9 @@ public class ConfigService {
 	    		stakeVo.setRankingStakeList(JsonUtils.toObjList(userDayCountIncomeWithBLOBs.getRankingStake(), RankingStake.class));
 	    		stakeVo.setRacingNum(recordResult.getRacingNum());
 	    		result.setStakeVo(stakeVo);
+	    	}else{
+	    		result.setTodayIncome(BigDecimal.ZERO);
+	    		result.setStakeVo(StakeVoUtil.createNewStake(recordResult.getRacingNum()));
 	    	}
 	    }
 
