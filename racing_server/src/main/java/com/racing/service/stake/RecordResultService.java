@@ -1,13 +1,18 @@
 package com.racing.service.stake;
 
 import com.racing.controller.vo.ApiResult;
+import com.racing.controller.vo.RecordResultVo;
 import com.racing.model.po.RecordResult;
 import com.racing.model.repo.RecordResultRepo;
+import com.racing.model.stake.util.RecordResultPOUtil;
 import com.racing.util.DateUtil;
 import com.racing.util.PageUtil;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -67,10 +72,26 @@ public class RecordResultService {
         return ApiResult.createSuccessReuslt("结果修改成功！");
     }
 
-    public Object selectRacingResult(Integer page) {
+    public ApiResult selectRacingResult(Integer page) {
+    	List<RecordResultVo> result = new ArrayList<RecordResultVo>();
         Date date = new Date();
         date.setTime(date.getTime() - 40);
         List<RecordResult> list = recordResultRepo.selectRacingResult(date, PageUtil.createPage(page, 20));
-        return ApiResult.createSuccessReuslt(list);
+        if(CollectionUtils.isNotEmpty(list)){
+        	for(RecordResult recordResult : list){
+        		RecordResultVo resultVo = new RecordResultVo();
+        		resultVo.setResult(RecordResultPOUtil.convertResult(recordResult));
+        		resultVo.setFirstAddSecond(recordResult.getFirstAddSecond());
+        		resultVo.setIsFifthUp(recordResult.getIsFifthUp());
+        		resultVo.setIsFirstSecondBig(recordResult.getIsFirstSecondBig());
+        		resultVo.setIsFirstSecondOdd(recordResult.getIsFirstSecondOdd());
+        		resultVo.setIsFirstUp(recordResult.getIsFirstUp());
+        		resultVo.setIsFourthUp(recordResult.getIsFourthUp());
+        		resultVo.setIsSecondUp(recordResult.getIsSecondUp());
+        		resultVo.setIsThirdUp(recordResult.getIsThirdUp());
+        		result.add(resultVo);
+        	}
+        }
+        return ApiResult.createSuccessReuslt(result);
     }
 }
