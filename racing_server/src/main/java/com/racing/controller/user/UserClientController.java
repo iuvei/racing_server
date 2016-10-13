@@ -16,14 +16,14 @@ public class UserClientController {
     @Autowired
     WechatClientService wechatClientService;
 
-    @ApiOperation("分盘-机器人管理-机器人赔率列表")
+    @ApiOperation("客户端-机器人赔率列表")
     @RequestMapping(value = "/robot/rate", method = RequestMethod.GET)
     public Object robotRate(@RequestParam(required = false, defaultValue = "1") Integer page) {
         Integer userId = LoginStatusSaveUtil.getUserClientId();
         return wechatClientService.select(userId, page);
     }
 
-    @ApiOperation("分盘-机器人管理-修改机器人赔率")
+    @ApiOperation("客户端-修改机器人赔率")
     @RequestMapping(value = "/robot/rate", method = RequestMethod.PUT)
     public Object robotRate(@RequestBody WechatClient wechatClient) {
         Integer userId = LoginStatusSaveUtil.getUserClientId();
