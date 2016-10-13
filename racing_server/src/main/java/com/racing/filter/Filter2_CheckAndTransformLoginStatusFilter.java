@@ -106,7 +106,7 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
 				} else {
 					String clientSN = httpRequest.getHeader(APIRequestHeaderConstant.CLIENT);
 					User user = userRepo.getByClientAccessKey(accessKey);
-					if (user != null && user.getIsEnable() && user.getWebOutTime().after(new Date())
+					if (user != null && user.getIsEnable()
 							&& user.getIsEnable() && StringUtil.isNotEmpty(clientSN)
 							&& user.getClientIsEnable()
 							&& user.getClientExpireDate().after(new Date())

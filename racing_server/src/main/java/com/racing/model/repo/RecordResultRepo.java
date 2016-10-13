@@ -110,7 +110,7 @@ public class RecordResultRepo {
 
 	public List<RecordResult> selectRacingResult(Date date, PageUtil pageUtil) {
 		RecordResultExample example = new RecordResultExample();
-		example.createCriteria().andComplateCalculationTimeLessThanOrEqualTo(date);
+		example.createCriteria().andStartTimeLessThanOrEqualTo(date);
 		example.setOrderByClause(" id desc " + pageUtil.getLimit());
 		List<RecordResult> result = mapper.selectByExample(example);
 		return result;
