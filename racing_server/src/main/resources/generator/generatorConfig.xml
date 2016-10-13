@@ -7,8 +7,8 @@
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://120.26.75.31:3306/racingdb" userId="root"
-			password="leonRemoteDB" />
+			connectionURL="jdbc:mysql://60.205.163.65:3306/racingdb" userId="root"
+			password="sc!@#zxc" />
 		<javaModelGenerator targetPackage="com.racing.model.po"
 			targetProject="racing_server" />
 		<sqlMapGenerator targetPackage="com.racing.model.mapper.xml"
@@ -34,8 +34,8 @@
 		<table schema="" tableName="total_common_stake" >
 		</table>
 		-->
-		<table schema="" tableName="total_day_count_income" >
-		</table>
+		<!-- <table schema="" tableName="total_day_count_income" >
+		</table> -->
 		<!--
 		<table schema="" tableName="total_racing_income" >
 		</table>
@@ -50,8 +50,8 @@
 		</table>
 		<table schema="" tableName="user_common_stake" >
 		</table> -->
-		<table schema="" tableName="user_day_count_income" >
-		</table>
+		<!-- <table schema="" tableName="user_day_count_income" >
+		</table> -->
 		<!-- 
 		<table schema="" tableName="user_points_app_record" >
 		</table>
@@ -61,8 +61,9 @@
 		</table>
 		<table schema="" tableName="user_stake" >
 		</table>
+		-->
 		<table schema="" tableName="wechat_client" >
-		</table> -->
+		</table> 
 	</context>
 
 </generatorConfiguration>
