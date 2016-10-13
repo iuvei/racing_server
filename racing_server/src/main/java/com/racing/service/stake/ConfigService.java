@@ -42,13 +42,19 @@ public class ConfigService {
 	    if (recordResult == null) {
 	      return null;
 	    }
-	    result.setRacingNum(recordResult.getRacingNum());
-
-	    result.setStartRacingTime(recordResult.getStartTime().getTime() - nowDate.getTime());
-	    result.setEndStakeTime(result.getStartRacingTime() - 60 * 1000);
-
 	    long betweenTime = DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), nowDate);
-
+	    if(betweenTime>=280){//下一场比赛距离当前时间超过290秒，则继续上一场比赛，且停止押注操作
+	    	nowDate = DateUtil.addSecond(nowDate, -20);//当前时间-10秒
+	    	recordResult = recordResultRepo.getNowNextRecordResult(nowDate);
+	    	result.setStartRacingTime(0L);
+	    	result.setEndStakeTime(0L);
+	    	betweenTime = 10L;
+	    }else{
+	    	result.setRacingNum(recordResult.getRacingNum());
+	    	result.setStartRacingTime(recordResult.getStartTime().getTime() - nowDate.getTime());
+	    	result.setEndStakeTime(result.getStartRacingTime() - 60 * 1000);
+	    }
+	    
 	    if(isManager){//总盘web
 	    	if (betweenTime > 60) {
 	    		result.setStage(1);// 下注阶段
@@ -99,13 +105,18 @@ public class ConfigService {
 	    if (recordResult == null) {
 	      return null;
 	    }
-	    result.setRacingNum(recordResult.getRacingNum());
-
-	    result.setStartRacingTime(recordResult.getStartTime().getTime() - nowDate.getTime());
-	    result.setEndStakeTime(result.getStartRacingTime() - 60 * 1000);
-
 	    long betweenTime = DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), nowDate);
-
+	    if(betweenTime>=280){//下一场比赛距离当前时间超过290秒，则继续上一场比赛，且停止押注操作
+	    	nowDate = DateUtil.addSecond(nowDate, -20);//当前时间-10秒
+	    	recordResult = recordResultRepo.getNowNextRecordResult(nowDate);
+	    	result.setStartRacingTime(0L);
+	    	result.setEndStakeTime(0L);
+	    	betweenTime = 10L;
+	    }else{
+	    	result.setRacingNum(recordResult.getRacingNum());
+	    	result.setStartRacingTime(recordResult.getStartTime().getTime() - nowDate.getTime());
+	    	result.setEndStakeTime(result.getStartRacingTime() - 60 * 1000);
+	    }
 	    if(isManager){//总盘web
 	    	if (betweenTime > 60) {
 	    		result.setStage(1);// 下注阶段
