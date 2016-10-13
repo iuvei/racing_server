@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.racing.model.mapper.TotalAppointStakeMapper;
+import com.racing.model.po.TotalAppointStake;
 import com.racing.model.stake.AppointStake;
 
 @Repository
@@ -20,4 +21,12 @@ public class TotalAppointStakeRepo {
 		}
 	}
 	
+	public void initNewStake(String racingNum){
+		for(int i = 0; i<10 ; i++){
+			TotalAppointStake totalAppointStake = new TotalAppointStake();
+			totalAppointStake.setCarNum(i+1);
+			totalAppointStake.setRacingNum(racingNum);
+			mapper.insertSelective(totalAppointStake);
+		}
+	}
 }
