@@ -1,8 +1,6 @@
-package com.racing.controller.vo;
+package com.racing.model.stake;
 
 import java.math.BigDecimal;
-
-import com.racing.model.stake.StakeVo;
 
 public class StakeConfigVo {
 
@@ -19,12 +17,8 @@ public class StakeConfigVo {
   private Long startRacingTime;
 
   private Integer stage;
-  
-  private String stageName;
 
   private BigDecimal todayIncome;
-  
-  private StakeVo stakeVo;
 
   public String getRacingNum() {
     return racingNum;
@@ -89,21 +83,5 @@ public class StakeConfigVo {
   public void setStage(Integer stage) {
     this.stage = stage;
   }
-
-public String getStageName() {
-	return stageName;
-}
-
-public void setStageName(String stageName) {
-	this.stageName = stageName;
-}
-
-public StakeVo getStakeVo() {
-	return stakeVo;
-}
-
-public void setStakeVo(StakeVo stakeVo) {
-	this.stakeVo = stakeVo;
-}
 
 }

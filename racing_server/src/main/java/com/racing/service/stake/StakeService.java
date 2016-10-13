@@ -1,4 +1,4 @@
-package com.racing.service.members;
+package com.racing.service.stake;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -28,6 +28,7 @@ import com.racing.model.po.UserAppointStake;
 import com.racing.model.po.UserCommonStake;
 import com.racing.model.po.UserRacingIncome;
 import com.racing.model.po.UserRankingStake;
+import com.racing.model.po.UserStakeWithBLOBs;
 import com.racing.model.repo.MembersAccountRecordRepo;
 import com.racing.model.repo.MembersRepo;
 import com.racing.model.repo.MembersStakeRepo;
@@ -42,6 +43,7 @@ import com.racing.model.repo.UserCommonStakeRepo;
 import com.racing.model.repo.UserRacingIncomeRepo;
 import com.racing.model.repo.UserRankingStakeRepo;
 import com.racing.model.repo.UserRepo;
+import com.racing.model.repo.UserStakeRepo;
 import com.racing.model.stake.AppointStake;
 import com.racing.model.stake.CommonStake;
 import com.racing.model.stake.RankingStake;
@@ -97,7 +99,51 @@ public class StakeService {
 
 	@Autowired
 	private RecordResultRepo recordResultRepo;
+	
+	@Autowired
+	private UserStakeRepo userStakeRepo;
 
+	@Transactional(rollbackFor = Exception.class)
+	public ApiResult userStake(Integer userId, StakeVo stakeVo) {
+		User user = userRepo.selectById(userId);
+		if (user == null) {
+			throw new RuntimeException("分盘用户不存在！");
+		}
+		
+		Date operationDate = new Date();
+		
+		String racingNum = this.getRacingNum(stakeVo, operationDate);
+		
+		StakeCountInfoVo stakeCountInfoVo = StakeVoUtil.getStakeCountInfo(stakeVo);
+		
+		if(user.getUserPoints().compareTo(stakeCountInfoVo.getTotalStakeAmount())<0){
+			throw new RuntimeException("分盘用户积分不足，无法报盘！");
+		}
+		
+		this.invokeUserStakeInfo(userId, racingNum, operationDate, stakeCountInfoVo.getTotalStakeAmount(), stakeCountInfoVo.getTotalStakeCount(), stakeVo);
+
+		this.invokeCheckUserStakeIsHave(userId, racingNum);
+
+		userCommonStakeRepo.updateUserStake(userId, racingNum, stakeVo.getCommonStake());
+		userRankingStakeRepo.updateUserStake(userId, racingNum, stakeVo.getRankingStakeList());
+		userAppointStakeRepo.updateUserStake(userId, racingNum, stakeVo.getAppointStakeList());
+		
+		this.invokeStakeToUserAccountRecord(userId, BigDecimal.ZERO, stakeCountInfoVo.getTotalStakeAmount(), operationDate);
+		
+		// 处理分盘期号统计
+		this.invokeUserRacingIncome(userId, racingNum, BigDecimal.ZERO, stakeCountInfoVo.getTotalStakeAmount(), 0, stakeCountInfoVo.getTotalStakeCount());
+
+		// --------总盘处理---------开始---------
+		totalCommonStakeRepo.updateStake(racingNum, stakeVo.getCommonStake());
+		totalRankingStakeRepo.updateStake(racingNum, stakeVo.getRankingStakeList());
+		totalAppointStakeRepo.updateStake(racingNum, stakeVo.getAppointStakeList());
+		this.invokeTotalRacingIncome(racingNum, stakeCountInfoVo.getTotalStakeAmount(), stakeCountInfoVo.getTotalStakeCount());
+		// --------总盘处理---------结束---------
+		return ApiResult.createSuccessReuslt();
+	}
+	
+	
+	
 	@Transactional(rollbackFor = Exception.class)
 	public ApiResult memberStake(Integer userId, List<MemberStakeVo> stakeList) {
 
@@ -179,6 +225,30 @@ public class StakeService {
 			}
 		}
 
+		return racingNum;
+	}
+
+	/**
+	 * 获取期号
+	 * @param stakeVo
+	 * @param operationDate
+	 * @return
+	 */
+	private String getRacingNum(StakeVo stakeVo, Date operationDate) {
+		RecordResult recordResult = recordResultRepo.getNowNextRecordResult(operationDate);
+		if (recordResult == null) {
+			throw new RuntimeException("未找到当前的比赛信息");
+		}
+		String racingNum = recordResult.getRacingNum();
+		long betweenTime = DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), operationDate);
+		if (betweenTime <= 65) {// 原本是70秒，此处多加5秒用作缓冲
+			throw new RuntimeException("当前" + racingNum + "的比赛已过押注时间");
+		}
+		
+			if (!stakeVo.getRacingNum().equals(racingNum)) {
+				throw new RuntimeException("押注信息中比赛期号与当前可押注期号不同！");
+			}
+		
 		return racingNum;
 	}
 
@@ -361,6 +431,45 @@ public class StakeService {
 		result.setTotalStakeAmount(totalStakeAmount);
 		result.setTotalStakeCount(totalStakeCount);
 		return result;
+	}
+	
+	/**
+	 * 处理分盘用户单独押注的压住情况逻辑处理
+	 * @param userId
+	 * @param racingNum
+	 * @param operationDate
+	 * @param totalStakeAmount
+	 * @param totalStakeCount
+	 * @param stakeVo
+	 */
+	private void invokeUserStakeInfo(Integer userId, String racingNum, Date operationDate, BigDecimal totalStakeAmount, int totalStakeCount, StakeVo stakeVo){
+		UserStakeWithBLOBs oldUserStake = userStakeRepo.getByUserIdAndRacingNum(userId, racingNum);
+		if(oldUserStake == null){
+			oldUserStake = new UserStakeWithBLOBs();
+			oldUserStake.setCreateTime(operationDate);
+			oldUserStake.setAppointStake(JsonUtils.toJsonHasNullKey(stakeVo.getAppointStakeList()));
+			oldUserStake.setCommonStake(JsonUtils.toJsonHasNullKey(stakeVo.getCommonStake()));
+			oldUserStake.setRankingStake(JsonUtils.toJsonHasNullKey(stakeVo.getRankingStakeList()));
+			oldUserStake.setRacingNum(racingNum);
+			oldUserStake.setTotalDeficitAmount(BigDecimal.ZERO);
+			oldUserStake.setTotalIncomeAmount(BigDecimal.ZERO);
+			oldUserStake.setTotalStakeAmount(totalStakeAmount);
+			oldUserStake.setTotalStakeCount(totalStakeCount);
+			oldUserStake.setUserId(userId);
+			userStakeRepo.addNew(oldUserStake);
+		}else{
+			StakeVo oldStakeVo = new StakeVo();
+			oldStakeVo.setAppointStakeList(JsonUtils.toObjList(oldUserStake.getAppointStake(), AppointStake.class));
+			oldStakeVo.setCommonStake(JsonUtils.toObj(oldUserStake.getCommonStake(), CommonStake.class));
+			oldStakeVo.setRacingNum(racingNum);
+			oldStakeVo.setRankingStakeList(JsonUtils.toObjList(oldUserStake.getRankingStake(), RankingStake.class));
+			oldStakeVo = StakeVoUtil.stakeAdd(oldStakeVo, stakeVo);
+			oldUserStake.setTotalDeficitAmount(BigDecimal.ZERO);
+			oldUserStake.setTotalIncomeAmount(BigDecimal.ZERO);
+			oldUserStake.setTotalStakeAmount(oldUserStake.getTotalStakeAmount().add(totalStakeAmount));
+			oldUserStake.setTotalStakeCount(oldUserStake.getTotalStakeCount() + totalStakeCount);
+			userStakeRepo.update(oldUserStake);
+		}
 	}
 
 }

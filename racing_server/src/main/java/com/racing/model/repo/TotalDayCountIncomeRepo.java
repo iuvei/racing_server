@@ -3,11 +3,16 @@ package com.racing.model.repo;
 import com.racing.model.mapper.TotalDayCountIncomeMapper;
 import com.racing.model.po.TotalDayCountIncome;
 import com.racing.model.po.TotalDayCountIncomeExample;
+import com.racing.model.po.TotalDayCountIncomeWithBLOBs;
+import com.racing.util.DateUtil;
 import com.racing.util.PageUtil;
 import jodd.util.StringUtil;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -41,5 +46,16 @@ public class TotalDayCountIncomeRepo {
             criteria.andDayLessThanOrEqualTo(startDate);
         }
         return mapper.countByExample(example);
+    }
+    
+    public TotalDayCountIncomeWithBLOBs getByDay(Date day){
+    	TotalDayCountIncomeExample example = new TotalDayCountIncomeExample();
+    	example.createCriteria().andDayEqualTo(DateUtil.parseToString(day, DateUtil.DateFormat_yyyy_MM_dd));
+    	List<TotalDayCountIncomeWithBLOBs> list = mapper.selectByExampleWithBLOBs(example);
+    	if(CollectionUtils.isNotEmpty(list)){
+    		return list.get(0);
+    	}else{
+    		return null;
+    	}
     }
 }
