@@ -21,9 +21,9 @@ public class MembersController {
 
     @ApiOperation("客户端-查询积分")
     @RequestMapping(value = "/point", method = RequestMethod.GET)
-    public Object selectPoint(@RequestHeader("Client") String wechatSn,
+    public Object selectPoint(@RequestParam(required = false) String wechatSn,
                               @RequestParam(required = false) String nickName) {
-        Integer userId = LoginStatusSaveUtil.getUserWebId();
+        Integer userId = LoginStatusSaveUtil.getUserClientId();
         if (wechatSn == null && userId == null) {
             return ApiResult.createErrorReuslt("先登录");
         }
@@ -32,33 +32,31 @@ public class MembersController {
 
     @ApiOperation("客户端-查询积分-上分")
     @RequestMapping(value = "/point/add", method = RequestMethod.PUT)
-    public Object addPoint(@RequestHeader("Client") String wechatSn,
-                           @RequestBody MembersVo membersVo) {
-        Integer userId = LoginStatusSaveUtil.getUserWebId();
-        if (wechatSn == null && userId == null) {
+    public Object addPoint(@RequestBody MembersVo membersVo) {
+        Integer userId = LoginStatusSaveUtil.getUserClientId();
+        if (membersVo.getWechatSn() == null && userId == null) {
             return ApiResult.createErrorReuslt("先登录");
         }
-        return membersService.updatePoint(userId, wechatSn,
+        return membersService.updatePoint(userId, membersVo.getWechatSn(),
             membersVo.getNickName(), membersVo.getPoints(), "ADD");
     }
 
     @ApiOperation("客户端-查询积分-下分")
     @RequestMapping(value = "/point/subtract", method = RequestMethod.PUT)
-    public Object subtractPoint(@RequestHeader("Client") String wechatSn,
-                                @RequestBody MembersVo membersVo) {
-        Integer userId = LoginStatusSaveUtil.getUserWebId();
-        if (wechatSn == null && userId == null) {
+    public Object subtractPoint(@RequestBody MembersVo membersVo) {
+        Integer userId = LoginStatusSaveUtil.getUserClientId();
+        if (membersVo.getWechatSn() == null && userId == null) {
             return ApiResult.createErrorReuslt("先登录");
         }
-        return membersService.updatePoint(userId, wechatSn,
+        return membersService.updatePoint(userId, membersVo.getWechatSn(),
             membersVo.getNickName(), membersVo.getPoints().subtract(membersVo.getPoints().multiply(new BigDecimal(2))), "SUBTRACT");
     }
 
     @ApiOperation("客户端-查询积分记录")
     @RequestMapping(value = "/point/record", method = RequestMethod.GET)
-    public Object selectMembersAccountRecord(@RequestHeader("Client") String wechatSn,
+    public Object selectMembersAccountRecord(@RequestParam String wechatSn,
                                              @RequestParam(required = false, defaultValue = "1") Integer page) {
-        Integer userId = LoginStatusSaveUtil.getUserWebId();
+        Integer userId = LoginStatusSaveUtil.getUserClientId();
         if (wechatSn == null && userId == null) {
             return ApiResult.createErrorReuslt("先登录");
         }

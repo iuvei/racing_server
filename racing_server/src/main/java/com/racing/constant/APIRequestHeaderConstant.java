@@ -6,4 +6,6 @@ public class APIRequestHeaderConstant {
 
   public static final String ACCESSKEY = "Accesskey";
 
+  public static final String CLIENT = "Client";
+
 }
