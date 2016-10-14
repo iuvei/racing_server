@@ -100,12 +100,14 @@ public class UserService {
         return ApiResult.createSuccessReuslt(userPointsInfoList, page, 15, count);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public Object updatePoint(Integer userId, BigDecimal points) {
         int returnNum = userRepo.updatePoint(userId, points);
         User user = userRepo.selectById(userId);
         if (returnNum == 0) {
             return ApiResult.createErrorReuslt("分数变更失败");
         }
+        userRepo.updatePoint(userId, points, points);
 
         UserAccountRecord userAccountRecord = new UserAccountRecord();
         userAccountRecord.setUserId(userId);
@@ -195,7 +197,7 @@ public class UserService {
             return ApiResult.createErrorReuslt("用户不存在");
         }
         user.setClientExpireDate(clientExpireDate);
-        if(StringUtil.isNotEmpty(clientSn)){
+        if (StringUtil.isNotEmpty(clientSn)) {
             user.setClientSn(clientSn);
             user.setClientIsEnable(true);
         }
@@ -221,6 +223,7 @@ public class UserService {
         return ApiResult.createErrorReuslt("更新失败");
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public Object updateUserNickNameAndPassword(Integer userId, String nickName, String password) {
         User user = userRepo.selectById(userId);
         if (null == user) {
