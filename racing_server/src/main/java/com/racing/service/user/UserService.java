@@ -107,7 +107,7 @@ public class UserService {
         if (returnNum == 0) {
             return ApiResult.createErrorReuslt("分数变更失败");
         }
-        userRepo.updatePoint(userId, points, points);
+        userRepo.updatePoint(userId, points, BigDecimal.ZERO);
 
         UserAccountRecord userAccountRecord = new UserAccountRecord();
         userAccountRecord.setUserId(userId);
