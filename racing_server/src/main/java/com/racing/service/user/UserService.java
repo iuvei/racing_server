@@ -194,7 +194,6 @@ public class UserService {
         if (user == null) {
             return ApiResult.createErrorReuslt("用户不存在");
         }
-        user = new User();
         user.setClientExpireDate(clientExpireDate);
         if(StringUtil.isNotEmpty(clientSn)){
             user.setClientSn(clientSn);
