@@ -115,4 +115,11 @@ public class RecordResultRepo {
 		List<RecordResult> result = mapper.selectByExample(example);
 		return result;
 	}
+
+	public int countRacingResult(Date date) {
+		RecordResultExample example = new RecordResultExample();
+		example.createCriteria().andStartTimeLessThanOrEqualTo(date);
+		int result = mapper.countByExample(example);
+		return result;
+	}
 }
