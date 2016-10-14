@@ -24,6 +24,7 @@
     <result column="is_fourth_up" property="isFourthUp" jdbcType="BIT" />
     <result column="is_fifth_up" property="isFifthUp" jdbcType="BIT" />
     <result column="is_complate_calculation" property="isComplateCalculation" jdbcType="BIT" />
+    <result column="is_complate_statistics" property="isComplateStatistics" jdbcType="BIT" />
     <result column="complate_calculation_time" property="complateCalculationTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -87,7 +88,8 @@
   <sql id="Base_Column_List" >
     id, racing_num, first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, 
     tenth, start_time, first_add_second, is_first_second_big, is_first_second_odd, is_first_up, 
-    is_second_up, is_third_up, is_fourth_up, is_fifth_up, is_complate_calculation, complate_calculation_time
+    is_second_up, is_third_up, is_fourth_up, is_fifth_up, is_complate_calculation, is_complate_statistics, 
+    complate_calculation_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.racing.model.po.RecordResultExample" >
     select
@@ -127,7 +129,7 @@
       start_time, first_add_second, is_first_second_big, 
       is_first_second_odd, is_first_up, is_second_up, 
       is_third_up, is_fourth_up, is_fifth_up, 
-      is_complate_calculation, complate_calculation_time
+      is_complate_calculation, is_complate_statistics, complate_calculation_time
       )
     values (#{id,jdbcType=INTEGER}, #{racingNum,jdbcType=VARCHAR}, #{first,jdbcType=INTEGER}, 
       #{second,jdbcType=INTEGER}, #{third,jdbcType=INTEGER}, #{fourth,jdbcType=INTEGER}, 
@@ -136,7 +138,7 @@
       #{startTime,jdbcType=TIMESTAMP}, #{firstAddSecond,jdbcType=INTEGER}, #{isFirstSecondBig,jdbcType=BIT}, 
       #{isFirstSecondOdd,jdbcType=BIT}, #{isFirstUp,jdbcType=BIT}, #{isSecondUp,jdbcType=BIT}, 
       #{isThirdUp,jdbcType=BIT}, #{isFourthUp,jdbcType=BIT}, #{isFifthUp,jdbcType=BIT}, 
-      #{isComplateCalculation,jdbcType=BIT}, #{complateCalculationTime,jdbcType=TIMESTAMP}
+      #{isComplateCalculation,jdbcType=BIT}, #{isComplateStatistics,jdbcType=BIT}, #{complateCalculationTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.racing.model.po.RecordResult" useGeneratedKeys="true" keyProperty="id" >
@@ -208,6 +210,9 @@
       <if test="isComplateCalculation != null" >
         is_complate_calculation,
       </if>
+      <if test="isComplateStatistics != null" >
+        is_complate_statistics,
+      </if>
       <if test="complateCalculationTime != null" >
         complate_calculation_time,
       </if>
@@ -278,6 +283,9 @@
       </if>
       <if test="isComplateCalculation != null" >
         #{isComplateCalculation,jdbcType=BIT},
+      </if>
+      <if test="isComplateStatistics != null" >
+        #{isComplateStatistics,jdbcType=BIT},
       </if>
       <if test="complateCalculationTime != null" >
         #{complateCalculationTime,jdbcType=TIMESTAMP},
@@ -359,6 +367,9 @@
       <if test="record.isComplateCalculation != null" >
         is_complate_calculation = #{record.isComplateCalculation,jdbcType=BIT},
       </if>
+      <if test="record.isComplateStatistics != null" >
+        is_complate_statistics = #{record.isComplateStatistics,jdbcType=BIT},
+      </if>
       <if test="record.complateCalculationTime != null" >
         complate_calculation_time = #{record.complateCalculationTime,jdbcType=TIMESTAMP},
       </if>
@@ -391,6 +402,7 @@
       is_fourth_up = #{record.isFourthUp,jdbcType=BIT},
       is_fifth_up = #{record.isFifthUp,jdbcType=BIT},
       is_complate_calculation = #{record.isComplateCalculation,jdbcType=BIT},
+      is_complate_statistics = #{record.isComplateStatistics,jdbcType=BIT},
       complate_calculation_time = #{record.complateCalculationTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -462,6 +474,9 @@
       <if test="isComplateCalculation != null" >
         is_complate_calculation = #{isComplateCalculation,jdbcType=BIT},
       </if>
+      <if test="isComplateStatistics != null" >
+        is_complate_statistics = #{isComplateStatistics,jdbcType=BIT},
+      </if>
       <if test="complateCalculationTime != null" >
         complate_calculation_time = #{complateCalculationTime,jdbcType=TIMESTAMP},
       </if>
@@ -491,6 +506,7 @@
       is_fourth_up = #{isFourthUp,jdbcType=BIT},
       is_fifth_up = #{isFifthUp,jdbcType=BIT},
       is_complate_calculation = #{isComplateCalculation,jdbcType=BIT},
+      is_complate_statistics = #{isComplateStatistics,jdbcType=BIT},
       complate_calculation_time = #{complateCalculationTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

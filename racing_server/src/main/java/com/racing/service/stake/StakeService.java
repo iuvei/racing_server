@@ -254,7 +254,6 @@ public class StakeService {
 
 	private void invokeTotalRacingIncome(String racingNum, BigDecimal stakeAmount, int stakeCount) {
 		TotalRacingIncome racingIncome = new TotalRacingIncome();
-		racingIncome.setDeficitAmount(BigDecimal.ZERO);
 		racingIncome.setIncomeAmount(BigDecimal.ZERO);
 		racingIncome.setRacingNum(racingNum);
 		racingIncome.setStakeAmount(stakeAmount);
@@ -277,15 +276,12 @@ public class StakeService {
 		UserRacingIncome racingIncome = new UserRacingIncome();
 		racingIncome.setUserId(userId);
 		racingIncome.setRacingNum(racingNum);
-		racingIncome.setMembersDeficitAmount(BigDecimal.ZERO);
 		racingIncome.setMembersIncomeAmount(BigDecimal.ZERO);
 		racingIncome.setMembersStakeAmount(memberStakeAmount);
 		racingIncome.setMembersStakeCount(memberStakeCount);
-		racingIncome.setTotalDeficitAmount(BigDecimal.ZERO);
 		racingIncome.setTotalIncomeAmount(BigDecimal.ZERO);
 		racingIncome.setTotalStakeAmount(memberStakeAmount.add(userStakeAmount));
 		racingIncome.setTotalStakeCount(userStakeCount + memberStakeCount);
-		racingIncome.setUserDeficitAmount(BigDecimal.ZERO);
 		racingIncome.setUserIncomeAmount(BigDecimal.ZERO);
 		racingIncome.setUserStakeAmount(userStakeAmount);
 		racingIncome.setUserStakeCount(userStakeCount);

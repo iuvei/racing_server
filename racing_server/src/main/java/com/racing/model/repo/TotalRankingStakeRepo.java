@@ -34,7 +34,7 @@ public class TotalRankingStakeRepo {
 	public List<TotalRankingStake> getRacingNum(String racingNum){
 		TotalRankingStakeExample example = new TotalRankingStakeExample();
 		example.createCriteria().andRacingNumEqualTo(racingNum);
-		example.setOrderByClause(" racing_num ASC");
+		example.setOrderByClause(" ranking_num ASC");
 		return mapper.selectByExample(example);
 	}
 	

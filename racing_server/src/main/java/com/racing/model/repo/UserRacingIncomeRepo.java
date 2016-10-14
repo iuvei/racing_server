@@ -55,6 +55,9 @@ public class UserRacingIncomeRepo {
     	example.createCriteria().andUserIdEqualTo(racingIncome.getUserId()).andRacingNumEqualTo(racingIncome.getRacingNum());
     	if(CollectionUtils.isEmpty(mapper.selectByExample(example))){
     		racingIncome.setCreateTime(new Date());
+    		racingIncome.setMembersDeficitAmount(racingIncome.getMembersStakeAmount().negate());
+    		racingIncome.setTotalDeficitAmount(racingIncome.getMembersStakeAmount().add(racingIncome.getUserStakeAmount()).negate());
+    		racingIncome.setUserDeficitAmount(racingIncome.getUserStakeAmount().negate());
     		mapper.insertSelective(racingIncome);
     	}else{
     		mapper.updateIncome(racingIncome);

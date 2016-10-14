@@ -7,6 +7,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TotalDayCountIncomeMapper {
+	
+	int updateIncome(@Param("record")TotalDayCountIncomeWithBLOBs record);
+	
     int countByExample(TotalDayCountIncomeExample example);
 
     int deleteByExample(TotalDayCountIncomeExample example);

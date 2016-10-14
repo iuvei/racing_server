@@ -10,6 +10,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -54,6 +55,8 @@ public class TotalRacingIncomeRepo {
     	TotalRacingIncomeExample example = new TotalRacingIncomeExample();
     	example.createCriteria().andRacingNumEqualTo(racingIncome.getRacingNum());
     	if(CollectionUtils.isEmpty(mapper.selectByExample(example))){
+    		racingIncome.setCreateTime(new Date());
+    		racingIncome.setDeficitAmount(racingIncome.getStakeAmount());
     		mapper.insertSelective(racingIncome);
     	}else{
     		mapper.updateIncome(racingIncome);
@@ -68,6 +71,17 @@ public class TotalRacingIncomeRepo {
     		return list.get(0);
     	}
     	return null;
+    }
+    
+    public void iniNewIncome(String racingNum){
+    	TotalRacingIncome income = new TotalRacingIncome();
+    	income.setCreateTime(new Date());
+    	income.setDeficitAmount(BigDecimal.ZERO);
+    	income.setIncomeAmount(BigDecimal.ZERO);
+    	income.setRacingNum(racingNum);
+    	income.setStakeAmount(BigDecimal.ZERO);
+    	income.setStakeCount(0);
+    	mapper.insertSelective(income);
     }
     
 }

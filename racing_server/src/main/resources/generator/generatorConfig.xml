@@ -26,9 +26,10 @@
 		<!-- <table schema="" tableName="members_day_count_income" >
 		</table> -->
 		<!-- <table schema="" tableName="member_stake" >
-		</table>
+		</table>-->
 		<table schema="" tableName="record_result" >
 		</table>
+		<!-- 
 		<table schema="" tableName="total_appoint_stake" >
 		</table>
 		<table schema="" tableName="total_common_stake" >
@@ -62,8 +63,8 @@
 		<table schema="" tableName="user_stake" >
 		</table>
 		-->
-		<table schema="" tableName="wechat_client" >
-		</table> 
+		<!-- <table schema="" tableName="wechat_client" >
+		</table>  -->
 	</context>
 
 </generatorConfiguration>

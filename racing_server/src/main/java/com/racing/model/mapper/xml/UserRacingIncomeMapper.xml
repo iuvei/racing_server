@@ -29,9 +29,9 @@ SET
  total_income_amount  = total_income_amount + ${racingIncome.totalIncomeAmount},
  user_income_amount  = user_income_amount + ${racingIncome.userIncomeAmount},
  members_income_amount  = members_income_amount + ${racingIncome.membersIncomeAmount},
- total_deficit_amount  = total_deficit_amount + ${racingIncome.totalDeficitAmount},
- user_deficit_amount  = user_deficit_amount + ${racingIncome.userDeficitAmount},
- members_deficit_amount  = members_deficit_amount + ${racingIncome.membersDeficitAmount},
+ total_deficit_amount  = total_income_amount - total_stake_amount,
+ user_deficit_amount  = user_income_amount - user_stake_amount,
+ members_deficit_amount  = members_income_amount - members_stake_amount,
  total_stake_count  = total_stake_count + ${racingIncome.totalStakeCount},
  user_stake_count  = user_stake_count + ${racingIncome.userStakeCount},
  members_stake_count  = members_stake_count + ${racingIncome.membersStakeCount}

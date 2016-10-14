@@ -1,4 +1,4 @@
-package com.racing.service.calc;
+package com.racing.service.calc.bo;
 
 import java.math.BigDecimal;
 

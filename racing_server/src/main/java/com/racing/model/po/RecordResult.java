@@ -47,6 +47,8 @@ public class RecordResult {
 
     private Boolean isComplateCalculation;
 
+    private Boolean isComplateStatistics;
+
     private Date complateCalculationTime;
 
     public Integer getId() {
@@ -223,6 +225,14 @@ public class RecordResult {
 
     public void setIsComplateCalculation(Boolean isComplateCalculation) {
         this.isComplateCalculation = isComplateCalculation;
+    }
+
+    public Boolean getIsComplateStatistics() {
+        return isComplateStatistics;
+    }
+
+    public void setIsComplateStatistics(Boolean isComplateStatistics) {
+        this.isComplateStatistics = isComplateStatistics;
     }
 
     public Date getComplateCalculationTime() {

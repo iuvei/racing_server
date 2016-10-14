@@ -1,28 +1,21 @@
 package com.racing.service.timetask;
 
-import java.math.BigDecimal;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.racing.model.po.RecordResult;
-import com.racing.model.po.TotalAppointStake;
-import com.racing.model.po.TotalRankingStake;
 import com.racing.model.repo.RecordResultRepo;
 import com.racing.model.repo.TotalAppointStakeRepo;
 import com.racing.model.repo.TotalCommonStakeRepo;
+import com.racing.model.repo.TotalDayCountIncomeRepo;
+import com.racing.model.repo.TotalRacingIncomeRepo;
 import com.racing.model.repo.TotalRankingStakeRepo;
-import com.racing.model.stake.AppointStake;
-import com.racing.model.stake.CommonStake;
-import com.racing.model.stake.RankingStake;
-import com.racing.service.calc.CalculationService;
+import com.racing.service.calc.CalculationHandle;
+import com.racing.service.statistics.TotalStatisticsService;
 import com.racing.util.DateUtil;
 
 @Component
@@ -40,7 +33,12 @@ public class ScheduledRandomService {
   @Autowired
   private TotalAppointStakeRepo appointStakeRepo;
 
-
+  @Autowired
+  private TotalRacingIncomeRepo totalRacingIncomeRepo; 
+  
+  @Autowired
+  private TotalDayCountIncomeRepo totalDayCountIncomeRepo;
+  
   // @Scheduled(cron = "0 56 23 * * ?")
   @Scheduled(cron = "0 50 8 * * ?")
   public void reportCurrentTime() {
@@ -49,9 +47,9 @@ public class ScheduledRandomService {
 
     for (int i = 0; i < 200; i++) {
       // for (int i = 0; i < 179; i++) {
-      int target = new Random().nextInt(CalculationService.allResult.size());
+      int target = new Random().nextInt(CalculationHandle.allResult.size());
 
-      Integer[] result = CalculationService.allResult.get(target);
+      Integer[] result = CalculationHandle.allResult.get(target);
 
       RecordResult recordResult = new RecordResult();
       recordResult.setFirst(result[0]);
@@ -87,9 +85,20 @@ public class ScheduledRandomService {
       appointStakeRepo.initNewStake(racingNum);
 
       rankingStakeRepo.initNewStake(racingNum);
-
+      
       racingStartTime = DateUtil.addSecond(racingStartTime, 300);
     }
+   
+    totalDayCountIncomeRepo.initIncome(racingStartTime);
+    
+  }
+  
+  @Autowired
+  private TotalStatisticsService totalStatisticsService;
+  
+  @Scheduled(cron = "7 6/5 0-23 * * ?")
+  public void invokeCalculation() {
+	  totalStatisticsService.dealTotalStatistics();
   }
 
 }
