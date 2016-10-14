@@ -102,8 +102,11 @@ public class UserService {
 
     @Transactional(rollbackFor = Exception.class)
     public Object updatePoint(Integer userId, BigDecimal points) {
-        int returnNum = userRepo.updatePoint(userId, points);
         User user = userRepo.selectById(userId);
+        if (user.getUserPoints().add(points).compareTo(BigDecimal.ZERO) == -1) {
+            return ApiResult.createErrorReuslt("分数不够减");
+        }
+        int returnNum = userRepo.updatePoint(userId, points);
         if (returnNum == 0) {
             return ApiResult.createErrorReuslt("分数变更失败");
         }
