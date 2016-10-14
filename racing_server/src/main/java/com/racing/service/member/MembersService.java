@@ -5,6 +5,7 @@ import com.racing.model.po.Members;
 import com.racing.model.po.MembersAccountRecord;
 import com.racing.model.repo.MembersAccountRecordRepo;
 import com.racing.model.repo.MembersRepo;
+import com.racing.model.repo.UserRepo;
 import com.racing.util.PageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,8 @@ public class MembersService {
     MembersRepo membersRepo;
     @Autowired
     MembersAccountRecordRepo membersAccountRecordRepo;
+    @Autowired
+    UserRepo userRepo;
 
     public Object select(Integer userId, String nickname, Integer page) {
         List<Members> membersList = membersRepo.select(userId, nickname, PageUtil.createPage(page, 15));
@@ -51,20 +54,21 @@ public class MembersService {
 
     @Transactional(rollbackFor = Exception.class)
     public Object updatePoint(Integer userId, String wechatSn,
-                              String nickName, BigDecimal points, String type) {
+                              String nickName, BigDecimal updatePoints, String type) {
+        userRepo.updatePoint(userId, BigDecimal.ZERO, updatePoints);
         Members members = membersRepo.selectPoint(userId, wechatSn);
         if (members == null) {
             members = new Members();
             members.setUserId(userId);
             members.setWechatSn(wechatSn);
             members.setNickName(nickName);
-            members.setPoints(points);
+            members.setPoints(updatePoints);
             int a = membersRepo.addMember(members);
             members = membersRepo.selectPoint(userId, wechatSn);
             if (a == 1) {
                 MembersAccountRecord membersAccountRecord = new MembersAccountRecord();
                 membersAccountRecord.setMembersId(members.getId());
-                membersAccountRecord.setOperationPoints(points);
+                membersAccountRecord.setOperationPoints(updatePoints);
                 membersAccountRecord.setOperationTime(new Date());
                 membersAccountRecord.setType(type);
                 membersAccountRecordRepo.add(membersAccountRecord);
@@ -73,12 +77,12 @@ public class MembersService {
             return ApiResult.createErrorReuslt("异常");
         } else {
             members.setNickName(nickName);
-            members.setPoints(members.getPoints().add(points));
+            members.setPoints(members.getPoints().add(updatePoints));
             membersRepo.updateMember(members);
             members = membersRepo.selectPoint(userId, wechatSn);
             MembersAccountRecord membersAccountRecord = new MembersAccountRecord();
             membersAccountRecord.setMembersId(members.getId());
-            membersAccountRecord.setOperationPoints(points);
+            membersAccountRecord.setOperationPoints(updatePoints);
             membersAccountRecord.setOperationTime(new Date());
             membersAccountRecord.setType(type);
             membersAccountRecord.setResultPoints(members.getPoints());

@@ -38,7 +38,7 @@ public class MembersController {
             return ApiResult.createErrorReuslt("先登录");
         }
         return membersService.updatePoint(userId, membersVo.getWechatSn(),
-            membersVo.getNickName(), membersVo.getPoints(), "ADD");
+            membersVo.getNickName(), membersVo.getUpdatePoints(), "ADD");
     }
 
     @ApiOperation("客户端-查询积分-下分")
@@ -49,7 +49,7 @@ public class MembersController {
             return ApiResult.createErrorReuslt("先登录");
         }
         return membersService.updatePoint(userId, membersVo.getWechatSn(),
-            membersVo.getNickName(), membersVo.getPoints().subtract(membersVo.getPoints().multiply(new BigDecimal(2))), "SUBTRACT");
+            membersVo.getNickName(), membersVo.getUpdatePoints().subtract(membersVo.getUpdatePoints().multiply(new BigDecimal(2))), "SUBTRACT");
     }
 
     @ApiOperation("客户端-查询积分记录")
