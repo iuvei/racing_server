@@ -197,6 +197,7 @@ public class UserService {
         user.setClientExpireDate(clientExpireDate);
         if(StringUtil.isNotEmpty(clientSn)){
             user.setClientSn(clientSn);
+            user.setClientIsEnable(true);
         }
         int result = userRepo.updateUser(user);
         if (result == 1) {
