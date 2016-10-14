@@ -43,7 +43,7 @@ public class StakeController {
 	@ApiOperation("分盘-押注")
 	@RequestMapping(value = "/user/stake", method = RequestMethod.POST)
 	public Object UserStake(@RequestBody StakeVo stakeVo) {
-		Integer userId = LoginStatusSaveUtil.getUserClientId();
+		Integer userId = LoginStatusSaveUtil.getUserWebId();
 		if (userId == null) {
 			return ApiResult.createNoLoginReuslt();
 		}
@@ -53,7 +53,7 @@ public class StakeController {
 	@ApiOperation("分盘-实时开奖")
 	@RequestMapping(value = "/user/stake/configer/info", method = RequestMethod.GET)
 	public Object getUserStakeConfigerAndStakeInfo() {
-		Integer loginId = LoginStatusSaveUtil.getUserClientId();
+		Integer loginId = LoginStatusSaveUtil.getUserWebId();
 		if (loginId == null) {
 			return ApiResult.createNoLoginReuslt();
 		}
@@ -63,7 +63,7 @@ public class StakeController {
 	@ApiOperation("分盘-押注控制")
 	@RequestMapping(value = "/user/stake/configer", method = RequestMethod.GET)
 	public Object getUserStakeConfiger() {
-		Integer loginId = LoginStatusSaveUtil.getUserClientId();
+		Integer loginId = LoginStatusSaveUtil.getUserWebId();
 		if (loginId == null) {
 			return ApiResult.createNoLoginReuslt();
 		}
