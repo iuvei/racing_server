@@ -265,4 +265,31 @@ public class UserService {
         }
         return null;
     }
+
+    public Object getUser(Integer userId) {
+        List<UserInfoVo> result = new ArrayList<UserInfoVo>();
+
+        User user = userRepo.selectById(userId);
+        if (user != null) {
+            UserInfoVo vo = new UserInfoVo();
+            try {
+                PropertyUtils.copyProperties(vo, user);
+            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                LOGGER.error("拷贝bean出现异常！", e);
+            }
+            if (StringUtil.isNotEmpty(user.getClientSn())) {// 有微信机器人
+                vo.setIsHaveClient(true);
+                if (user.getClientExpireDate().compareTo(new Date()) > 0) {// 未过期
+                    vo.setIsClientExpired(false);
+                } else {// 已过期
+                    vo.setIsClientExpired(true);
+                }
+            } else {// 无客户端
+                vo.setIsHaveClient(false);
+            }
+            result.add(vo);
+        }
+
+        return ApiResult.createSuccessReuslt(result);
+    }
 }

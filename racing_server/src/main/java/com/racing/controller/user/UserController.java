@@ -63,4 +63,11 @@ public class UserController {
         Integer userId = LoginStatusSaveUtil.getUserWebId();
         return wechatClientService.update(userId, wechatClient);
     }
+
+    @ApiOperation(value = "获取机器人信息")
+    @RequestMapping(method = RequestMethod.GET)
+    public Object selectUser() {
+        Integer userId = LoginStatusSaveUtil.getUserWebId();
+        return userService.getUser(userId);
+    }
 }
