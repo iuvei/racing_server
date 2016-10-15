@@ -40,7 +40,7 @@ public class ConfigService {
 	    Date nowDate = DateUtil.setDateMillisecondZero(new Date());
 	    RecordResult recordResult = recordResultRepo.getNowNextRecordResult(nowDate);
 	    if (recordResult == null) {
-	      return null;
+	      return ApiResult.createErrorReuslt("暂无比赛！");
 	    }
 	    long betweenTime = DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), nowDate);
 	    if(betweenTime>=280){//下一场比赛距离当前时间超过290秒，则继续上一场比赛，且停止押注操作
@@ -116,7 +116,7 @@ public class ConfigService {
 	    Date nowDate = DateUtil.setDateMillisecondZero(new Date());
 	    RecordResult recordResult = recordResultRepo.getNowNextRecordResult(nowDate);
 	    if (recordResult == null) {
-	      return null;
+	    	return ApiResult.createErrorReuslt("暂无比赛！");
 	    }
 	    long betweenTime = DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), nowDate);
 	    if(betweenTime>=280){//下一场比赛距离当前时间超过290秒，则继续上一场比赛，且停止押注操作
