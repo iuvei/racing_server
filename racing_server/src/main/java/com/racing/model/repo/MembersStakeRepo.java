@@ -1,25 +1,33 @@
 package com.racing.model.repo;
 
+import com.racing.model.po.*;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.racing.model.mapper.MemberStakeMapper;
-import com.racing.model.po.MemberStake;
-import com.racing.model.po.MemberStakeWithBLOBs;
+
+import java.util.List;
 
 @Repository
 public class MembersStakeRepo {
 
-  @Autowired
-  private MemberStakeMapper mapper;
+    @Autowired
+    private MemberStakeMapper mapper;
 
 
-  public MemberStake addNew(MemberStakeWithBLOBs memberStake) {
-    mapper.insert(memberStake);
-    return memberStake;
-  }
-  
-  
+    public MemberStake addNew(MemberStakeWithBLOBs memberStake) {
+        mapper.insert(memberStake);
+        return memberStake;
+    }
 
-
+    public MemberStake selectByMembersIdAndTacingNum(Integer membersId, String racingNum) {
+        MemberStakeExample example = new MemberStakeExample();
+        example.createCriteria().andMembersIdEqualTo(membersId).andRacingNumEqualTo(racingNum);
+        List<MemberStake> list = this.mapper.selectByExample(example);
+        if (CollectionUtils.isNotEmpty(list)) {
+            return list.get(0);
+        }
+        return null;
+    }
 }
