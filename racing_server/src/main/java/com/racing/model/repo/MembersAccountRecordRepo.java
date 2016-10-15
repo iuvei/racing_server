@@ -38,7 +38,7 @@ public class MembersAccountRecordRepo {
     }
 
     public int add(MembersAccountRecord membersAccountRecord) {
-        return mapper.insert(membersAccountRecord);
+        return mapper.insertSelective(membersAccountRecord);
     }
 
     public List<MembersAccountRecord> selectMembersAccountRecord(Integer id, PageUtil pageUtil) {

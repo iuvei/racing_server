@@ -56,7 +56,7 @@ public class TotalRacingIncomeRepo {
     	example.createCriteria().andRacingNumEqualTo(racingIncome.getRacingNum());
     	if(CollectionUtils.isEmpty(mapper.selectByExample(example))){
     		racingIncome.setCreateTime(new Date());
-    		racingIncome.setDeficitAmount(racingIncome.getStakeAmount());
+    		racingIncome.setDeficitAmount(racingIncome.getStakeAmount().subtract(racingIncome.getIncomeAmount()));
     		mapper.insertSelective(racingIncome);
     	}else{
     		mapper.updateIncome(racingIncome);

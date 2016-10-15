@@ -30,4 +30,18 @@ public class MembersStakeRepo {
         }
         return null;
     }
+
+    public MemberStakeWithBLOBs getStakeInfoByMembersIdAndTacingNum(Integer membersId, String racingNum) {
+    	MemberStakeExample example = new MemberStakeExample();
+    	example.createCriteria().andMembersIdEqualTo(membersId).andRacingNumEqualTo(racingNum);
+    	List<MemberStakeWithBLOBs> list = this.mapper.selectByExampleWithBLOBs(example);
+    	if (CollectionUtils.isNotEmpty(list)) {
+    		return list.get(0);
+    	}
+    	return null;
+    }
+    
+    public void updateIncome(MemberStakeWithBLOBs record){
+    	mapper.updateIncome(record);
+    }
 }

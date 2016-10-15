@@ -1,12 +1,17 @@
 package com.racing.model.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.racing.model.po.UserStake;
 import com.racing.model.po.UserStakeExample;
 import com.racing.model.po.UserStakeWithBLOBs;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface UserStakeMapper {
+	
+	int updateIncome(@Param("record") UserStakeWithBLOBs record);
+	
     int countByExample(UserStakeExample example);
 
     int deleteByExample(UserStakeExample example);

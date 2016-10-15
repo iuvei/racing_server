@@ -17,6 +17,7 @@ import com.racing.model.po.UserCommonStake;
 import com.racing.model.po.UserDayCountIncomeWithBLOBs;
 import com.racing.model.po.UserRacingIncome;
 import com.racing.model.po.UserRankingStake;
+import com.racing.model.po.UserStakeWithBLOBs;
 import com.racing.model.po.util.UserStakeConvertUtil;
 import com.racing.model.repo.RecordResultRepo;
 import com.racing.model.repo.UserAppointStakeRepo;
@@ -25,6 +26,7 @@ import com.racing.model.repo.UserDayCountIncomeRepo;
 import com.racing.model.repo.UserRacingIncomeRepo;
 import com.racing.model.repo.UserRankingStakeRepo;
 import com.racing.model.repo.UserRepo;
+import com.racing.model.repo.UserStakeRepo;
 import com.racing.model.stake.AppointStake;
 import com.racing.model.stake.CommonStake;
 import com.racing.model.stake.RankingStake;
@@ -56,6 +58,9 @@ public class UserStatisticsService {
 	
 	@Autowired
 	private UserRacingIncomeRepo userRacingIncomeRepo;
+	
+	@Autowired
+	private UserStakeRepo userStakeRepo;
 	
 	@Autowired
 	private UserDayCountIncomeRepo userDayCountIncomeRepo;
@@ -113,9 +118,16 @@ public class UserStatisticsService {
 		StakeVo newTotalUserStakeVo = this.getUserTotalStake(racingNum, userId);
 		BigDecimal totalUserResult = new CalculationHandle(userDefaultCalcRate).dealCalculation(racingResult, newTotalUserStakeVo.getAppointStakeList(), newTotalUserStakeVo.getCommonStake(), newTotalUserStakeVo.getRankingStakeList());
 		
+		StakeVo newUserStakeVo = this.getUserStake(racingNum, userId);
+		BigDecimal userResult = new CalculationHandle(userDefaultCalcRate).dealCalculation(racingResult, newUserStakeVo.getAppointStakeList(), newUserStakeVo.getCommonStake(), newUserStakeVo.getRankingStakeList());
 		
-//		StakeVo newUserStakeVo = this.getUserStake(racingNum, userId);
-//		BigDecimal userResult = new CalculationHandle(userDefaultCalcRate).dealCalculation(racingResult, newUserStakeVo.getAppointStakeList(), newUserStakeVo.getCommonStake(), newUserStakeVo.getRankingStakeList());
+		UserStakeWithBLOBs userStake = new UserStakeWithBLOBs();
+		userStake.setTotalIncomeAmount(userResult);
+		userStake.setTotalStakeAmount(BigDecimal.ZERO);
+		userStake.setTotalStakeCount(0);
+		userStake.setRacingNum(racingNum);
+		userStake.setUserId(userId);
+		userStakeRepo.updateIncome(userStake);
 		
 		UserRacingIncome racingIncome = new UserRacingIncome();
 		racingIncome.setUserId(userId);
@@ -163,7 +175,7 @@ public class UserStatisticsService {
 		userDayCountIncomeRepo.updateIncome(dayCountIncome);
 		
 		
-		memberStatisticsInvoke.asyncDealMemberIncome(racingNum, userId);//异步执行玩家开奖逻辑
+		memberStatisticsInvoke.asyncDealMemberIncome(racingResult, racingNum, userId);//异步执行玩家开奖逻辑
 	}
 	
 	private StakeVo getUserTotalStake(String racingNum, Integer userId){
@@ -187,9 +199,13 @@ public class UserStatisticsService {
 		return newStakeVo;
 	}
 
-//	private StakeVo getUserStake(String racingNum, Integer userId){
-//		UserStakeWithBLOBs userStakeWithBLOBs = userStakeRepo.getByUserIdAndRacingNum(userId, racingNum);
-//		return UserStakeConvertUtil.convertUserStakeJsonToBean(userStakeWithBLOBs);
-//	}
+	private StakeVo getUserStake(String racingNum, Integer userId){
+		UserStakeWithBLOBs userStakeWithBLOBs = userStakeRepo.getByUserIdAndRacingNum(userId, racingNum);
+		if(userStakeWithBLOBs == null){
+			return StakeVoUtil.createNewStake(racingNum);
+		}else{
+			return UserStakeConvertUtil.convertUserStakeJsonToBean(userStakeWithBLOBs);
+		}
+	}
 	
 }

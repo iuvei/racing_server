@@ -7,6 +7,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface MemberStakeMapper {
+	
+	int updateIncome(@Param("record") MemberStakeWithBLOBs record);
+	
     int countByExample(MemberStakeExample example);
 
     int deleteByExample(MemberStakeExample example);

@@ -18,6 +18,8 @@ public class MemberStake {
 
     private Integer totalStakeCount;
 
+    private Boolean isComplateStatistics;
+
     private Date createTime;
 
     public Integer getId() {
@@ -74,6 +76,14 @@ public class MemberStake {
 
     public void setTotalStakeCount(Integer totalStakeCount) {
         this.totalStakeCount = totalStakeCount;
+    }
+
+    public Boolean getIsComplateStatistics() {
+        return isComplateStatistics;
+    }
+
+    public void setIsComplateStatistics(Boolean isComplateStatistics) {
+        this.isComplateStatistics = isComplateStatistics;
     }
 
     public Date getCreateTime() {

@@ -7,18 +7,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.racing.constant.MembersConstant;
 import com.racing.constant.UserConstant;
+import com.racing.model.po.MemberStakeWithBLOBs;
+import com.racing.model.po.Members;
+import com.racing.model.po.MembersAccountRecord;
+import com.racing.model.po.MembersDayCountIncome;
 import com.racing.model.po.RecordResult;
 import com.racing.model.po.User;
 import com.racing.model.po.UserAccountRecord;
 import com.racing.model.po.UserDayCountIncomeWithBLOBs;
 import com.racing.model.po.UserRacingIncome;
+import com.racing.model.po.util.MemberStakeConvertUtil;
+import com.racing.model.repo.MembersAccountRecordRepo;
+import com.racing.model.repo.MembersDayCountIncomeRepo;
+import com.racing.model.repo.MembersRepo;
 import com.racing.model.repo.MembersStakeRepo;
 import com.racing.model.repo.RecordResultRepo;
 import com.racing.model.repo.UserAccountRecordRepo;
 import com.racing.model.repo.UserDayCountIncomeRepo;
 import com.racing.model.repo.UserRacingIncomeRepo;
 import com.racing.model.repo.UserRepo;
+import com.racing.model.stake.StakeVo;
+import com.racing.service.calc.CalculationHandle;
+import com.racing.service.calc.bo.CalcRate;
 import com.racing.util.DateUtil;
 
 @Service
@@ -39,17 +51,59 @@ public class MemberStatisticsService {
 	@Autowired
 	private MembersStakeRepo membersStakeRepo;
 	
+	@Autowired
+	private MembersRepo membersRepo;
+	
+	@Autowired
+	private MembersDayCountIncomeRepo membersDayCountIncomeRepo;
+	
+	@Autowired
+	private MembersAccountRecordRepo membersAccountRecordRepo;
 	
 	@Autowired
 	private UserRepo userRepo;
 	
 	@Transactional(rollbackFor = Exception.class)
-	public BigDecimal dealMemberIncome(String racingNum, Integer memberId){
+	public BigDecimal dealMemberIncome(Integer[] recordResult, String racingNum, Integer memberId, CalcRate calcRate){
 		
+		MemberStakeWithBLOBs stakeWithBLOBs = membersStakeRepo.getStakeInfoByMembersIdAndTacingNum(memberId, racingNum);
+		if(stakeWithBLOBs == null||stakeWithBLOBs.getTotalStakeAmount().compareTo(BigDecimal.ZERO)==0){
+			return BigDecimal.ZERO;
+		}
 		
+		StakeVo stakeVo = MemberStakeConvertUtil.convertUserStakeJsonToBean(stakeWithBLOBs);
+		BigDecimal result = new CalculationHandle(calcRate).dealCalculation(recordResult, stakeVo.getAppointStakeList(), stakeVo.getCommonStake(), stakeVo.getRankingStakeList());
 		
+		MemberStakeWithBLOBs memberStake = new MemberStakeWithBLOBs();
+		memberStake.setTotalIncomeAmount(result);
+		memberStake.setTotalStakeAmount(BigDecimal.ZERO);
+		memberStake.setTotalStakeCount(0);
+		memberStake.setRacingNum(racingNum);
+		memberStake.setMembersId(memberId);
+		membersStakeRepo.updateIncome(memberStake);
 		
-		return null;
+		membersRepo.updatePoints(memberId, result);// 更新玩家的剩余积分
+		
+		Members members = membersRepo.getById(memberId);
+		
+		membersStakeRepo.addNew(memberStake);
+		MembersAccountRecord accountRecord = new MembersAccountRecord();
+		accountRecord.setMembersId(memberId);
+		accountRecord.setOperationPoints(result);
+		accountRecord.setOperationTime(new Date());
+		accountRecord.setResultPoints(members.getPoints());
+		accountRecord.setType(MembersConstant.ACCOUNT_RECORD_TYPE_LOTTERY);// 下注
+		membersAccountRecordRepo.add(accountRecord);
+
+		MembersDayCountIncome dayCountIncome = new MembersDayCountIncome();
+		dayCountIncome.setDay(DateUtil.parseToString(new Date(), DateUtil.DateFormat_yyyy_MM_dd));
+		dayCountIncome.setMembersId(memberId);
+		dayCountIncome.setIncomeAmount(result);
+		dayCountIncome.setStakeAmount(stakeWithBLOBs.getTotalStakeAmount());
+		dayCountIncome.setStakeCount(stakeWithBLOBs.getTotalStakeCount());
+		membersDayCountIncomeRepo.updateIncome(dayCountIncome);
+		
+		return result;
 	}
 	
 	@Transactional(rollbackFor = Exception.class)

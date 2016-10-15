@@ -4,12 +4,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.racing.constant.DefaultRacteConstant;
 import com.racing.model.po.RecordResult;
 import com.racing.model.po.TotalAppointStake;
 import com.racing.model.po.TotalCommonStake;
@@ -31,7 +30,6 @@ import com.racing.model.stake.StakeVo;
 import com.racing.model.stake.util.RecordResultPOUtil;
 import com.racing.model.stake.util.StakeVoUtil;
 import com.racing.service.calc.CalculationHandle;
-import com.racing.service.calc.bo.CalcRate;
 import com.racing.service.calc.bo.CalcResultVo;
 import com.racing.util.DateUtil;
 import com.racing.util.JsonUtils;
@@ -57,37 +55,6 @@ public class TotalStatisticsService {
 	@Autowired
 	private TotalDayCountIncomeRepo totalDayCountIncomeRepo;
 	
-	private CalcRate totalDefaultCalcRate;
-	
-	@PostConstruct
-	public void init() {
-		totalDefaultCalcRate = new CalcRate();
-		totalDefaultCalcRate.setAppointStakeRate(new BigDecimal("9.7"));
-		totalDefaultCalcRate.setRankingStakeRate(new BigDecimal("1.94"));
-		totalDefaultCalcRate.setUpOrDownRate(new BigDecimal("1.94"));
-		totalDefaultCalcRate.setFirstAddSecondOddRate(new BigDecimal("1.63"));
-		totalDefaultCalcRate.setFirstAddSecondEvenRate(new BigDecimal("2"));
-		totalDefaultCalcRate.setFirstAddSecondBigRate(new BigDecimal("2"));
-		totalDefaultCalcRate.setFirstAddSecondSmallRate(new BigDecimal("1.63"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint3StakeRate(new BigDecimal("41"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint4StakeRate(new BigDecimal("41"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint5StakeRate(new BigDecimal("21"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint6StakeRate(new BigDecimal("21"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint7StakeRate(new BigDecimal("12"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint8StakeRate(new BigDecimal("12"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint9StakeRate(new BigDecimal("10.3"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint10StakeRate(new BigDecimal("10.3"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint11StakeRate(new BigDecimal("8.3"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint12StakeRate(new BigDecimal("10.3"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint13StakeRate(new BigDecimal("10.3"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint14StakeRate(new BigDecimal("12"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint15StakeRate(new BigDecimal("12"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint16StakeRate(new BigDecimal("21"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint17StakeRate(new BigDecimal("21"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint18StakeRate(new BigDecimal("41"));
-		totalDefaultCalcRate.setFirstAddSecondAppoint19StakeRate(new BigDecimal("41"));
-	}
-
 	@Transactional(rollbackFor = Exception.class)
 	public void dealRecordResultOptimalCalculation() {
 		Date nowDate = new Date();
@@ -104,7 +71,7 @@ public class TotalStatisticsService {
 		
 		//------------计算比赛结果------------
 		
-		CalcResultVo result = new CalculationHandle(totalDefaultCalcRate).dealOptimalCalculation(recordResult.getRacingNum(), newStakeVo.getAppointStakeList(), newStakeVo.getCommonStake(), newStakeVo.getRankingStakeList());
+		CalcResultVo result = new CalculationHandle(DefaultRacteConstant.totalDefaultCalcRate).dealOptimalCalculation(recordResult.getRacingNum(), newStakeVo.getAppointStakeList(), newStakeVo.getCommonStake(), newStakeVo.getRankingStakeList());
 		RecordResult newRecordResult = new RecordResult();
 		newRecordResult.setRacingNum(recordResult.getRacingNum());
 		newRecordResult.setFirst(result.getRacingResult()[0]);
@@ -143,7 +110,7 @@ public class TotalStatisticsService {
 		
 		StakeVo newStakeVo = this.getStake(racingNum); 
 		
-		BigDecimal result = new CalculationHandle(totalDefaultCalcRate).dealCalculation(racingResult, newStakeVo.getAppointStakeList(), newStakeVo.getCommonStake(), newStakeVo.getRankingStakeList());
+		BigDecimal result = new CalculationHandle(DefaultRacteConstant.totalDefaultCalcRate).dealCalculation(racingResult, newStakeVo.getAppointStakeList(), newStakeVo.getCommonStake(), newStakeVo.getRankingStakeList());
 		TotalRacingIncome racingIncome = new TotalRacingIncome();
 		racingIncome.setIncomeAmount(result);
 		racingIncome.setRacingNum(racingNum);

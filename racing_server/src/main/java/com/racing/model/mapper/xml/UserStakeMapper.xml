@@ -16,6 +16,20 @@
     <result column="common_stake" property="commonStake" jdbcType="LONGVARCHAR" />
     <result column="ranking_stake" property="rankingStake" jdbcType="LONGVARCHAR" />
   </resultMap>
+  
+  <update id="updateIncome">
+  UPDATE total_racing_income
+SET
+ total_stake_amount  = total_stake_amount + ${record.totalStakeAmount},
+ total_income_amount  = total_income_amount + ${record.totalIncomeAmount},
+ total_deficit_amount  = total_income_amount - total_stake_amount,
+ total_stake_count  = total_stake_count + ${record.totalStakeCount}
+WHERE  
+racing_num = ${record.racingNum}
+and
+user_id = ${record.userId}
+  </update>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

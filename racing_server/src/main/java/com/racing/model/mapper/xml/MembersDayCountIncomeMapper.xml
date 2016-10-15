@@ -10,6 +10,20 @@
     <result column="stake_count" property="stakeCount" jdbcType="INTEGER" />
     <result column="day" property="day" jdbcType="VARCHAR" />
   </resultMap>
+  
+   <update id="updateIncome">
+   UPDATE members_day_count_income
+SET
+ stake_amount  = stake_amount + ${record.stakeAmount},
+ income_amount  = income_amount + ${record.incomeAmount},
+ deficit_amount  = stake_amount - income_amount,
+ stake_count  = stake_count + ${record.stakeCount}
+WHERE  
+day = ${record.day}
+and
+members_id = ${record.membersId}
+  </update>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

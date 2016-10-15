@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.racing.model.mapper.UserStakeMapper;
-import com.racing.model.po.UserStake;
 import com.racing.model.po.UserStakeExample;
 import com.racing.model.po.UserStakeWithBLOBs;
+import com.racing.model.stake.StakeVo;
+import com.racing.model.stake.util.StakeVoUtil;
+import com.racing.util.JsonUtils;
 
 @Repository
 public class UserStakeRepo {
@@ -37,6 +39,19 @@ public class UserStakeRepo {
 	public void addNew(UserStakeWithBLOBs userStake){
 		userStake.setId(null);
 		mapper.insertSelective(userStake);
+	}
+	
+	public void updateIncome(UserStakeWithBLOBs record){
+		if(this.getByUserIdAndRacingNum(record.getUserId(), record.getRacingNum()) == null){
+			record.setTotalDeficitAmount(record.getTotalIncomeAmount().subtract(record.getTotalStakeAmount()));
+			StakeVo stakeVo = StakeVoUtil.createNewStake(record.getRacingNum());
+			record.setAppointStake(JsonUtils.toJsonHasNullKey(stakeVo.getAppointStakeList()));
+			record.setCommonStake(JsonUtils.toJsonHasNullKey(stakeVo.getCommonStake()));
+			record.setRankingStake(JsonUtils.toJsonHasNullKey(stakeVo.getRankingStakeList()));
+			mapper.insertSelective(record);
+		}else{
+			mapper.updateIncome(record);
+		}
 	}
 	
 }

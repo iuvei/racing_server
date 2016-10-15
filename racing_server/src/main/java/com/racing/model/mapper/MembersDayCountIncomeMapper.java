@@ -6,6 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface MembersDayCountIncomeMapper {
+	
+	int updateIncome(@Param("record") MembersDayCountIncome record);
+	
     int countByExample(MembersDayCountIncomeExample example);
 
     int deleteByExample(MembersDayCountIncomeExample example);
