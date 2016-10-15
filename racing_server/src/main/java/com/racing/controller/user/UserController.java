@@ -52,9 +52,9 @@ public class UserController {
 
     @ApiOperation("分盘-机器人管理-机器人赔率列表")
     @RequestMapping(value = "/robot/rate", method = RequestMethod.GET)
-    public Object robotRate(@RequestParam(required = false, defaultValue = "1") Integer page) {
+    public Object robotRate() {
         Integer userId = LoginStatusSaveUtil.getUserWebId();
-        return wechatClientService.select(userId, page);
+        return wechatClientService.select(userId);
     }
 
     @ApiOperation("分盘-机器人管理-修改机器人赔率")

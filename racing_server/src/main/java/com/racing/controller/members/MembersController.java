@@ -2,8 +2,12 @@ package com.racing.controller.members;
 
 import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.MembersVo;
+import com.racing.model.repo.MembersStakeRepo;
 import com.racing.service.member.MembersAccountRecordService;
 import com.racing.service.member.MembersService;
+import com.racing.service.member.MembersStakeService;
+import com.racing.service.stake.RecordResultService;
+import com.racing.service.user.UserService;
 import com.racing.util.LoginStatusSaveUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,10 @@ public class MembersController {
     MembersService membersService;
     @Autowired
     MembersAccountRecordService membersAccountRecordService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    MembersStakeService membersStakeService;
 
     @ApiOperation("客户端-查询积分")
     @RequestMapping(value = "/point", method = RequestMethod.GET)
@@ -61,5 +69,16 @@ public class MembersController {
             return ApiResult.createErrorReuslt("先登录");
         }
         return membersService.selectMembersAccountRecord(userId, wechatSn, page);
+    }
+
+    @ApiOperation("客户端-开奖结果")
+    @RequestMapping(value = "/record/result", method = RequestMethod.GET)
+    public Object selectRecordResult(@RequestParam String wechatSn,
+                                     @RequestParam String racingNum) {
+        Integer userId = LoginStatusSaveUtil.getUserClientId();
+        if (wechatSn == null && userId == null) {
+            return ApiResult.createErrorReuslt("先登录");
+        }
+        return membersStakeService.selectByWechatSn(userId, wechatSn, racingNum);
     }
 }
