@@ -25,4 +25,8 @@ public class WechatClientRepo {
     public int update(WechatClient wechatClient) {
         return mapper.updateByPrimaryKey(wechatClient);
     }
+
+    public int add(WechatClient wechatClient) {
+        return mapper.insertSelective(wechatClient);
+    }
 }
