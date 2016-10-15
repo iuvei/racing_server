@@ -105,7 +105,7 @@ public class RecordResultService {
         }
         List<UserRacingIncome> list = userRacingIncomeRepo.selectByRacingNum(userId, racingNum);
 
-        if (list != null && list.get(0).getIsComplateStatistics()) {
+        if (CollectionUtils.isNotEmpty(list) && list.get(0).getIsComplateStatistics()) {
             RecordResult recordResult = recordResultRepo.getRecordResultByRacingNum(racingNum);
             RecordResultVo resultVo = new RecordResultVo();
             resultVo.setRacingNum(recordResult.getRacingNum());
