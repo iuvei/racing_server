@@ -18,9 +18,9 @@ public class UserClientController {
 
     @ApiOperation("客户端-机器人赔率列表")
     @RequestMapping(value = "/robot/rate", method = RequestMethod.GET)
-    public Object robotRate(@RequestParam(required = false, defaultValue = "1") Integer page) {
+    public Object robotRate() {
         Integer userId = LoginStatusSaveUtil.getUserClientId();
-        return wechatClientService.select(userId, page);
+        return wechatClientService.select(userId);
     }
 
     @ApiOperation("客户端-修改机器人赔率")
