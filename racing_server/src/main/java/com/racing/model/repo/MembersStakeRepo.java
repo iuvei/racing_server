@@ -17,7 +17,7 @@ public class MembersStakeRepo {
 
 
     public MemberStake addNew(MemberStakeWithBLOBs memberStake) {
-        mapper.insert(memberStake);
+        mapper.insertSelective(memberStake);
         return memberStake;
     }
 

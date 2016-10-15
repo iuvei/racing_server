@@ -158,11 +158,11 @@ public class UserRepo {
   }
 
   public int updateUser(User user) {
-    return mapper.updateByPrimaryKey(user);
+    return mapper.updateByPrimaryKeySelective(user);
   }
 
   public int insert(User user) {
-    return mapper.insert(user);
+    return mapper.insertSelective(user);
   }
 
   public int delete(Integer userId) {

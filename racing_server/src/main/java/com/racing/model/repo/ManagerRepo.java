@@ -60,7 +60,7 @@ public class ManagerRepo {
   }
 
   public int add(Manager manager) {
-    return mapper.insert(manager);
+    return mapper.insertSelective(manager);
   }
 
   public Manager selectByUserName(String userName) {

@@ -45,11 +45,11 @@ public class MembersRepo {
     }
 
     public int addMember(Members members) {
-        return mapper.insert(members);
+        return mapper.insertSelective(members);
     }
 
     public int updateMember(Members members) {
-        return mapper.updateByPrimaryKey(members);
+        return mapper.updateByPrimaryKeySelective(members);
     }
     
     public boolean updatePoints(Integer memberId, BigDecimal addPoints){
