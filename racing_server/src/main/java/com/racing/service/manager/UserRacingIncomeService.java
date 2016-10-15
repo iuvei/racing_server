@@ -31,4 +31,12 @@ public class UserRacingIncomeService {
         return ApiResult.createSuccessReuslt(
             list, page, 15, userRacingIncomeRepo.selectCountByRacing(userId, startDate, endDate, racingNum));
     }
+
+    public Object selectByRacingNum(Integer userId, String racingNum) {
+        if (null == userRepo.selectById(userId)) {
+            return ApiResult.createErrorReuslt("分盘不存在");
+        }
+        List<UserRacingIncome> list = userRacingIncomeRepo.selectByRacingNum(userId, racingNum);
+        return ApiResult.createSuccessReuslt(list.get(0));
+    }
 }

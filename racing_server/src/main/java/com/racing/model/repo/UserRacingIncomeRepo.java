@@ -73,5 +73,13 @@ public class UserRacingIncomeRepo {
     	}
     	return null;
     }
-    
+
+    public List<UserRacingIncome> selectByRacingNum(Integer userId, String racingNum) {
+        UserRacingIncomeExample example = new UserRacingIncomeExample();
+        UserRacingIncomeExample.Criteria criteria = example.createCriteria().andUserIdEqualTo(userId);
+        if (StringUtil.isNotEmpty(racingNum)) {
+            criteria.andRacingNumEqualTo(racingNum);
+        }
+        return mapper.selectByExample(example);
+    }
 }
