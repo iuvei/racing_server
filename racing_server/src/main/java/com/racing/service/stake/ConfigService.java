@@ -35,7 +35,7 @@ public class ConfigService {
 	@Autowired
 	private UserDayCountIncomeRepo userDayCountIncomeRepo;
 	
-	public ApiResult getWebStakeConfig(boolean isManager, Integer loginId) {
+	public ApiResult getWebStakeConfig(boolean isManager, Integer loginId, boolean isClient) {
 	    StakeConfigVo result = new StakeConfigVo();
 	    Date nowDate = DateUtil.setDateMillisecondZero(new Date());
 	    RecordResult recordResult = recordResultRepo.getNowNextRecordResult(nowDate);
@@ -75,12 +75,25 @@ public class ConfigService {
 	    		result.setTodayIncome(totalDayCountIncomeWithBLOBs.getStakeAmount().subtract(totalDayCountIncomeWithBLOBs.getDeficitAmount()).setScale(2, BigDecimal.ROUND_CEILING));// 今日盈亏，临时死值，需要统计获取
 	    	}
 	    }else{//分盘web
-	    	if (betweenTime > 60) {
-	    		result.setStage(1);// 下注阶段
-	    		result.setStageName("下注阶段");
-	    	} else {
-	    		result.setStage(4);// 停止操作阶段
-	    		result.setStageName("封盘阶段");
+	    	if(isClient){//客户端
+	    		if (betweenTime > 70) {
+	    			result.setStage(1);// 下注阶段
+	    			result.setStageName("下注阶段");
+	    		} else if(betweenTime > 60){
+	    			result.setStage(2);// 停止操作阶段
+	    			result.setStageName("上报阶段");
+	    		}else {
+	    			result.setStage(3);// 停止操作阶段
+	    			result.setStageName("封盘阶段");
+	    		}
+	    	}else{
+	    		if (betweenTime > 60) {
+	    			result.setStage(1);// 下注阶段
+	    			result.setStageName("下注阶段");
+	    		} else {
+	    			result.setStage(4);// 停止操作阶段
+	    			result.setStageName("封盘阶段");
+	    		}
 	    	}
 	    	UserDayCountIncomeWithBLOBs userDayCountIncomeWithBLOBs = userDayCountIncomeRepo.getByDay(nowDate, loginId);
 	    	if(userDayCountIncomeWithBLOBs!=null){

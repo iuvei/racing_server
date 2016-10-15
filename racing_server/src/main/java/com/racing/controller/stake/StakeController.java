@@ -67,7 +67,7 @@ public class StakeController {
 		if (loginId == null) {
 			return ApiResult.createNoLoginReuslt();
 		}
-		return configService.getWebStakeConfig(false, loginId);
+		return configService.getWebStakeConfig(false, loginId, false);
 	}
 	
 	@ApiOperation("客户端-押注控制")
@@ -77,7 +77,7 @@ public class StakeController {
 		if (loginId == null) {
 			return ApiResult.createNoLoginReuslt();
 		}
-		return configService.getWebStakeConfig(false, loginId);
+		return configService.getWebStakeConfig(false, loginId, true);
 	}
 	
 	@ApiOperation("总盘-实时开奖")
