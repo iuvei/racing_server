@@ -10,11 +10,16 @@ import org.slf4j.LoggerFactory;
 
 import com.racing.model.po.UserAppointStake;
 import com.racing.model.po.UserCommonStake;
+import com.racing.model.po.UserDayCountIncomeWithBLOBs;
 import com.racing.model.po.UserRankingStake;
+import com.racing.model.po.UserStakeWithBLOBs;
 import com.racing.model.stake.AppointStake;
 import com.racing.model.stake.CommonStake;
 import com.racing.model.stake.RankingStake;
+import com.racing.model.stake.StakeVo;
+import com.racing.model.stake.util.StakeVoUtil;
 import com.racing.service.stake.StakeService;
+import com.racing.util.JsonUtils;
 
 public class UserStakeConvertUtil {
 
@@ -102,5 +107,31 @@ public class UserStakeConvertUtil {
 		}
 		return userRankingStakeList;
 	}
+	
+	public static StakeVo convertUserStakeJsonToBean(UserStakeWithBLOBs userStakeWithBLOBs){
+		StakeVo newStakeVo = new StakeVo(); 
+		if(userStakeWithBLOBs!=null){
+			newStakeVo.setAppointStakeList(JsonUtils.toObjList(userStakeWithBLOBs.getAppointStake(), AppointStake.class));
+			newStakeVo.setCommonStake(JsonUtils.toObj(userStakeWithBLOBs.getCommonStake(), CommonStake.class));
+			newStakeVo.setRankingStakeList(JsonUtils.toObjList(userStakeWithBLOBs.getRankingStake(), RankingStake.class));
+		}else{
+			newStakeVo = StakeVoUtil.createNewStake("");	
+		}
+		return newStakeVo;
+	}
+
+	public static StakeVo convertUserDayStakeJsonToBean(UserDayCountIncomeWithBLOBs userdayStakeWithBLOBs){
+		StakeVo newStakeVo = new StakeVo(); 
+		if(userdayStakeWithBLOBs!=null){
+			newStakeVo.setAppointStakeList(JsonUtils.toObjList(userdayStakeWithBLOBs.getAppointStake(), AppointStake.class));
+			newStakeVo.setCommonStake(JsonUtils.toObj(userdayStakeWithBLOBs.getCommonStake(), CommonStake.class));
+			newStakeVo.setRankingStakeList(JsonUtils.toObjList(userdayStakeWithBLOBs.getRankingStake(), RankingStake.class));
+		}else{
+			newStakeVo = StakeVoUtil.createNewStake("");	
+		}
+		return newStakeVo;
+	}
+	
+	
 	
 }

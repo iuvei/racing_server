@@ -1,6 +1,7 @@
 package com.racing.service.timetask;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +9,16 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.racing.model.po.RecordResult;
+import com.racing.model.po.User;
 import com.racing.model.repo.RecordResultRepo;
 import com.racing.model.repo.TotalAppointStakeRepo;
 import com.racing.model.repo.TotalCommonStakeRepo;
 import com.racing.model.repo.TotalDayCountIncomeRepo;
 import com.racing.model.repo.TotalRankingStakeRepo;
+import com.racing.model.repo.UserRepo;
 import com.racing.service.calc.CalculationHandle;
 import com.racing.service.statistics.TotalStatisticsService;
+import com.racing.service.statistics.UserStatisticsInvoke;
 import com.racing.util.DateUtil;
 
 @Component
@@ -38,6 +42,11 @@ public class ScheduledRandomService {
   @Autowired
   private TotalDayCountIncomeRepo totalDayCountIncomeRepo;
   
+  /**
+   * 生成当天所有比赛的期号及预先设置的比赛结果
+   * 每天早上8点50分开始执行，预计执行10~15分钟
+   * 生成的信息是9点7分开始第一场比赛，之后每5分钟一场，即第二场比赛9点12分
+   */
 //  @Scheduled(cron = "0 11 12 * * ?")
   @Scheduled(cron = "0 50 8 * * ?")
   public void reportCurrentTime() {
@@ -95,9 +104,40 @@ public class ScheduledRandomService {
   @Autowired
   private TotalStatisticsService totalStatisticsService;
   
-  @Scheduled(cron = "7 6/5 0-23 * * ?")
-  public void invokeCalculation() {
-	  totalStatisticsService.dealTotalStatistics();
+  /**
+   * 计算最优解
+   * 每天9点~23点的6分7秒开始，每5分钟一次（9点7分开始第一场比赛，6分7秒开始计算，即当前比赛倒计时53秒时）
+   */
+  @Scheduled(cron = "7 6/5 9-23 * * ?")
+  public void invokeDealRecordResultOptimalCalculation() {
+	  totalStatisticsService.dealRecordResultOptimalCalculation();
+  }
+  
+  /**
+   * 统计总盘的按期号盈亏和押注（取当前时间的上一场比赛，进行统计）
+   * 每天9点~23点7分5秒开始，没五分钟一次（9点7分开始第一场比赛，7分5秒开始统计上一场比赛结果，即新一轮比赛倒计时295秒时）
+   */
+  @Scheduled(cron = "5 7/5 9-23 * * ?")
+  public void invokeDealTotalIncome(){
+	  totalStatisticsService.dealTotalIncome();
   }
 
+  @Autowired
+  private UserStatisticsInvoke userStatisticsInvoke;
+  
+  @Autowired
+  private UserRepo userRepo;
+  
+  /**
+   * 统计分盘的按期号盈亏和押注（取当前时间的上一场比赛，进行统计）
+   * 每天9点~23点7分5秒开始，没五分钟一次（9点7分开始第一场比赛，7分10秒开始统计上一场比赛结果，即新一轮比赛倒计时290秒时）
+   */
+  @Scheduled(cron = "10 7/5 9-23 * * ?")
+  public void invokeDealUserIncome(){
+	  List<User> userList = userRepo.selectUser();
+	  for(User user : userList){
+		  userStatisticsInvoke.asyncDealUserIncome(user.getId());
+	  }
+  }
+  
 }

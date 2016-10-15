@@ -7,6 +7,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserDayCountIncomeMapper {
+	
+	int updateIncome(@Param("record") UserDayCountIncomeWithBLOBs record);
+
+	int updateIncomeWithoutStake(@Param("record") UserDayCountIncomeWithBLOBs record);
+	
     int countByExample(UserDayCountIncomeExample example);
 
     int deleteByExample(UserDayCountIncomeExample example);

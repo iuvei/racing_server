@@ -58,4 +58,13 @@ public class UserDayCountIncomeRepo {
     		return null;
     	}
     }
+    
+    public void updateIncome(UserDayCountIncomeWithBLOBs record){
+    	mapper.updateIncome(record);
+    }
+
+    public void updateIncomeWithoutStake(UserDayCountIncomeWithBLOBs record){
+    	mapper.updateIncomeWithoutStake(record);
+    }
+
 }

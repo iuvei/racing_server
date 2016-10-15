@@ -23,6 +23,52 @@
     <result column="common_stake" property="commonStake" jdbcType="LONGVARCHAR" />
     <result column="ranking_stake" property="rankingStake" jdbcType="LONGVARCHAR" />
   </resultMap>
+  
+  <update id="updateIncome">
+  UPDATE user_day_count_income
+SET
+ total_stake_amount  = total_stake_amount + ${record.totalStakeAmount},
+ user_stake_amount  = user_stake_amount + ${record.userStakeAmount},
+ members_stake_amount  = members_stake_amount + ${record.membersStakeAmount},
+ total_income_amount  = total_income_amount + ${record.totalIncomeAmount},
+ user_income_amount  = user_income_amount + ${record.userIncomeAmount},
+ members_income_amount  = members_income_amount + ${record.membersIncomeAmount},
+ total_deficit_amount  = total_income_amount - total_stake_amount,
+ user_deficit_amount  = user_income_amount - user_stake_amount,
+ members_deficit_amount  = members_income_amount - members_stake_amount,
+ total_stake_count  = total_stake_count + ${record.totalStakeCount},
+ user_stake_count  = user_stake_count + ${record.userStakeCount},
+ members_stake_count  = members_stake_count + ${record.membersStakeCount},
+ appoint_stake = ${record.appointStake},
+ common_stake = ${record.commonStake},
+ ranking_stake = ${record.rankingStake}
+WHERE  
+user_id  = ${record.userId}
+and
+day = ${record.day}
+  </update>
+
+  <update id="updateIncomeWithoutStake">
+  UPDATE user_day_count_income
+SET
+ total_stake_amount  = total_stake_amount + ${record.totalStakeAmount},
+ user_stake_amount  = user_stake_amount + ${record.userStakeAmount},
+ members_stake_amount  = members_stake_amount + ${record.membersStakeAmount},
+ total_income_amount  = total_income_amount + ${record.totalIncomeAmount},
+ user_income_amount  = user_income_amount + ${record.userIncomeAmount},
+ members_income_amount  = members_income_amount + ${record.membersIncomeAmount},
+ total_deficit_amount  = total_income_amount - total_stake_amount,
+ user_deficit_amount  = user_income_amount - user_stake_amount,
+ members_deficit_amount  = members_income_amount - members_stake_amount,
+ total_stake_count  = total_stake_count + ${record.totalStakeCount},
+ user_stake_count  = user_stake_count + ${record.userStakeCount},
+ members_stake_count  = members_stake_count + ${record.membersStakeCount}
+WHERE  
+user_id  = ${record.userId}
+and
+day = ${record.day}
+  </update>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

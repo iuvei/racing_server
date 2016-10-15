@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.racing.model.po.RecordResult;
 import com.racing.model.po.TotalAppointStake;
@@ -87,7 +88,8 @@ public class TotalStatisticsService {
 		totalDefaultCalcRate.setFirstAddSecondAppoint19StakeRate(new BigDecimal("41"));
 	}
 
-	public void dealTotalStatistics() {
+	@Transactional(rollbackFor = Exception.class)
+	public void dealRecordResultOptimalCalculation() {
 		Date nowDate = new Date();
 		RecordResult recordResult = recordResultRepo.getNowNextRecordResult(nowDate);
 		if (recordResult == null) {
@@ -129,12 +131,15 @@ public class TotalStatisticsService {
 		
 	}
 
-	public void dealTotalIncome(String racingNum){
-		RecordResult recordResult = recordResultRepo.getRecordResultByRacingNum(racingNum);
+	@Transactional(rollbackFor = Exception.class)
+	public void dealTotalIncome(){
+		RecordResult recordResult = recordResultRepo.getNowBeforLastRecordResult(new Date());
 		if(recordResult.getIsComplateStatistics()){
 			return;
 		}
 		Integer[] racingResult = RecordResultPOUtil.convertResult(recordResult);
+		
+		String racingNum = recordResult.getRacingNum();
 		
 		StakeVo newStakeVo = this.getStake(racingNum); 
 		
@@ -162,7 +167,7 @@ public class TotalStatisticsService {
 		dayCountIncomeWithBLOBs.setCommonStake(JsonUtils.toJsonHasNullKey(resultStake.getCommonStake()));
 		dayCountIncomeWithBLOBs.setRankingStake(JsonUtils.toJsonHasNullKey(resultStake.getRankingStakeList()));
 		dayCountIncomeWithBLOBs.setIncomeAmount(result);
-		dayCountIncomeWithBLOBs.setStakeCount(0);
+		dayCountIncomeWithBLOBs.setStakeCount(newRacingIncome.getStakeCount());
 		dayCountIncomeWithBLOBs.setStakeAmount(newRacingIncome.getStakeAmount());
 		
 		totalDayCountIncomeRepo.updateIncome(dayCountIncomeWithBLOBs);

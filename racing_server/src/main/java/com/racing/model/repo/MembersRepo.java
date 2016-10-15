@@ -72,4 +72,11 @@ public class MembersRepo {
     	}
     	return membersList.get(0);
     }
+    
+    public List<Members> getListByUserId(Integer userId){
+    	MembersExample example = new MembersExample();
+    	example.createCriteria().andUserIdEqualTo(userId);
+    	return mapper.selectByExample(example);
+    }
+    
 }
