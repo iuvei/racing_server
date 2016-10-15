@@ -80,6 +80,7 @@ public class MemberStatisticsService {
 		memberStake.setTotalStakeCount(0);
 		memberStake.setRacingNum(racingNum);
 		memberStake.setMembersId(memberId);
+		memberStake.setIsComplateStatistics(true);
 		membersStakeRepo.updateIncome(memberStake);
 		
 		membersRepo.updatePoints(memberId, result);// 更新玩家的剩余积分

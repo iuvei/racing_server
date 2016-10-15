@@ -24,7 +24,8 @@ SET
  total_stake_amount  = total_stake_amount + ${record.totalStakeAmount},
  total_income_amount  = total_income_amount + ${record.totalIncomeAmount},
  total_deficit_amount  = total_income_amount - total_stake_amount,
- total_stake_count  = total_stake_count + ${record.totalStakeCount}
+ total_stake_count  = total_stake_count + ${record.totalStakeCount},
+ is_complate_statistics = ${record.isComplateStatistics}
 WHERE  
 racing_num = ${record.racingNum}
 and
