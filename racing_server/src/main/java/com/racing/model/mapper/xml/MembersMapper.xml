@@ -13,8 +13,8 @@
   <update id="updatePoints">
   	UPDATE members
 	SET
-	points = points + ${addPoints}
-	WHERE id = ${memberId};
+	points = points + #{addPoints}
+	WHERE id = #{memberId};
   </update>
   
   <sql id="Example_Where_Clause" >

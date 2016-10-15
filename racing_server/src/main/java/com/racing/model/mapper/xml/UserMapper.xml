@@ -27,10 +27,10 @@
   <update id="updatePoints">
   	UPDATE user
 	SET
-	total_points = total_points + ${addTotalPoints},
-	user_points = user_points + ${addUserPoints}, 
-	members_points = members_points + ${addMembersPoints}
-	WHERE id = ${userId};
+	total_points = total_points + #{addTotalPoints},
+	user_points = user_points + #{addUserPoints}, 
+	members_points = members_points + #{addMembersPoints}
+	WHERE id = #{userId};
   </update>
   
   <sql id="Example_Where_Clause" >

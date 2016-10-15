@@ -14,12 +14,12 @@
   <update id="updateIncome">
   UPDATE total_racing_income
 SET
- stake_amount  = stake_amount + ${racingIncome.stakeAmount},
- income_amount  = income_amount + ${racingIncome.incomeAmount},
+ stake_amount  = stake_amount + #{racingIncome.stakeAmount},
+ income_amount  = income_amount + #{racingIncome.incomeAmount},
  deficit_amount  = stake_amount - income_amount,
- stake_count  = stake_count + ${racingIncome.stakeCount}
+ stake_count  = stake_count + #{racingIncome.stakeCount}
 WHERE  
-racing_num = ${racingIncome.racingNum}
+racing_num = #{racingIncome.racingNum}
   </update>
   
   <sql id="Example_Where_Clause" >

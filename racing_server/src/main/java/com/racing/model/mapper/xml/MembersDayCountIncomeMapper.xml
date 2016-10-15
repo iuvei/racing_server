@@ -14,14 +14,14 @@
    <update id="updateIncome">
    UPDATE members_day_count_income
 SET
- stake_amount  = stake_amount + ${record.stakeAmount},
- income_amount  = income_amount + ${record.incomeAmount},
+ stake_amount  = stake_amount + #{record.stakeAmount},
+ income_amount  = income_amount + #{record.incomeAmount},
  deficit_amount  = stake_amount - income_amount,
- stake_count  = stake_count + ${record.stakeCount}
+ stake_count  = stake_count + #{record.stakeCount}
 WHERE  
-day = ${record.day}
+day = #{record.day}
 and
-members_id = ${record.membersId}
+members_id = #{record.membersId}
   </update>
   
   <sql id="Example_Where_Clause" >

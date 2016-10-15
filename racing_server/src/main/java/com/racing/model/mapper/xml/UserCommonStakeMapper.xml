@@ -41,41 +41,41 @@
   <update id="updateUserStake">
   UPDATE user_common_stake
 SET
- first_up  = first_up + ${commonStake.firstUp},
- first_dowm  = first_dowm + ${commonStake.firstDowm},
- second_up  = second_up + ${commonStake.secondUp},
- second_dowm  = second_dowm + ${commonStake.secondDowm},
- third_up  = third_up + ${commonStake.thirdUp},
- third_dowm  = third_dowm + ${commonStake.thirdDowm},
- fourth_up  = fourth_up + ${commonStake.fourthUp},
- fourth_dowm  = fourth_dowm + ${commonStake.fourthDowm},
- fifth_up  = fifth_up + ${commonStake.fifthUp},
- fifth_dowm  = fifth_dowm + ${commonStake.fifthDowm},
- first_second_odd  = first_second_odd + ${commonStake.firstSecondOdd},
- first_second_even  = first_second_even + ${commonStake.firstSecondEven},
- first_second_big  = first_second_big + ${commonStake.firstSecondBig},
- first_second_small  = first_second_small + ${commonStake.firstSecondSmall},
- first_second_3  = first_second_3 + ${commonStake.firstSecond3},
- first_second_4  = first_second_4 + ${commonStake.firstSecond4},
- first_second_5  = first_second_5 + ${commonStake.firstSecond5},
- first_second_6  = first_second_6 + ${commonStake.firstSecond6},
- first_second_7  = first_second_7 + ${commonStake.firstSecond7},
- first_second_8  = first_second_8 + ${commonStake.firstSecond8},
- first_second_9  = first_second_9 + ${commonStake.firstSecond9},
- first_second_10  = first_second_10 + ${commonStake.firstSecond10},
- first_second_11  = first_second_11 + ${commonStake.firstSecond11},
- first_second_12  = first_second_12 + ${commonStake.firstSecond12},
- first_second_13  = first_second_13 + ${commonStake.firstSecond13},
- first_second_14  = first_second_14 + ${commonStake.firstSecond14},
- first_second_15  = first_second_15 + ${commonStake.firstSecond15},
- first_second_16  = first_second_16 + ${commonStake.firstSecond16},
- first_second_17  = first_second_17 + ${commonStake.firstSecond17},
- first_second_18  = first_second_18 + ${commonStake.firstSecond18},
- first_second_19  = first_second_19 + ${commonStake.firstSecond19} 
+ first_up  = first_up + #{commonStake.firstUp},
+ first_dowm  = first_dowm + #{commonStake.firstDowm},
+ second_up  = second_up + #{commonStake.secondUp},
+ second_dowm  = second_dowm + #{commonStake.secondDowm},
+ third_up  = third_up + #{commonStake.thirdUp},
+ third_dowm  = third_dowm + #{commonStake.thirdDowm},
+ fourth_up  = fourth_up + #{commonStake.fourthUp},
+ fourth_dowm  = fourth_dowm + #{commonStake.fourthDowm},
+ fifth_up  = fifth_up + #{commonStake.fifthUp},
+ fifth_dowm  = fifth_dowm + #{commonStake.fifthDowm},
+ first_second_odd  = first_second_odd + #{commonStake.firstSecondOdd},
+ first_second_even  = first_second_even + #{commonStake.firstSecondEven},
+ first_second_big  = first_second_big + #{commonStake.firstSecondBig},
+ first_second_small  = first_second_small + #{commonStake.firstSecondSmall},
+ first_second_3  = first_second_3 + #{commonStake.firstSecond3},
+ first_second_4  = first_second_4 + #{commonStake.firstSecond4},
+ first_second_5  = first_second_5 + #{commonStake.firstSecond5},
+ first_second_6  = first_second_6 + #{commonStake.firstSecond6},
+ first_second_7  = first_second_7 + #{commonStake.firstSecond7},
+ first_second_8  = first_second_8 + #{commonStake.firstSecond8},
+ first_second_9  = first_second_9 + #{commonStake.firstSecond9},
+ first_second_10  = first_second_10 + #{commonStake.firstSecond10},
+ first_second_11  = first_second_11 + #{commonStake.firstSecond11},
+ first_second_12  = first_second_12 + #{commonStake.firstSecond12},
+ first_second_13  = first_second_13 + #{commonStake.firstSecond13},
+ first_second_14  = first_second_14 + #{commonStake.firstSecond14},
+ first_second_15  = first_second_15 + #{commonStake.firstSecond15},
+ first_second_16  = first_second_16 + #{commonStake.firstSecond16},
+ first_second_17  = first_second_17 + #{commonStake.firstSecond17},
+ first_second_18  = first_second_18 + #{commonStake.firstSecond18},
+ first_second_19  = first_second_19 + #{commonStake.firstSecond19} 
 WHERE 
- user_id = ${userId}
+ user_id = #{userId}
   	and
-  	racing_num = ${racingNum};
+  	racing_num = #{racingNum};
   
   </update>
   

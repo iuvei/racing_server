@@ -18,15 +18,15 @@
   <update id="updateIncome">
    UPDATE total_day_count_income
 SET
- stake_amount  = stake_amount + ${record.stakeAmount},
- income_amount  = income_amount + ${record.incomeAmount},
+ stake_amount  = stake_amount + #{record.stakeAmount},
+ income_amount  = income_amount + #{record.incomeAmount},
  deficit_amount  = stake_amount - income_amount,
- stake_count  = stake_count + ${record.stakeCount},
- appoint_stake = ${record.appointStake},
- common_stake = ${record.commonStake},
- ranking_stake = ${record.rankingStake}
+ stake_count  = stake_count + #{record.stakeCount},
+ appoint_stake = #{record.appointStake},
+ common_stake = #{record.commonStake},
+ ranking_stake = #{record.rankingStake}
 WHERE  
-day = ${record.day}
+day = #{record.day}
   </update>
   
   <sql id="Example_Where_Clause" >

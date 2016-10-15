@@ -2,26 +2,34 @@ package com.racing.service.stake;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.StakeConfigVo;
 import com.racing.model.po.RecordResult;
+import com.racing.model.po.TotalAppointStake;
 import com.racing.model.po.TotalDayCountIncomeWithBLOBs;
+import com.racing.model.po.UserAppointStake;
 import com.racing.model.po.UserDayCountIncomeWithBLOBs;
+import com.racing.model.po.util.TotalStakeConvertUtil;
+import com.racing.model.po.util.UserStakeConvertUtil;
 import com.racing.model.repo.RecordResultRepo;
+import com.racing.model.repo.TotalAppointStakeRepo;
+import com.racing.model.repo.TotalCommonStakeRepo;
 import com.racing.model.repo.TotalDayCountIncomeRepo;
+import com.racing.model.repo.TotalRankingStakeRepo;
+import com.racing.model.repo.UserAppointStakeRepo;
+import com.racing.model.repo.UserCommonStakeRepo;
 import com.racing.model.repo.UserDayCountIncomeRepo;
-import com.racing.model.stake.AppointStake;
-import com.racing.model.stake.CommonStake;
-import com.racing.model.stake.RankingStake;
+import com.racing.model.repo.UserRankingStakeRepo;
 import com.racing.model.stake.StakeVo;
 import com.racing.model.stake.util.RecordResultPOUtil;
 import com.racing.model.stake.util.StakeVoUtil;
 import com.racing.util.DateUtil;
-import com.racing.util.JsonUtils;
 
 @Service
 public class ConfigService {
@@ -31,6 +39,24 @@ public class ConfigService {
 	
 	@Autowired
 	private TotalDayCountIncomeRepo totalDayCountIncomeRepo;
+	
+	@Autowired
+	private TotalAppointStakeRepo totalAppointStakeRepo;
+	
+	@Autowired
+	private TotalCommonStakeRepo totalCommonStakeRepo;
+	
+	@Autowired
+	private TotalRankingStakeRepo totalRankingStakeRepo;
+	
+	@Autowired
+	private UserAppointStakeRepo userAppointStakeRepo;
+	
+	@Autowired
+	private UserCommonStakeRepo userCommonStakeRepo;
+	
+	@Autowired
+	private UserRankingStakeRepo userRankingStakeRepo;
 	
 	@Autowired
 	private UserDayCountIncomeRepo userDayCountIncomeRepo;
@@ -43,14 +69,13 @@ public class ConfigService {
 	      return ApiResult.createErrorReuslt("暂无比赛！");
 	    }
 	    long betweenTime = DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), nowDate);
-	    if(betweenTime>=280){//下一场比赛距离当前时间超过290秒，则继续上一场比赛，且停止押注操作
-	    	nowDate = DateUtil.addSecond(nowDate, -20);//当前时间-10秒
+	    if(betweenTime>=280){//下一场比赛距离当前时间超过280秒，则继续上一场比赛，且停止押注操作
+	    	nowDate = DateUtil.addSecond(nowDate, -21);//当前时间-10秒
 	    	recordResult = recordResultRepo.getNowNextRecordResult(nowDate);
 	    	result.setStartRacingTime(0L);
 	    	result.setEndStakeTime(0L);
 	    	betweenTime = 10L;
 	    }else{
-	    	result.setRacingNum(recordResult.getRacingNum());
 	    	result.setStartRacingTime(recordResult.getStartTime().getTime() - nowDate.getTime());
 	    	result.setEndStakeTime(result.getStartRacingTime() - 60 * 1000);
 	    }
@@ -63,6 +88,7 @@ public class ConfigService {
 	    		result.setStage(2);// 计算阶段
 	    		result.setStageName("计算阶段");
 	    	} else if (betweenTime > 20 && betweenTime < 40) {
+	    		result.setRacingNum(recordResult.getRacingNum());
 	    		result.setStage(3);// 修改比赛结果阶段
 	    		result.setStageName("操作阶段");
 	    		result.setResult(RecordResultPOUtil.convertResult(recordResult));//计算出来的比赛结果
@@ -73,6 +99,8 @@ public class ConfigService {
 	    	TotalDayCountIncomeWithBLOBs totalDayCountIncomeWithBLOBs = totalDayCountIncomeRepo.getByDay(nowDate);
 	    	if(totalDayCountIncomeWithBLOBs != null){
 	    		result.setTodayIncome(totalDayCountIncomeWithBLOBs.getStakeAmount().subtract(totalDayCountIncomeWithBLOBs.getDeficitAmount()).setScale(2, BigDecimal.ROUND_CEILING));// 今日盈亏，临时死值，需要统计获取
+	    	}else{
+	    		result.setTodayIncome(BigDecimal.ZERO);
 	    	}
 	    }else{//分盘web
 	    	if(isClient){//客户端
@@ -98,6 +126,8 @@ public class ConfigService {
 	    	UserDayCountIncomeWithBLOBs userDayCountIncomeWithBLOBs = userDayCountIncomeRepo.getByDay(nowDate, loginId);
 	    	if(userDayCountIncomeWithBLOBs!=null){
 	    		result.setTodayIncome(userDayCountIncomeWithBLOBs.getTotalStakeAmount().subtract(userDayCountIncomeWithBLOBs.getTotalDeficitAmount()).setScale(2, BigDecimal.ROUND_CEILING));// 今日盈亏，临时死值，需要统计获取
+	    	}else{
+	    		result.setTodayIncome(BigDecimal.ZERO);
 	    	}
 	    }
 
@@ -120,16 +150,18 @@ public class ConfigService {
 	    }
 	    long betweenTime = DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), nowDate);
 	    if(betweenTime>=280){//下一场比赛距离当前时间超过290秒，则继续上一场比赛，且停止押注操作
-	    	nowDate = DateUtil.addSecond(nowDate, -20);//当前时间-10秒
+	    	nowDate = DateUtil.addSecond(nowDate, -21);//当前时间-10秒
 	    	recordResult = recordResultRepo.getNowNextRecordResult(nowDate);
 	    	result.setStartRacingTime(0L);
 	    	result.setEndStakeTime(0L);
 	    	betweenTime = 10L;
 	    }else{
-	    	result.setRacingNum(recordResult.getRacingNum());
 	    	result.setStartRacingTime(recordResult.getStartTime().getTime() - nowDate.getTime());
 	    	result.setEndStakeTime(result.getStartRacingTime() - 60 * 1000);
 	    }
+	    
+	    result.setRacingNum(recordResult.getRacingNum());
+	    
 	    if(isManager){//总盘web
 	    	if (betweenTime > 60) {
 	    		result.setStage(1);// 下注阶段
@@ -148,16 +180,19 @@ public class ConfigService {
 	    	TotalDayCountIncomeWithBLOBs totalDayCountIncomeWithBLOBs = totalDayCountIncomeRepo.getByDay(nowDate);
 	    	if(totalDayCountIncomeWithBLOBs != null){
 	    		result.setTodayIncome(totalDayCountIncomeWithBLOBs.getStakeAmount().subtract(totalDayCountIncomeWithBLOBs.getDeficitAmount()).setScale(2, BigDecimal.ROUND_CEILING));// 今日盈亏，临时死值，需要统计获取
-	    		StakeVo stakeVo = new StakeVo();
-	    		stakeVo.setAppointStakeList(JsonUtils.toObjList(totalDayCountIncomeWithBLOBs.getAppointStake(), AppointStake.class));
-	    		stakeVo.setCommonStake(JsonUtils.toObj(totalDayCountIncomeWithBLOBs.getCommonStake(), CommonStake.class));
-	    		stakeVo.setRankingStakeList(JsonUtils.toObjList(totalDayCountIncomeWithBLOBs.getRankingStake(), RankingStake.class));
-	    		stakeVo.setRacingNum(recordResult.getRacingNum());
-	    		result.setStakeVo(stakeVo);
 	    	}else{
 	    		result.setTodayIncome(BigDecimal.ZERO);
-	    		result.setStakeVo(StakeVoUtil.createNewStake(recordResult.getRacingNum()));
 	    	}
+	    	StakeVo stakeVo = new StakeVo();
+	    	List<TotalAppointStake> appointStakeList = totalAppointStakeRepo.getByRacingNum(recordResult.getRacingNum());
+	    	if(CollectionUtils.isNotEmpty(appointStakeList)){
+	    		stakeVo.setAppointStakeList(TotalStakeConvertUtil.appointStakPoToVo(appointStakeList));
+	    		stakeVo.setCommonStake(TotalStakeConvertUtil.commontStakPoToVo(totalCommonStakeRepo.getRacingNum(recordResult.getRacingNum())));
+	    		stakeVo.setRankingStakeList(TotalStakeConvertUtil.rankingPoToVo(totalRankingStakeRepo.getRacingNum(recordResult.getRacingNum())));
+	    	}else{
+	    		stakeVo = StakeVoUtil.createNewStake(recordResult.getRacingNum());
+	    	}
+	    	result.setStakeVo(stakeVo);
 	    		
 	    }else{//分盘web
 	    	if (betweenTime > 60) {
@@ -170,16 +205,21 @@ public class ConfigService {
 	    	UserDayCountIncomeWithBLOBs userDayCountIncomeWithBLOBs = userDayCountIncomeRepo.getByDay(nowDate, loginId);
 	    	if(userDayCountIncomeWithBLOBs!=null){
 	    		result.setTodayIncome(userDayCountIncomeWithBLOBs.getTotalStakeAmount().subtract(userDayCountIncomeWithBLOBs.getTotalDeficitAmount()).setScale(2, BigDecimal.ROUND_CEILING));// 今日盈亏，临时死值，需要统计获取
-	    		StakeVo stakeVo = new StakeVo();
-	    		stakeVo.setAppointStakeList(JsonUtils.toObjList(userDayCountIncomeWithBLOBs.getAppointStake(), AppointStake.class));
-	    		stakeVo.setCommonStake(JsonUtils.toObj(userDayCountIncomeWithBLOBs.getCommonStake(), CommonStake.class));
-	    		stakeVo.setRankingStakeList(JsonUtils.toObjList(userDayCountIncomeWithBLOBs.getRankingStake(), RankingStake.class));
-	    		stakeVo.setRacingNum(recordResult.getRacingNum());
-	    		result.setStakeVo(stakeVo);
 	    	}else{
 	    		result.setTodayIncome(BigDecimal.ZERO);
-	    		result.setStakeVo(StakeVoUtil.createNewStake(recordResult.getRacingNum()));
 	    	}
+	    	
+	    	StakeVo stakeVo = new StakeVo();
+	    	List<UserAppointStake> appointStakeList = userAppointStakeRepo.getByRacingNumAndUserId(recordResult.getRacingNum(), loginId);
+	    	if(CollectionUtils.isNotEmpty(appointStakeList)){
+	    		stakeVo.setAppointStakeList(UserStakeConvertUtil.appointStakPoToVo(appointStakeList));
+	    		stakeVo.setCommonStake(UserStakeConvertUtil.commontStakPoToVo(userCommonStakeRepo.getByRacingNumAndUserId(recordResult.getRacingNum(), loginId)));
+	    		stakeVo.setRankingStakeList(UserStakeConvertUtil.rankingPoToVo(userRankingStakeRepo.getByRacingNumAndUserId(recordResult.getRacingNum(), loginId)));
+	    	}else{
+	    		stakeVo = StakeVoUtil.createNewStake(recordResult.getRacingNum());
+	    	}
+	    	result.setStakeVo(stakeVo);
+	    	
 	    }
 
 	    RecordResult preRecordResult = recordResultRepo.getNowBeforLastRecordResult(nowDate);

@@ -115,7 +115,7 @@ public class CalculationHandle {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public CalcResultVo dealOptimalCalculation(String racingNum, List<AppointStake> appointStakeList,
+	public CalcResultVo dealOptimalCalculation(List<AppointStake> appointStakeList,
 			CommonStake commonStake, List<RankingStake> rankingStakeList) {
 		Map<Integer, Map<Integer, BigDecimal>> appointStakeMap = this.convertAppointStake(appointStakeList);
 		Map<Integer, RankingStake> rankingStakeMap = this.convertRankingStake(rankingStakeList);
@@ -123,7 +123,7 @@ public class CalculationHandle {
 		CalcResultVo preCalcResult = new CalcResultVo();
 		Map<String, Object> calcResultMap;
 		for (Integer[] result : allResult) {
-			calcResultMap = this.dealCalculation(result, racingNum, appointStakeMap, rankingStakeMap, commonStake,
+			calcResultMap = this.dealCalculation(result, appointStakeMap, rankingStakeMap, commonStake,
 					preCalcResult, calcResultList);
 			preCalcResult = (CalcResultVo) calcResultMap.get("calcResultVo");
 			calcResultList = ((ArrayList<Integer[]>) calcResultMap.get("calcResultList"));
@@ -172,7 +172,7 @@ public class CalculationHandle {
 	 * @param commonStake
 	 * @return
 	 */
-	private Map<String, Object> dealCalculation(Integer[] result, String racingNum,
+	private Map<String, Object> dealCalculation(Integer[] result,
 			Map<Integer, Map<Integer, BigDecimal>> appointStakeMap, Map<Integer, RankingStake> rankingStakeMap,
 			CommonStake commonStake, CalcResultVo preCalcResult, List<Integer[]> calcResultList) {
 		BigDecimal preResultAmount = preCalcResult.getPreResultAmount();

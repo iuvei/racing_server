@@ -14,14 +14,14 @@
   <update id="updateStake">
   	UPDATE total_ranking_stake
 SET
- big  = big + ${rankingStake.big},
- small  = small + ${rankingStake.small},
- odd  = odd + ${rankingStake.odd},
- even  = even + ${rankingStake.even}
+ big  = big + #{rankingStake.big},
+ small  = small + #{rankingStake.small},
+ odd  = odd + #{rankingStake.odd},
+ even  = even + #{rankingStake.even}
 WHERE  
- racing_num  = ${racingNum}
+ racing_num  = #{racingNum}
  and
- ranking_num  = ${rankingStake.rankingNum};
+ ranking_num  = #{rankingStake.rankingNum};
   	
   </update>
   

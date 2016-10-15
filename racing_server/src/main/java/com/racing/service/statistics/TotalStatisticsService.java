@@ -71,7 +71,7 @@ public class TotalStatisticsService {
 		
 		//------------计算比赛结果------------
 		
-		CalcResultVo result = new CalculationHandle(DefaultRacteConstant.totalDefaultCalcRate).dealOptimalCalculation(recordResult.getRacingNum(), newStakeVo.getAppointStakeList(), newStakeVo.getCommonStake(), newStakeVo.getRankingStakeList());
+		CalcResultVo result = new CalculationHandle(DefaultRacteConstant.totalDefaultCalcRate).dealOptimalCalculation(newStakeVo.getAppointStakeList(), newStakeVo.getCommonStake(), newStakeVo.getRankingStakeList());
 		RecordResult newRecordResult = new RecordResult();
 		newRecordResult.setRacingNum(recordResult.getRacingNum());
 		newRecordResult.setFirst(result.getRacingResult()[0]);
@@ -94,7 +94,7 @@ public class TotalStatisticsService {
 		newRecordResult.setIsFifthUp(result.getIsFifthUp());
 		newRecordResult.setIsComplateCalculation(true);
 		newRecordResult.setComplateCalculationTime(new Date());
-		recordResultRepo.updateRecordResultByRacingNum(recordResult, recordResult.getRacingNum());
+		recordResultRepo.updateRecordResultByRacingNum(newRecordResult, recordResult.getRacingNum());
 		
 	}
 

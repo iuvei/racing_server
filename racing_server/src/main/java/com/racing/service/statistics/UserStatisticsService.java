@@ -111,7 +111,7 @@ public class UserStatisticsService {
 		String racingNum = recordResult.getRacingNum();
 		
 		UserRacingIncome oldUserRacingIncome = userRacingIncomeRepo.selectByRacingNumAndUserId(racingNum, userId);
-		if(oldUserRacingIncome.getIsComplateStatistics()){
+		if(oldUserRacingIncome!=null && oldUserRacingIncome.getIsComplateStatistics()){
 			return;
 		}
 		
