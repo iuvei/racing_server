@@ -16,7 +16,7 @@ public class UserAccountRecordRepo {
     UserAccountRecordMapper mapper;
 
     public int insert(UserAccountRecord userPointsAppRecord) {
-        return mapper.insert(userPointsAppRecord);
+        return mapper.insertSelective(userPointsAppRecord);
     }
 
     public List<UserAccountRecord> selectByUserIdOrState(Integer userId, String status, PageUtil pageUtil) {

@@ -106,6 +106,6 @@ public class UserPointsAppRecordRepo {
   }
 
   public int addUserPointsAppRecord(UserPointsAppRecord userPointsAppRecord) {
-    return mapper.insert(userPointsAppRecord);
+    return mapper.insertSelective(userPointsAppRecord);
   }
 }
