@@ -64,7 +64,9 @@ public class UserPointsAppRecordService {
             return ApiResult.createErrorReuslt("该申请已处理！不能重复处理！");
         }
         if (UserConstant.POINTS_APP_STATUS_AUDIT.equals(status)) {
+            userRepo.updatePoint(userPointsAppRecord.getUserId(), userPointsAppRecord.getAppPoints());
             User user = userRepo.selectById(userPointsAppRecord.getUserId());
+            
             UserAccountRecord userAccountRecord = new UserAccountRecord();
             userAccountRecord.setUserId(userPointsAppRecord.getUserId());
             if (userPointsAppRecord.getAppPoints().compareTo(BigDecimal.ZERO) >= 0) {
