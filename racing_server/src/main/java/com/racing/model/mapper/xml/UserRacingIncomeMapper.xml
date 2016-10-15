@@ -17,6 +17,7 @@
     <result column="total_stake_count" property="totalStakeCount" jdbcType="INTEGER" />
     <result column="user_stake_count" property="userStakeCount" jdbcType="INTEGER" />
     <result column="members_stake_count" property="membersStakeCount" jdbcType="INTEGER" />
+    <result column="is_complate_statistics" property="isComplateStatistics" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   
@@ -103,7 +104,7 @@ racing_num = ${racingIncome.racingNum}
     id, user_id, racing_num, total_stake_amount, user_stake_amount, members_stake_amount, 
     total_income_amount, user_income_amount, members_income_amount, total_deficit_amount, 
     user_deficit_amount, members_deficit_amount, total_stake_count, user_stake_count, 
-    members_stake_count, create_time
+    members_stake_count, is_complate_statistics, create_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.racing.model.po.UserRacingIncomeExample" >
     select
@@ -141,15 +142,15 @@ racing_num = ${racingIncome.racingNum}
       total_income_amount, user_income_amount, members_income_amount, 
       total_deficit_amount, user_deficit_amount, 
       members_deficit_amount, total_stake_count, 
-      user_stake_count, members_stake_count, create_time
-      )
+      user_stake_count, members_stake_count, is_complate_statistics, 
+      create_time)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{racingNum,jdbcType=VARCHAR}, 
       #{totalStakeAmount,jdbcType=DECIMAL}, #{userStakeAmount,jdbcType=DECIMAL}, #{membersStakeAmount,jdbcType=DECIMAL}, 
       #{totalIncomeAmount,jdbcType=DECIMAL}, #{userIncomeAmount,jdbcType=DECIMAL}, #{membersIncomeAmount,jdbcType=DECIMAL}, 
       #{totalDeficitAmount,jdbcType=DECIMAL}, #{userDeficitAmount,jdbcType=DECIMAL}, 
       #{membersDeficitAmount,jdbcType=DECIMAL}, #{totalStakeCount,jdbcType=INTEGER}, 
-      #{userStakeCount,jdbcType=INTEGER}, #{membersStakeCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
-      )
+      #{userStakeCount,jdbcType=INTEGER}, #{membersStakeCount,jdbcType=INTEGER}, #{isComplateStatistics,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.racing.model.po.UserRacingIncome" useGeneratedKeys="true" keyProperty="id" >
     insert into user_racing_income
@@ -198,6 +199,9 @@ racing_num = ${racingIncome.racingNum}
       </if>
       <if test="membersStakeCount != null" >
         members_stake_count,
+      </if>
+      <if test="isComplateStatistics != null" >
+        is_complate_statistics,
       </if>
       <if test="createTime != null" >
         create_time,
@@ -248,6 +252,9 @@ racing_num = ${racingIncome.racingNum}
       </if>
       <if test="membersStakeCount != null" >
         #{membersStakeCount,jdbcType=INTEGER},
+      </if>
+      <if test="isComplateStatistics != null" >
+        #{isComplateStatistics,jdbcType=BIT},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -308,6 +315,9 @@ racing_num = ${racingIncome.racingNum}
       <if test="record.membersStakeCount != null" >
         members_stake_count = #{record.membersStakeCount,jdbcType=INTEGER},
       </if>
+      <if test="record.isComplateStatistics != null" >
+        is_complate_statistics = #{record.isComplateStatistics,jdbcType=BIT},
+      </if>
       <if test="record.createTime != null" >
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -333,6 +343,7 @@ racing_num = ${racingIncome.racingNum}
       total_stake_count = #{record.totalStakeCount,jdbcType=INTEGER},
       user_stake_count = #{record.userStakeCount,jdbcType=INTEGER},
       members_stake_count = #{record.membersStakeCount,jdbcType=INTEGER},
+      is_complate_statistics = #{record.isComplateStatistics,jdbcType=BIT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -383,6 +394,9 @@ racing_num = ${racingIncome.racingNum}
       <if test="membersStakeCount != null" >
         members_stake_count = #{membersStakeCount,jdbcType=INTEGER},
       </if>
+      <if test="isComplateStatistics != null" >
+        is_complate_statistics = #{isComplateStatistics,jdbcType=BIT},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -405,6 +419,7 @@ racing_num = ${racingIncome.racingNum}
       total_stake_count = #{totalStakeCount,jdbcType=INTEGER},
       user_stake_count = #{userStakeCount,jdbcType=INTEGER},
       members_stake_count = #{membersStakeCount,jdbcType=INTEGER},
+      is_complate_statistics = #{isComplateStatistics,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

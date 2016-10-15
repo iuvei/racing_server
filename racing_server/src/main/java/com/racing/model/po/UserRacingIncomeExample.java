@@ -1016,6 +1016,66 @@ public class UserRacingIncomeExample {
             return (Criteria) this;
         }
 
+        public Criteria andIsComplateStatisticsIsNull() {
+            addCriterion("is_complate_statistics is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsComplateStatisticsIsNotNull() {
+            addCriterion("is_complate_statistics is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsComplateStatisticsEqualTo(Boolean value) {
+            addCriterion("is_complate_statistics =", value, "isComplateStatistics");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsComplateStatisticsNotEqualTo(Boolean value) {
+            addCriterion("is_complate_statistics <>", value, "isComplateStatistics");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsComplateStatisticsGreaterThan(Boolean value) {
+            addCriterion("is_complate_statistics >", value, "isComplateStatistics");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsComplateStatisticsGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("is_complate_statistics >=", value, "isComplateStatistics");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsComplateStatisticsLessThan(Boolean value) {
+            addCriterion("is_complate_statistics <", value, "isComplateStatistics");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsComplateStatisticsLessThanOrEqualTo(Boolean value) {
+            addCriterion("is_complate_statistics <=", value, "isComplateStatistics");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsComplateStatisticsIn(List<Boolean> values) {
+            addCriterion("is_complate_statistics in", values, "isComplateStatistics");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsComplateStatisticsNotIn(List<Boolean> values) {
+            addCriterion("is_complate_statistics not in", values, "isComplateStatistics");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsComplateStatisticsBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_complate_statistics between", value1, value2, "isComplateStatistics");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsComplateStatisticsNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_complate_statistics not between", value1, value2, "isComplateStatistics");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("create_time is null");
             return (Criteria) this;

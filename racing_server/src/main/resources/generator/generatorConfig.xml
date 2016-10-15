@@ -27,8 +27,8 @@
 		</table> -->
 		<!-- <table schema="" tableName="member_stake" >
 		</table>-->
-		<table schema="" tableName="record_result" >
-		</table>
+		<!-- <table schema="" tableName="record_result" >
+		</table> -->
 		<!-- 
 		<table schema="" tableName="total_appoint_stake" >
 		</table>
@@ -55,9 +55,10 @@
 		</table> -->
 		<!-- 
 		<table schema="" tableName="user_points_app_record" >
-		</table>
+		</table> -->
 		<table schema="" tableName="user_racing_income" >
 		</table>
+		<!-- 
 		<table schema="" tableName="user_ranking_stake" >
 		</table>
 		<table schema="" tableName="user_stake" >

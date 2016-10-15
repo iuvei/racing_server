@@ -34,6 +34,8 @@ public class UserRacingIncome {
 
     private Integer membersStakeCount;
 
+    private Boolean isComplateStatistics;
+
     private Date createTime;
 
     public Integer getId() {
@@ -154,6 +156,14 @@ public class UserRacingIncome {
 
     public void setMembersStakeCount(Integer membersStakeCount) {
         this.membersStakeCount = membersStakeCount;
+    }
+
+    public Boolean getIsComplateStatistics() {
+        return isComplateStatistics;
+    }
+
+    public void setIsComplateStatistics(Boolean isComplateStatistics) {
+        this.isComplateStatistics = isComplateStatistics;
     }
 
     public Date getCreateTime() {
