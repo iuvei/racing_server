@@ -267,11 +267,10 @@ public class UserService {
     }
 
     public Object getUser(Integer userId) {
-        List<UserInfoVo> result = new ArrayList<UserInfoVo>();
+        UserInfoVo vo = new UserInfoVo();
 
         User user = userRepo.selectById(userId);
         if (user != null) {
-            UserInfoVo vo = new UserInfoVo();
             try {
                 PropertyUtils.copyProperties(vo, user);
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
@@ -287,9 +286,7 @@ public class UserService {
             } else {// 无客户端
                 vo.setIsHaveClient(false);
             }
-            result.add(vo);
         }
-
-        return ApiResult.createSuccessReuslt(result);
+        return ApiResult.createSuccessReuslt(vo);
     }
 }
