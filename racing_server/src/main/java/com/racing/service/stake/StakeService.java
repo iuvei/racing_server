@@ -285,6 +285,7 @@ public class StakeService {
 		racingIncome.setUserIncomeAmount(BigDecimal.ZERO);
 		racingIncome.setUserStakeAmount(userStakeAmount);
 		racingIncome.setUserStakeCount(userStakeCount);
+		racingIncome.setIsComplateStatistics(false);
 		userRacingIncomeRepo.updateIncome(racingIncome);
 	}
 
