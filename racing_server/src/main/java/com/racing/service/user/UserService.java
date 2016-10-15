@@ -52,7 +52,7 @@ public class UserService {
                 if (StringUtil.isNotEmpty(user.getClientSn())) {// 有微信机器人
                     vo.setIsHaveClient(true);
                     if (user.getClientExpireDate().compareTo(new Date()) > 0) {// 未过期
-                        vo.setIsClientExpired(true);
+                        vo.setIsClientExpired(false);
                     } else {// 已过期
                         vo.setIsClientExpired(true);
                     }

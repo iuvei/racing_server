@@ -65,4 +65,11 @@ public class UserIncomeController {
         }
         return userRacingIncomeService.selectByRacingNum(userId, sDate, eDate, racingNum, page);
     }
+
+    @ApiOperation("轮询是否开奖")
+    @RequestMapping(value = "/{userId}/income/racing", method = RequestMethod.GET)
+    public Object selectByRacingNum(@PathVariable Integer userId,
+                                    @RequestParam String racingNum) {
+        return userRacingIncomeService.selectByRacingNum(userId,racingNum);
+    }
 }
