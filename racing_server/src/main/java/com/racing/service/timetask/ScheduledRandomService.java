@@ -12,7 +12,6 @@ import com.racing.model.repo.RecordResultRepo;
 import com.racing.model.repo.TotalAppointStakeRepo;
 import com.racing.model.repo.TotalCommonStakeRepo;
 import com.racing.model.repo.TotalDayCountIncomeRepo;
-import com.racing.model.repo.TotalRacingIncomeRepo;
 import com.racing.model.repo.TotalRankingStakeRepo;
 import com.racing.service.calc.CalculationHandle;
 import com.racing.service.statistics.TotalStatisticsService;
@@ -33,13 +32,13 @@ public class ScheduledRandomService {
   @Autowired
   private TotalAppointStakeRepo appointStakeRepo;
 
-  @Autowired
-  private TotalRacingIncomeRepo totalRacingIncomeRepo; 
+//  @Autowired
+//  private TotalRacingIncomeRepo totalRacingIncomeRepo; 
   
   @Autowired
   private TotalDayCountIncomeRepo totalDayCountIncomeRepo;
   
-  // @Scheduled(cron = "0 56 23 * * ?")
+//  @Scheduled(cron = "0 11 12 * * ?")
   @Scheduled(cron = "0 50 8 * * ?")
   public void reportCurrentTime() {
 
