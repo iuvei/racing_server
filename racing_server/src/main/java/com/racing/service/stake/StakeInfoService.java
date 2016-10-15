@@ -87,11 +87,16 @@ public class StakeInfoService {
 	public ApiResult getManagerStakeInfoByRacingNum(String racingNum){
 		StakeInfoByRacingNumVo result = new StakeInfoByRacingNumVo();
 		RecordResult recordResult = recordResultRepo.getRecordResultByRacingNum(racingNum);
-		if(recordResult == null || recordResult.getStartTime().after(new Date())){
+		if(recordResult == null){
 			return ApiResult.createSuccessReuslt("比赛不存在！");
 		}
+		if(recordResult.getStartTime().after(new Date())){
+			return ApiResult.createSuccessReuslt("暂无比赛结果！");
+		}
 		result.setRacingNum(racingNum);
-		result.setResult(RecordResultPOUtil.convertResult(recordResult));
+		if(DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), new Date())>20){//时间差超过20秒显示开奖结果
+			result.setResult(RecordResultPOUtil.convertResult(recordResult));
+		}
 		
 		TotalRacingIncome totalRacingIncome = totalRacingIncomeRepo.selectByRacingNum(racingNum);
 		if(totalRacingIncome == null){
@@ -176,11 +181,16 @@ public class StakeInfoService {
 	public ApiResult getUserStakeInfoByRacingNum(Integer userId, String racingNum){
 		StakeInfoByRacingNumVo result = new StakeInfoByRacingNumVo();
 		RecordResult recordResult = recordResultRepo.getRecordResultByRacingNum(racingNum);
-		if(recordResult == null || recordResult.getStartTime().after(new Date())){
+		if(recordResult == null){
 			return ApiResult.createSuccessReuslt("比赛不存在！");
 		}
+		if(recordResult.getStartTime().after(new Date())){
+			return ApiResult.createSuccessReuslt("暂无比赛结果！");
+		}
 		result.setRacingNum(racingNum);
-		result.setResult(RecordResultPOUtil.convertResult(recordResult));
+		if(DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), new Date())>20){//时间差超过20秒显示开奖结果
+			result.setResult(RecordResultPOUtil.convertResult(recordResult));
+		}
 		
 		UserRacingIncome userRacingIncome = userRacingIncomeRepo.selectByRacingNumAndUserId(racingNum, userId);
 		if(userRacingIncome == null){
