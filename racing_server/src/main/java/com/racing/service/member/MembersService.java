@@ -77,6 +77,7 @@ public class MembersService {
                 MembersAccountRecord membersAccountRecord = new MembersAccountRecord();
                 membersAccountRecord.setMembersId(members.getId());
                 membersAccountRecord.setOperationPoints(updatePoints);
+                membersAccountRecord.setResultPoints(members.getPoints());
                 membersAccountRecord.setOperationTime(new Date());
                 membersAccountRecord.setType(type);
                 membersAccountRecordRepo.add(membersAccountRecord);
