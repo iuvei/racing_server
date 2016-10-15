@@ -56,7 +56,7 @@ public class MembersController {
             return ApiResult.createErrorReuslt("先登录");
         }
         return membersService.updatePoint(userId, membersVo.getWechatSn(),
-            membersVo.getNickName(), membersVo.getUpdatePoints().subtract(membersVo.getUpdatePoints().multiply(new BigDecimal(2))), "SUBTRACT");
+            membersVo.getNickName(), membersVo.getUpdatePoints().negate(), "SUBTRACT");
     }
 
     @ApiOperation("客户端-查询积分记录")
