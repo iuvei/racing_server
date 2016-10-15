@@ -1,11 +1,16 @@
 package com.racing.controller.user;
 
+import com.racing.controller.vo.ApiResult;
 import com.racing.service.manager.UserDayCountIncomeService;
 import com.racing.service.manager.UserRacingIncomeService;
+import com.racing.service.stake.RecordResultService;
 import com.racing.util.LoginStatusSaveUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 
@@ -17,6 +22,8 @@ public class UserIncomeController {
     UserDayCountIncomeService userDayCountIncomeService;
     @Autowired
     UserRacingIncomeService userRacingIncomeService;
+    @Autowired
+    RecordResultService recordResultService;
 
     /**
      * 分盘盈亏报表按日期查询
@@ -67,9 +74,12 @@ public class UserIncomeController {
     }
 
     @ApiOperation("轮询是否开奖")
-    @RequestMapping(value = "/{userId}/income/racing", method = RequestMethod.GET)
-    public Object selectByRacingNum(@PathVariable Integer userId,
-                                    @RequestParam String racingNum) {
-        return userRacingIncomeService.selectByRacingNum(userId,racingNum);
+    @RequestMapping(value = "/record/result", method = RequestMethod.GET)
+    public Object selectByRacingNum(@RequestParam String racingNum) {
+        Integer userId = LoginStatusSaveUtil.getUserClientId();
+        if (userId == null) {
+            return ApiResult.createErrorReuslt("先登录");
+        }
+        return recordResultService.selectByRacingNum(userId, racingNum);
     }
 }

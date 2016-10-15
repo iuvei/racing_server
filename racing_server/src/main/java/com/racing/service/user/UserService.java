@@ -7,8 +7,10 @@ import com.racing.controller.vo.manager.UserIdVO;
 import com.racing.controller.vo.manager.UserInfoVo;
 import com.racing.model.po.User;
 import com.racing.model.po.UserAccountRecord;
+import com.racing.model.po.WechatClient;
 import com.racing.model.repo.UserAccountRecordRepo;
 import com.racing.model.repo.UserRepo;
+import com.racing.model.repo.WechatClientRepo;
 import com.racing.util.EncryptUtil;
 import com.racing.util.PageUtil;
 import jodd.util.StringUtil;
@@ -35,6 +37,8 @@ public class UserService {
     UserRepo userRepo;
     @Autowired
     UserAccountRecordRepo userAccountRecordRepo;
+    @Autowired
+    WechatClientRepo wechatClientRepo;
 
 
     public ApiResult getUserList(String nicName, Integer userId) {
@@ -201,6 +205,33 @@ public class UserService {
         if (StringUtil.isNotEmpty(clientSn)) {
             user.setClientSn(clientSn);
             user.setClientIsEnable(true);
+            WechatClient wechatClient = new WechatClient();
+            wechatClient.setAppointStakeRate(new BigDecimal("9.7"));
+            wechatClient.setRankingStakeRate(new BigDecimal("1.94"));
+            wechatClient.setUpOrDownRate(new BigDecimal("1.94"));
+            wechatClient.setFirstAddSecondOddRate(new BigDecimal("1.63"));
+            wechatClient.setFirstAddSecondEvenRate(new BigDecimal("2"));
+            wechatClient.setFirstAddSecondBigRate(new BigDecimal("2"));
+            wechatClient.setFirstAddSecondSmallRate(new BigDecimal("1.63"));
+            wechatClient.setFirstAddSecondAppoint3StakeRate(new BigDecimal("41"));
+            wechatClient.setFirstAddSecondAppoint4StakeRate(new BigDecimal("41"));
+            wechatClient.setFirstAddSecondAppoint5StakeRate(new BigDecimal("21"));
+            wechatClient.setFirstAddSecondAppoint6StakeRate(new BigDecimal("21"));
+            wechatClient.setFirstAddSecondAppoint7StakeRate(new BigDecimal("12"));
+            wechatClient.setFirstAddSecondAppoint8StakeRate(new BigDecimal("12"));
+            wechatClient.setFirstAddSecondAppoint9StakeRate(new BigDecimal("10.3"));
+            wechatClient.setFirstAddSecondAppoint10StakeRate(new BigDecimal("10.3"));
+            wechatClient.setFirstAddSecondAppoint11StakeRate(new BigDecimal("8.3"));
+            wechatClient.setFirstAddSecondAppoint12StakeRate(new BigDecimal("10.3"));
+            wechatClient.setFirstAddSecondAppoint13StakeRate(new BigDecimal("10.3"));
+            wechatClient.setFirstAddSecondAppoint14StakeRate(new BigDecimal("12"));
+            wechatClient.setFirstAddSecondAppoint15StakeRate(new BigDecimal("12"));
+            wechatClient.setFirstAddSecondAppoint16StakeRate(new BigDecimal("21"));
+            wechatClient.setFirstAddSecondAppoint17StakeRate(new BigDecimal("21"));
+            wechatClient.setFirstAddSecondAppoint18StakeRate(new BigDecimal("41"));
+            wechatClient.setFirstAddSecondAppoint19StakeRate(new BigDecimal("41"));
+            wechatClient.setUserId(userId);
+            wechatClientRepo.add(wechatClient);
         }
         int result = userRepo.updateUser(user);
         if (result == 1) {
@@ -264,5 +295,29 @@ public class UserService {
             return ApiResult.createErrorReuslt("分盘不存在");
         }
         return null;
+    }
+
+    public Object getUser(Integer userId) {
+        UserInfoVo vo = new UserInfoVo();
+
+        User user = userRepo.selectById(userId);
+        if (user != null) {
+            try {
+                PropertyUtils.copyProperties(vo, user);
+            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                LOGGER.error("拷贝bean出现异常！", e);
+            }
+            if (StringUtil.isNotEmpty(user.getClientSn())) {// 有微信机器人
+                vo.setIsHaveClient(true);
+                if (user.getClientExpireDate().compareTo(new Date()) > 0) {// 未过期
+                    vo.setIsClientExpired(false);
+                } else {// 已过期
+                    vo.setIsClientExpired(true);
+                }
+            } else {// 无客户端
+                vo.setIsHaveClient(false);
+            }
+        }
+        return ApiResult.createSuccessReuslt(vo);
     }
 }

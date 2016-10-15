@@ -3,7 +3,7 @@ package com.racing.model.repo;
 import com.racing.model.mapper.WechatClientMapper;
 import com.racing.model.po.WechatClient;
 import com.racing.model.po.WechatClientExample;
-import com.racing.util.PageUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,15 +14,21 @@ public class WechatClientRepo {
     @Autowired
     WechatClientMapper mapper;
 
-    public List<WechatClient> select(Integer userId, PageUtil pageUtil) {
+    public WechatClient select(Integer userId) {
         WechatClientExample example = new WechatClientExample();
-        WechatClientExample.Criteria criteria = example.createCriteria().andUserIdEqualTo(userId);
-        example.setOrderByClause(" id desc " + pageUtil.getLimit());
+        example.createCriteria().andUserIdEqualTo(userId);
         List<WechatClient> list = mapper.selectByExample(example);
-        return list;
+        if (CollectionUtils.isNotEmpty(list)) {
+            return list.get(0);
+        }
+        return null;
     }
 
     public int update(WechatClient wechatClient) {
         return mapper.updateByPrimaryKey(wechatClient);
+    }
+
+    public int add(WechatClient wechatClient) {
+        return mapper.insertSelective(wechatClient);
     }
 }

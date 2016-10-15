@@ -28,6 +28,7 @@ public class MembersService {
     @Autowired
     UserRepo userRepo;
 
+
     public Object select(Integer userId, String nickname, Integer page) {
         List<Members> membersList = membersRepo.select(userId, nickname, PageUtil.createPage(page, 15));
         return ApiResult.createSuccessReuslt(membersList);
