@@ -18,7 +18,7 @@
   </resultMap>
   
   <update id="updateIncome">
-  UPDATE total_racing_income
+  UPDATE user_stake
 SET
  total_stake_amount  = total_stake_amount + #{record.totalStakeAmount},
  total_income_amount  = total_income_amount + #{record.totalIncomeAmount},
