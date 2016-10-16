@@ -79,7 +79,7 @@ public class ConfigService {
 	    	result.setStartRacingTime(recordResult.getStartTime().getTime() - nowDate.getTime());
 	    	result.setEndStakeTime(result.getStartRacingTime() - 60 * 1000);
 	    }
-	    
+	    result.setRacingNum(recordResult.getRacingNum());
 	    if(isManager){//总盘web
 	    	if (betweenTime > 60) {
 	    		result.setStage(1);// 下注阶段
@@ -88,7 +88,6 @@ public class ConfigService {
 	    		result.setStage(2);// 计算阶段
 	    		result.setStageName("计算阶段");
 	    	} else if (betweenTime > 20 && betweenTime < 40) {
-	    		result.setRacingNum(recordResult.getRacingNum());
 	    		result.setStage(3);// 修改比赛结果阶段
 	    		result.setStageName("操作阶段");
 	    		result.setResult(RecordResultPOUtil.convertResult(recordResult));//计算出来的比赛结果
