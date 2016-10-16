@@ -59,7 +59,7 @@ public class UserDayCountIncomeRepo {
 
 	public void updateIncome(UserDayCountIncomeWithBLOBs record) {
 		UserDayCountIncomeExample example = new UserDayCountIncomeExample();
-		example.createCriteria().andDayEqualTo(record.getDay()).andUserIdEqualTo(record.getId());
+		example.createCriteria().andDayEqualTo(record.getDay()).andUserIdEqualTo(record.getUserId());
 		List<UserDayCountIncomeWithBLOBs> list = mapper.selectByExampleWithBLOBs(example);
 		if (CollectionUtils.isEmpty(list)) {
 			record.setMembersDeficitAmount(record.getMembersIncomeAmount().subtract(record.getMembersStakeAmount()));
@@ -73,7 +73,7 @@ public class UserDayCountIncomeRepo {
 
 	public void updateIncomeWithoutStake(UserDayCountIncomeWithBLOBs record) {
 		UserDayCountIncomeExample example = new UserDayCountIncomeExample();
-		example.createCriteria().andDayEqualTo(record.getDay()).andUserIdEqualTo(record.getId());
+		example.createCriteria().andDayEqualTo(record.getDay()).andUserIdEqualTo(record.getUserId());
 		List<UserDayCountIncomeWithBLOBs> list = mapper.selectByExampleWithBLOBs(example);
 		if (CollectionUtils.isEmpty(list)) {
 			record.setMembersDeficitAmount(record.getMembersIncomeAmount().subtract(record.getMembersStakeAmount()));
