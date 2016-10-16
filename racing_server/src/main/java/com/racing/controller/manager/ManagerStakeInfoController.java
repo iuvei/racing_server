@@ -39,7 +39,7 @@ public class ManagerStakeInfoController {
 	}
 
 	@ApiOperation("总盘--分盘押注报表—-押注情况-按日期查")
-	@RequestMapping(value = "/manager/user/{userId/stake/day/info", method = RequestMethod.GET)
+	@RequestMapping(value = "/manager/user/{userId}/stake/day/info", method = RequestMethod.GET)
 	public Object getUserStakeInfoByDay(@RequestParam("day")String day, @PathVariable("userId")Integer userId) throws ParseException{
 		return stakeInfoService.getUserStakeInfoByDay(userId, day);
 	}
