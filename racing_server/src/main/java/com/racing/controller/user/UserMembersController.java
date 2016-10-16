@@ -54,7 +54,7 @@ public class UserMembersController {
     @RequestMapping(value = "/members/income/day", method = RequestMethod.GET)
     public Object selectByDate(@RequestParam(required = false) String startDate,
                                @RequestParam(required = false) String endDate,
-                               @RequestParam(required = false) String nickname,
+                               @RequestParam(required = false) String nickName,
                                @RequestParam(required = false, defaultValue = "1") Integer page) {
         Integer userId = LoginStatusSaveUtil.getUserWebId();
         Date sDate = null;
@@ -63,7 +63,7 @@ public class UserMembersController {
             sDate = new Date(Long.valueOf(startDate));
             eDate = new Date(Long.valueOf(endDate));
         }
-        return membersRacingIncomeService.selectByDate(userId, nickname, sDate, eDate, page);
+        return membersRacingIncomeService.selectByDate(userId, nickName, sDate, eDate, page);
     }
 
     @ApiOperation("分盘-玩家管理-玩家报表-按日期")
@@ -71,7 +71,7 @@ public class UserMembersController {
     public Object selectByRacing(@RequestParam(required = false) String startDate,
                                  @RequestParam(required = false) String endDate,
                                  @RequestParam(required = false) String racingNum,
-                                 @RequestParam(required = false) String nickname,
+                                 @RequestParam(required = false) String nickName,
                                  @RequestParam(required = false, defaultValue = "1") Integer page) {
         Integer userId = LoginStatusSaveUtil.getUserWebId();
         Date sDate = null;
@@ -80,7 +80,7 @@ public class UserMembersController {
             sDate = new Date(Long.valueOf(startDate));
             eDate = new Date(Long.valueOf(endDate));
         }
-        return membersRacingIncomeService.selectByRacingNum(userId, nickname, sDate, eDate, racingNum, page);
+        return membersRacingIncomeService.selectByRacingNum(userId, nickName, sDate, eDate, racingNum, page);
     }
 
     @ApiOperation("模糊查询昵称列表")
