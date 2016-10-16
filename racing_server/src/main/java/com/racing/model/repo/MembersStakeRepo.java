@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.racing.model.mapper.MemberStakeMapper;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -17,6 +18,7 @@ public class MembersStakeRepo {
 
 
     public MemberStake addNew(MemberStakeWithBLOBs memberStake) {
+    	memberStake.setCreateTime(new Date());
         mapper.insertSelective(memberStake);
         return memberStake;
     }
