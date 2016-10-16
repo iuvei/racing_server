@@ -88,6 +88,109 @@ public class StakeVoUtil {
       } else {
         commonStake.setFifthDowm(BigDecimal.ZERO);
       }
+
+      if (commonStake.getFirstSecond3() != null && commonStake.getFirstSecond3().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond3());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond3(BigDecimal.ZERO);
+      }
+      if (commonStake.getFirstSecond4() != null && commonStake.getFirstSecond4().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond4());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond4(BigDecimal.ZERO);
+      }
+      if (commonStake.getFirstSecond5() != null && commonStake.getFirstSecond5().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond5());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond5(BigDecimal.ZERO);
+      }
+      if (commonStake.getFirstSecond6() != null && commonStake.getFirstSecond6().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond6());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond6(BigDecimal.ZERO);
+      }
+      if (commonStake.getFirstSecond7() != null && commonStake.getFirstSecond7().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond7());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond7(BigDecimal.ZERO);
+      }
+      if (commonStake.getFirstSecond8() != null && commonStake.getFirstSecond8().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond8());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond8(BigDecimal.ZERO);
+      }
+      if (commonStake.getFirstSecond9() != null && commonStake.getFirstSecond9().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond9());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond9(BigDecimal.ZERO);
+      }
+      if (commonStake.getFirstSecond10() != null && commonStake.getFirstSecond10().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond10());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond10(BigDecimal.ZERO);
+      }
+      if (commonStake.getFirstSecond11() != null && commonStake.getFirstSecond11().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond11());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond11(BigDecimal.ZERO);
+      }
+      if (commonStake.getFirstSecond12() != null && commonStake.getFirstSecond12().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond12());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond12(BigDecimal.ZERO);
+      }
+      if (commonStake.getFirstSecond13() != null && commonStake.getFirstSecond13().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond13());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond13(BigDecimal.ZERO);
+      }
+      if (commonStake.getFirstSecond14() != null && commonStake.getFirstSecond14().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond14());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond14(BigDecimal.ZERO);
+      }
+      if (commonStake.getFirstSecond15() != null && commonStake.getFirstSecond15().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond15());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond15(BigDecimal.ZERO);
+      }
+      if (commonStake.getFirstSecond16() != null && commonStake.getFirstSecond16().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond16());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond16(BigDecimal.ZERO);
+      }
+      if (commonStake.getFirstSecond17() != null && commonStake.getFirstSecond17().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond17());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond17(BigDecimal.ZERO);
+      }
+      if (commonStake.getFirstSecond18() != null && commonStake.getFirstSecond18().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond18());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond18(BigDecimal.ZERO);
+      }
+      if (commonStake.getFirstSecond19() != null && commonStake.getFirstSecond19().compareTo(BigDecimal.ZERO) > 0) {
+    	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecond19());
+    	  totalStakeCount++;
+      } else {
+    	  commonStake.setFirstSecond19(BigDecimal.ZERO);
+      }
     }
 
     List<AppointStake> appointStakeList = stakeVo.getAppointStakeList();

@@ -1,5 +1,6 @@
 package com.racing.model.repo;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -38,6 +39,7 @@ public class UserStakeRepo {
 	
 	public void addNew(UserStakeWithBLOBs userStake){
 		userStake.setId(null);
+		userStake.setCreateTime(new Date());
 		mapper.insertSelective(userStake);
 	}
 	
@@ -48,6 +50,7 @@ public class UserStakeRepo {
 			record.setAppointStake(JsonUtils.toJsonHasNullKey(stakeVo.getAppointStakeList()));
 			record.setCommonStake(JsonUtils.toJsonHasNullKey(stakeVo.getCommonStake()));
 			record.setRankingStake(JsonUtils.toJsonHasNullKey(stakeVo.getRankingStakeList()));
+			record.setCreateTime(new Date());
 			mapper.insertSelective(record);
 		}else{
 			mapper.updateIncome(record);
