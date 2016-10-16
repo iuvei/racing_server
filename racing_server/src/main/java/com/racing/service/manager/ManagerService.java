@@ -71,10 +71,7 @@ public class ManagerService {
     }
     if (vo.getPassword() != null) {
       manager.setPassword(EncryptUtil.md5AndSha1Upcase(vo.getPassword()));
-      if (nowLoginManagerId != managerId) {
-        manager.setWebOutTime(new Date());// 超时时间为当前时间，强制该管理员重新登录
-        return ApiResult.createErrorReuslt("登录超时");
-      }
+    manager.setWebOutTime(new Date());// 超时时间为当前时间，强制该管理员重新登录
     }
 
     managerRepo.update(manager);
