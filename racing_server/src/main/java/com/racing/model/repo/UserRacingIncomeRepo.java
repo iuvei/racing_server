@@ -27,7 +27,7 @@ public class UserRacingIncomeRepo {
             criteria.andCreateTimeGreaterThanOrEqualTo(startDate);
         }
         if (endDate != null) {
-            criteria.andCreateTimeLessThanOrEqualTo(startDate);
+            criteria.andCreateTimeLessThanOrEqualTo(endDate);
         }
         if (StringUtil.isNotEmpty(racingNum)) {
             criteria.andRacingNumEqualTo(racingNum);
@@ -43,7 +43,7 @@ public class UserRacingIncomeRepo {
             criteria.andCreateTimeGreaterThanOrEqualTo(startDate);
         }
         if (endDate != null) {
-            criteria.andCreateTimeLessThanOrEqualTo(startDate);
+            criteria.andCreateTimeLessThanOrEqualTo(endDate);
         }
         if (StringUtil.isNotEmpty(racingNum)) {
             criteria.andRacingNumEqualTo(racingNum);

@@ -161,7 +161,7 @@ public class CalculationHandle {
 			List<RankingStake> rankingStakeList) {
 		Map<Integer, Map<Integer, BigDecimal>> appointStakeMap = this.convertAppointStake(appointStakeList);
 		Map<Integer, RankingStake> rankingStakeMap = this.convertRankingStake(rankingStakeList);
-		return this.dealCalculation(result, appointStakeMap, rankingStakeMap, commonStake);
+		return this.dealCalculation(result, appointStakeMap, rankingStakeMap, commonStake).setScale(0, BigDecimal.ROUND_DOWN);
 	}
 	
 	/**

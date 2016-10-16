@@ -63,9 +63,22 @@ public class MembersService {
     @Transactional(rollbackFor = Exception.class)
     public Object updatePoint(Integer userId, String wechatSn,
                               String nickName, BigDecimal updatePoints, String type) {
+    	boolean isAdd = false;
+    	if(updatePoints.compareTo(BigDecimal.ZERO)>0){
+    		isAdd = true;
+    	}
+    	User user = userRepo.selectById(userId);
+    	if(isAdd){//上分需要判断分盘结余积分是否足够
+    		if(user.getUserPoints().subtract(updatePoints).compareTo(BigDecimal.ZERO)<0){
+    			return ApiResult.createErrorReuslt("分盘当前积分不足，无法上分");
+    		}
+    	}
         userRepo.updatePoint(userId, updatePoints.negate(), updatePoints);
         Members members = membersRepo.selectPoint(userId, wechatSn);
         if (members == null) {
+        	if(!isAdd){//用户不存在时，操作是下分，则不执行任何信息
+        		return ApiResult.createErrorReuslt("新玩家无法进行下分操作");
+        	}
             members = new Members();
             members.setUserId(userId);
             members.setWechatSn(wechatSn);
@@ -89,7 +102,7 @@ public class MembersService {
         		}else{
         			userAccountRecord.setType(UserConstant.ACCOUNT_RECORD_TYPE_USER_SUBTRACT);
         		}
-        		User user = userRepo.selectById(userId);
+        		user = userRepo.selectById(userId);
         		userAccountRecord.setOperationTotalPoints(BigDecimal.ZERO);
         		userAccountRecord.setResultTotalPoints(user.getTotalPoints());
         		userAccountRecord.setOperationUserPoints(updatePoints.negate());
@@ -103,6 +116,11 @@ public class MembersService {
             }
             return ApiResult.createErrorReuslt("异常");
         } else {
+        	if(!isAdd){//下分操作，判断玩家积分是否足够
+        		if(members.getPoints().compareTo(updatePoints.negate())<0){
+        			return ApiResult.createErrorReuslt("玩家积分不足，无法执行下分操作");
+        		}
+        	}
             members.setNickName(nickName);
             members.setPoints(members.getPoints().add(updatePoints));
             membersRepo.updateMember(members);
@@ -122,7 +140,7 @@ public class MembersService {
     		}else{
     			userAccountRecord.setType(UserConstant.ACCOUNT_RECORD_TYPE_USER_SUBTRACT);
     		}
-    		User user = userRepo.selectById(userId);
+    		user = userRepo.selectById(userId);
     		userAccountRecord.setOperationTotalPoints(BigDecimal.ZERO);
     		userAccountRecord.setResultTotalPoints(user.getTotalPoints());
     		userAccountRecord.setOperationUserPoints(updatePoints.negate());

@@ -33,7 +33,7 @@ public class TotalDayCountIncomeRepo {
             criteria.andDayGreaterThanOrEqualTo(startDate);
         }
         if (StringUtil.isNotEmpty(endDate)) {
-            criteria.andDayLessThanOrEqualTo(startDate);
+            criteria.andDayLessThanOrEqualTo(endDate);
         }
         example.setOrderByClause(" day desc " + page.getLimit());
         return mapper.selectByExample(example);
@@ -47,7 +47,7 @@ public class TotalDayCountIncomeRepo {
             criteria.andDayGreaterThanOrEqualTo(startDate);
         }
         if (StringUtil.isNotEmpty(endDate)) {
-            criteria.andDayLessThanOrEqualTo(startDate);
+            criteria.andDayLessThanOrEqualTo(endDate);
         }
         return mapper.countByExample(example);
     }
