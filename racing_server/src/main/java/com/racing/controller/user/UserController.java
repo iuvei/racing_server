@@ -36,13 +36,6 @@ public class UserController {
         return userService.getUserPoint(userId);
     }
 
-    @ApiOperation("模糊查询昵称列表")
-    @RequestMapping(value = "/nicname", method = RequestMethod.GET)
-    public Object selectNicName(@RequestParam String nicName) {
-        Integer userId = LoginStatusSaveUtil.getUserWebId();
-        return userService.selectNicName(userId, nicName);
-    }
-
     @ApiOperation("分盘-机器人管理-是否报盘")
     @RequestMapping(value = "/robot/enable", method = RequestMethod.PUT)
     public Object robotIsEnable(@RequestBody UserVo userVo) {

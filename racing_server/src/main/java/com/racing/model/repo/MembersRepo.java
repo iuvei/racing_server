@@ -78,5 +78,4 @@ public class MembersRepo {
     	example.createCriteria().andUserIdEqualTo(userId);
     	return mapper.selectByExample(example);
     }
-    
 }

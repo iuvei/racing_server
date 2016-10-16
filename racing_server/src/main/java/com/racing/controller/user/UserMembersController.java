@@ -77,4 +77,11 @@ public class UserMembersController {
         }
         return userRacingIncomeService.selectByRacingNum(userId, sDate, eDate, racingNum, page);
     }
+
+    @ApiOperation("模糊查询昵称列表")
+    @RequestMapping(value = "/members/nicname", method = RequestMethod.GET)
+    public Object selectNicName(@RequestParam String nicName) {
+        Integer userId = LoginStatusSaveUtil.getUserWebId();
+        return membersService.selectNicName(userId, nicName);
+    }
 }

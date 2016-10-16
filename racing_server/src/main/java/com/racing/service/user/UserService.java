@@ -8,6 +8,7 @@ import com.racing.controller.vo.manager.UserInfoVo;
 import com.racing.model.po.User;
 import com.racing.model.po.UserAccountRecord;
 import com.racing.model.po.WechatClient;
+import com.racing.model.repo.MembersRepo;
 import com.racing.model.repo.UserAccountRecordRepo;
 import com.racing.model.repo.UserRepo;
 import com.racing.model.repo.WechatClientRepo;
@@ -39,6 +40,8 @@ public class UserService {
     UserAccountRecordRepo userAccountRecordRepo;
     @Autowired
     WechatClientRepo wechatClientRepo;
+    @Autowired
+    MembersRepo membersRepo;
 
 
     public ApiResult getUserList(String nicName, Integer userId) {
@@ -286,15 +289,6 @@ public class UserService {
             e.printStackTrace();
         }
         return ApiResult.createSuccessReuslt(userPointsInfoVO);
-    }
-
-    //todo
-    public Object selectNicName(Integer userId, String nicName) {
-        User user = userRepo.selectById(userId);
-        if (null == user) {
-            return ApiResult.createErrorReuslt("分盘不存在");
-        }
-        return null;
     }
 
     public Object getUser(Integer userId) {
