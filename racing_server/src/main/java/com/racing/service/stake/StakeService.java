@@ -169,10 +169,16 @@ public class StakeService {
 		if (stakeList != null) {
 			for (MemberStakeVo stake : stakeList) {
 				StakeCountInfoVo countInfoVo = this.invokeMemberStake(stake, userId, operationDate);
+				if(countInfoVo == null){
+					continue;
+				}
 				totalStakeAmount = totalStakeAmount.add(countInfoVo.getTotalStakeAmount());
 				totalStakeCount = totalStakeCount + countInfoVo.getTotalStakeCount();
 				userTotalStakeVo = StakeVoUtil.stakeAdd(userTotalStakeVo, stake.getStakeVo());
 			}
+		}
+		if(totalStakeAmount.compareTo(BigDecimal.ZERO) == 0 && totalStakeCount == 0){
+			return ApiResult.createSuccessReuslt();
 		}
 		// --------玩家处理---------结束---------
 
@@ -392,6 +398,9 @@ public class StakeService {
 			}
 
 			StakeVo stakeVo = stake.getStakeVo();
+			if(stakeVo == null){
+				return null;
+			}
 			StakeCountInfoVo stakeCountInfoVo = StakeVoUtil.getStakeCountInfo(stakeVo);
 			totalStakeAmount = stakeCountInfoVo.getTotalStakeAmount();
 			totalStakeCount = stakeCountInfoVo.getTotalStakeCount();
