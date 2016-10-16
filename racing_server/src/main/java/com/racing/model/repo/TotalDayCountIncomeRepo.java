@@ -74,9 +74,18 @@ public class TotalDayCountIncomeRepo {
     	record.setIncomeAmount(BigDecimal.ZERO);
     	record.setStakeAmount(BigDecimal.ZERO);
     	record.setStakeCount(0);
+    	mapper.insertSelective(record);
     }
     
     public void updateIncome(TotalDayCountIncomeWithBLOBs record){
-    	mapper.updateIncome(record);
+    	TotalDayCountIncomeExample example = new TotalDayCountIncomeExample();
+    	example.createCriteria().andDayEqualTo(record.getDay());
+    	List<TotalDayCountIncomeWithBLOBs> list = mapper.selectByExampleWithBLOBs(example);
+    	if(CollectionUtils.isEmpty(list)){
+    		record.setDeficitAmount(record.getStakeAmount().subtract(record.getIncomeAmount()));
+    		mapper.insertSelective(record);
+    	}else{
+    		mapper.updateIncome(record);
+    	}
     }
 }
