@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,43 +112,48 @@ public class StakeInfoService {
 			result.setStakeCount(totalRacingIncome.getStakeCount());
 		}
 		
-		List<TotalAppointStake> totalAppointStakeList = totalAppointStakeRepo.getByRacingNum(racingNum);
-		List<AppointStake> appointStakeList = new ArrayList<AppointStake>();
-		for(TotalAppointStake totalAppointStake : totalAppointStakeList){
-			AppointStake appointStake = new AppointStake();
-			 try {
-                 PropertyUtils.copyProperties(appointStake, totalAppointStake);
-             } catch (Exception e) {
-                 LOGGER.error("拷贝属性出现异常", e);
-             }
-			 appointStakeList.add(appointStake);
-		}
-		
-		TotalCommonStake totalCommonStake = totalCommonStakeRepo.getRacingNum(racingNum);
-		CommonStake commonStake = new CommonStake();
-		try {
-            PropertyUtils.copyProperties(commonStake, totalCommonStake);
-        } catch (Exception e) {
-            LOGGER.error("拷贝属性出现异常", e);
-        }
-		
-		List<TotalRankingStake> totalRankingStakeList = totalRankingStakeRepo.getRacingNum(racingNum);
-		List<RankingStake> rankingStakeList = new ArrayList<RankingStake>();
-		for(TotalRankingStake totalRankingStake : totalRankingStakeList){
-			RankingStake rankingStake = new RankingStake();
-			try {
-                PropertyUtils.copyProperties(rankingStake, totalRankingStake);
-            } catch (Exception e) {
-                LOGGER.error("拷贝属性出现异常", e);
-            }
-			rankingStakeList.add(rankingStake);
-		}
-		
 		StakeVo stakeVo = new StakeVo();
-		stakeVo.setRacingNum(racingNum);
-		stakeVo.setAppointStakeList(appointStakeList);
-		stakeVo.setCommonStake(commonStake);
-		stakeVo.setRankingStakeList(rankingStakeList);
+		List<TotalAppointStake> totalAppointStakeList = totalAppointStakeRepo.getByRacingNum(racingNum);
+		if(CollectionUtils.isNotEmpty(totalAppointStakeList)){
+			List<AppointStake> appointStakeList = new ArrayList<AppointStake>();
+			for(TotalAppointStake totalAppointStake : totalAppointStakeList){
+				AppointStake appointStake = new AppointStake();
+				try {
+					PropertyUtils.copyProperties(appointStake, totalAppointStake);
+				} catch (Exception e) {
+					LOGGER.error("拷贝属性出现异常", e);
+				}
+				appointStakeList.add(appointStake);
+			}
+			
+			TotalCommonStake totalCommonStake = totalCommonStakeRepo.getRacingNum(racingNum);
+			CommonStake commonStake = new CommonStake();
+			try {
+				PropertyUtils.copyProperties(commonStake, totalCommonStake);
+			} catch (Exception e) {
+				LOGGER.error("拷贝属性出现异常", e);
+			}
+			
+			List<TotalRankingStake> totalRankingStakeList = totalRankingStakeRepo.getRacingNum(racingNum);
+			List<RankingStake> rankingStakeList = new ArrayList<RankingStake>();
+			for(TotalRankingStake totalRankingStake : totalRankingStakeList){
+				RankingStake rankingStake = new RankingStake();
+				try {
+					PropertyUtils.copyProperties(rankingStake, totalRankingStake);
+				} catch (Exception e) {
+					LOGGER.error("拷贝属性出现异常", e);
+				}
+				rankingStakeList.add(rankingStake);
+			}
+			
+			
+			stakeVo.setRacingNum(racingNum);
+			stakeVo.setAppointStakeList(appointStakeList);
+			stakeVo.setCommonStake(commonStake);
+			stakeVo.setRankingStakeList(rankingStakeList);
+		}else{
+			stakeVo = StakeVoUtil.createNewStake(racingNum);
+		}
 		
 		result.setStakeVo(stakeVo);
 		return ApiResult.createSuccessReuslt(result);
@@ -205,44 +211,47 @@ public class StakeInfoService {
 			result.setStakeCount(userRacingIncome.getTotalStakeCount());
 		}
 		
-		
-		List<UserAppointStake> userAppointStakeList = userAppointStakeRepo.getByRacingNumAndUserId(racingNum, userId);
-		List<AppointStake> appointStakeList = new ArrayList<AppointStake>();
-		for(UserAppointStake userAppointStake : userAppointStakeList){
-			AppointStake appointStake = new AppointStake();
-			 try {
-                 PropertyUtils.copyProperties(appointStake, userAppointStake);
-             } catch (Exception e) {
-                 LOGGER.error("拷贝属性出现异常", e);
-             }
-			 appointStakeList.add(appointStake);
-		}
-		
-		UserCommonStake userCommonStake = userCommonStakeRepo.getByRacingNumAndUserId(racingNum, userId);
-		CommonStake commonStake = new CommonStake();
-		try {
-            PropertyUtils.copyProperties(commonStake, userCommonStake);
-        } catch (Exception e) {
-            LOGGER.error("拷贝属性出现异常", e);
-        }
-		
-		List<UserRankingStake> userRankingStakeList = userRankingStakeRepo.getByRacingNumAndUserId(racingNum, userId);
-		List<RankingStake> rankingStakeList = new ArrayList<RankingStake>();
-		for(UserRankingStake userRankingStake : userRankingStakeList){
-			RankingStake rankingStake = new RankingStake();
-			try {
-                PropertyUtils.copyProperties(rankingStake, userRankingStake);
-            } catch (Exception e) {
-                LOGGER.error("拷贝属性出现异常", e);
-            }
-			rankingStakeList.add(rankingStake);
-		}
-		
 		StakeVo stakeVo = new StakeVo();
-		stakeVo.setRacingNum(racingNum);
-		stakeVo.setAppointStakeList(appointStakeList);
-		stakeVo.setCommonStake(commonStake);
-		stakeVo.setRankingStakeList(rankingStakeList);
+		List<UserAppointStake> userAppointStakeList = userAppointStakeRepo.getByRacingNumAndUserId(racingNum, userId);
+		if(CollectionUtils.isNotEmpty(userAppointStakeList)){
+			List<AppointStake> appointStakeList = new ArrayList<AppointStake>();
+			for(UserAppointStake userAppointStake : userAppointStakeList){
+				AppointStake appointStake = new AppointStake();
+				try {
+					PropertyUtils.copyProperties(appointStake, userAppointStake);
+				} catch (Exception e) {
+					LOGGER.error("拷贝属性出现异常", e);
+				}
+				appointStakeList.add(appointStake);
+			}
+			
+			UserCommonStake userCommonStake = userCommonStakeRepo.getByRacingNumAndUserId(racingNum, userId);
+			CommonStake commonStake = new CommonStake();
+			try {
+				PropertyUtils.copyProperties(commonStake, userCommonStake);
+			} catch (Exception e) {
+				LOGGER.error("拷贝属性出现异常", e);
+			}
+			
+			List<UserRankingStake> userRankingStakeList = userRankingStakeRepo.getByRacingNumAndUserId(racingNum, userId);
+			List<RankingStake> rankingStakeList = new ArrayList<RankingStake>();
+			for(UserRankingStake userRankingStake : userRankingStakeList){
+				RankingStake rankingStake = new RankingStake();
+				try {
+					PropertyUtils.copyProperties(rankingStake, userRankingStake);
+				} catch (Exception e) {
+					LOGGER.error("拷贝属性出现异常", e);
+				}
+				rankingStakeList.add(rankingStake);
+			}
+			
+			stakeVo.setRacingNum(racingNum);
+			stakeVo.setAppointStakeList(appointStakeList);
+			stakeVo.setCommonStake(commonStake);
+			stakeVo.setRankingStakeList(rankingStakeList);
+		}else{
+			stakeVo = StakeVoUtil.createNewStake(racingNum);
+		}
 		
 		result.setStakeVo(stakeVo);
 		return ApiResult.createSuccessReuslt(result);
