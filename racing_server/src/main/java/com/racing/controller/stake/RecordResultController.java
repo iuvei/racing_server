@@ -30,7 +30,7 @@ public class RecordResultController {
     @RequestMapping(value = "/user/racing/result", method = RequestMethod.GET)
     public Object userSelectRacingResult(
         @RequestParam(required = false,defaultValue = "1") Integer page) {
-        Integer loginId = LoginStatusSaveUtil.getManagerId();
+        Integer loginId = LoginStatusSaveUtil.getUserWebId();
         if (loginId == null) {
             return ApiResult.createNoLoginReuslt();
         }
