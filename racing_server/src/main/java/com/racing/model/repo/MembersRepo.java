@@ -78,4 +78,14 @@ public class MembersRepo {
     	example.createCriteria().andUserIdEqualTo(userId);
     	return mapper.selectByExample(example);
     }
+
+    public Members selectByUserIdAndNicName(Integer userId, String nickname) {
+        MembersExample example = new MembersExample();
+        example.createCriteria().andUserIdEqualTo(userId).andNickNameEqualTo(nickname);
+        List<Members> membersList = mapper.selectByExample(example);
+        if(CollectionUtils.isEmpty(membersList)){
+            return null;
+        }
+        return membersList.get(0);
+    }
 }
