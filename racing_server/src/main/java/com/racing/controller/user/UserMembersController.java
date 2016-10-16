@@ -51,7 +51,7 @@ public class UserMembersController {
     @RequestMapping(value = "/members/income/day", method = RequestMethod.GET)
     public Object selectByDate(@RequestParam(required = false) String startDate,
                                @RequestParam(required = false) String endDate,
-                               @RequestParam(required = false) Integer page) {
+                               @RequestParam(required = false, defaultValue = "1") Integer page) {
         Integer userId = LoginStatusSaveUtil.getUserWebId();
         Date sDate = null;
         Date eDate = null;
@@ -67,7 +67,7 @@ public class UserMembersController {
     public Object selectByRacing(@RequestParam(required = false) String startDate,
                                  @RequestParam(required = false) String endDate,
                                  @RequestParam(required = false) String racingNum,
-                                 @RequestParam(required = false) Integer page) {
+                                 @RequestParam(required = false, defaultValue = "1") Integer page) {
         Integer userId = LoginStatusSaveUtil.getUserWebId();
         Date sDate = null;
         Date eDate = null;
