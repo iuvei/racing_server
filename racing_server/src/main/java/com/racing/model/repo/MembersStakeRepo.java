@@ -53,7 +53,7 @@ public class MembersStakeRepo {
                                                                         Date sDate, Date eDate,
                                                                         String racingNum, PageUtil pageUtil) {
         MemberStakeExample example = new MemberStakeExample();
-        MemberStakeExample.Criteria criteria = example.createCriteria().andMembersIdEqualTo(membersId).andRacingNumEqualTo(racingNum);
+        MemberStakeExample.Criteria criteria = example.createCriteria().andMembersIdEqualTo(membersId);
         if (sDate != null && eDate != null) {
             criteria.andCreateTimeBetween(sDate, eDate);
         }
@@ -67,7 +67,7 @@ public class MembersStakeRepo {
 
     public int getCountByMembersIdAndDateAndRacingNum(Integer membersId, Date sDate, Date eDate, String racingNum) {
         MemberStakeExample example = new MemberStakeExample();
-        MemberStakeExample.Criteria criteria = example.createCriteria().andMembersIdEqualTo(membersId).andRacingNumEqualTo(racingNum);
+        MemberStakeExample.Criteria criteria = example.createCriteria().andMembersIdEqualTo(membersId);
         if (sDate != null && eDate != null) {
             criteria.andCreateTimeBetween(sDate, eDate);
         }
