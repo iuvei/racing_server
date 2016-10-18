@@ -53,7 +53,7 @@ public class ScheduledRandomService {
 
     Date racingStartTime = DateUtil.setDateHHmmss(new Date(), 4, 7, 0);
 
-    for (int i = 0; i < 230; i++) {
+    for (int i = 0; i < 250; i++) {
       // for (int i = 0; i < 179; i++) {
       int target = new Random().nextInt(CalculationHandle.allResult.size());
 
