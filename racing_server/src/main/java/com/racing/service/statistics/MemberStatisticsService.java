@@ -87,7 +87,6 @@ public class MemberStatisticsService {
 		
 		Members members = membersRepo.getById(memberId);
 		
-		membersStakeRepo.addNew(memberStake);
 		MembersAccountRecord accountRecord = new MembersAccountRecord();
 		accountRecord.setMembersId(memberId);
 		accountRecord.setOperationPoints(result);
