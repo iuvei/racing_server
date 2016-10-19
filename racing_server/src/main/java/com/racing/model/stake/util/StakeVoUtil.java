@@ -360,15 +360,15 @@ public class StakeVoUtil {
 		  AppointStake oldAppointStakeVo = oldAppointStakeList.get(i);
 		  AppointStake newAppointStakeVo = newAppointStakeList.get(i);
 		  oldAppointStakeVo.setFirst(oldAppointStakeVo.getFirst().add(newAppointStakeVo.getFirst()));
-		  oldAppointStakeVo.setFirst(oldAppointStakeVo.getFirst().add(newAppointStakeVo.getFirst()));
-		  oldAppointStakeVo.setFirst(oldAppointStakeVo.getFirst().add(newAppointStakeVo.getFirst()));
-		  oldAppointStakeVo.setFirst(oldAppointStakeVo.getFirst().add(newAppointStakeVo.getFirst()));
-		  oldAppointStakeVo.setFirst(oldAppointStakeVo.getFirst().add(newAppointStakeVo.getFirst()));
-		  oldAppointStakeVo.setFirst(oldAppointStakeVo.getFirst().add(newAppointStakeVo.getFirst()));
-		  oldAppointStakeVo.setFirst(oldAppointStakeVo.getFirst().add(newAppointStakeVo.getFirst()));
-		  oldAppointStakeVo.setFirst(oldAppointStakeVo.getFirst().add(newAppointStakeVo.getFirst()));
-		  oldAppointStakeVo.setFirst(oldAppointStakeVo.getFirst().add(newAppointStakeVo.getFirst()));
-		  oldAppointStakeVo.setFirst(oldAppointStakeVo.getFirst().add(newAppointStakeVo.getFirst()));
+		  oldAppointStakeVo.setSecond(oldAppointStakeVo.getSecond().add(newAppointStakeVo.getSecond()));
+		  oldAppointStakeVo.setThird(oldAppointStakeVo.getThird().add(newAppointStakeVo.getThird()));
+		  oldAppointStakeVo.setFourth(oldAppointStakeVo.getFourth().add(newAppointStakeVo.getFourth()));
+		  oldAppointStakeVo.setFifth(oldAppointStakeVo.getFifth().add(newAppointStakeVo.getFifth()));
+		  oldAppointStakeVo.setSixth(oldAppointStakeVo.getSixth().add(newAppointStakeVo.getSixth()));
+		  oldAppointStakeVo.setSeventh(oldAppointStakeVo.getSeventh().add(newAppointStakeVo.getSeventh()));
+		  oldAppointStakeVo.setEighth(oldAppointStakeVo.getEighth().add(newAppointStakeVo.getEighth()));
+		  oldAppointStakeVo.setNinth(oldAppointStakeVo.getNinth().add(newAppointStakeVo.getNinth()));
+		  oldAppointStakeVo.setTenth(oldAppointStakeVo.getTenth().add(newAppointStakeVo.getTenth()));
 	  }
 	  
 	  List<RankingStake> oldRankingStakeList = oldStake.getRankingStakeList();
