@@ -11,6 +11,8 @@ import com.racing.model.repo.MembersRepo;
 import com.racing.model.repo.UserAccountRecordRepo;
 import com.racing.model.repo.UserRepo;
 import com.racing.util.PageUtil;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +60,21 @@ public class MembersService {
             return ApiResult.createErrorReuslt("异常");
         }
         return ApiResult.createSuccessReuslt(members);
+    }
+    
+    public Object selctPointByBatch(Integer userId, List<String> wechatSns){
+    	List<Members> membersList=new ArrayList<>();
+    	if(CollectionUtils.isNotEmpty(wechatSns)){
+    		wechatSns.stream()
+    		.forEach(a -> {
+    			LOGGER.info("wechatSns is : {}", a);
+    			Members members = membersRepo.getByWechatSnAndUserId(a, userId);
+    			if(members != null){
+    				membersList.add(members);
+    			}
+    		});
+    	}
+        return ApiResult.createSuccessReuslt(membersList);
     }
 
     @Transactional(rollbackFor = Exception.class)

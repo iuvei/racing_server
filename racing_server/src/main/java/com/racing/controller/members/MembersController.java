@@ -39,10 +39,21 @@ public class MembersController {
     public Object selectPoint(@RequestParam(required = false) String wechatSn,
                               @RequestParam(required = false) String nickName) {
         Integer userId = LoginStatusSaveUtil.getUserClientId();
-        if (wechatSn == null && userId == null) {
+        if (userId == null) {
             return ApiResult.createErrorReuslt("先登录");
         }
         return membersService.selectPoint(userId, wechatSn, nickName);
+    }
+
+    @ApiOperation("客户端-查询积分-批量")
+    @RequestMapping(value = "/point/batch", method = RequestMethod.GET)
+    public Object selectPointByBatch(@RequestParam(required = false) String wechatSns) {
+    	Integer userId = LoginStatusSaveUtil.getUserClientId();
+    	List<String> wechatSn = new ArrayList<String>();
+        if(StringUtil.isNotEmpty(wechatSns)){
+        	wechatSn = Arrays.asList(wechatSns.split(","));
+        }
+    	return membersService.selctPointByBatch(userId, wechatSn);
     }
 
     @ApiOperation("客户端-查询积分-上分")
