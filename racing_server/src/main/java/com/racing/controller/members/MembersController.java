@@ -1,5 +1,7 @@
 package com.racing.controller.members;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import com.racing.service.user.UserService;
 import com.racing.util.LoginStatusSaveUtil;
 
 import io.swagger.annotations.ApiOperation;
+import jodd.util.StringUtil;
 
 @RestController
 @RequestMapping("/members")
@@ -77,12 +80,17 @@ public class MembersController {
 
     @ApiOperation("客户端-members-开奖结果")
     @RequestMapping(value = "/stake", method = RequestMethod.GET)
-    public Object selectRecordResult(@RequestParam List<String> wechatSns,
+    public Object selectRecordResult(@RequestParam String wechatSns,
                                      @RequestParam String racingNum) {
         Integer userId = LoginStatusSaveUtil.getUserClientId();
         if (userId == null) {
             return ApiResult.createErrorReuslt("先登录");
         }
-        return membersStakeService.selectByWechatSn(userId, wechatSns, racingNum);
+        List<String> wechatSn = new ArrayList<String>();
+        if(StringUtil.isNotEmpty(wechatSns)){
+        	wechatSn = Arrays.asList(wechatSns.split(","));
+        }
+        
+        return membersStakeService.selectByWechatSn(userId, wechatSn, racingNum);
     }
 }
