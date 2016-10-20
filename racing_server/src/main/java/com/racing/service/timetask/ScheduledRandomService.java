@@ -51,10 +51,10 @@ public class ScheduledRandomService {
   @Scheduled(cron = "0 50 8 * * ?")
   public void reportCurrentTime() {
 
-    Date racingStartTime = DateUtil.setDateHHmmss(new Date(), 9, 7, 0);
+    Date racingStartTime = DateUtil.setDateHHmmss(new Date(), 14, 42, 0);
 
 //    for (int i = 0; i < 350; i++) {
-   for (int i = 0; i < 197; i++) {
+   for (int i = 0; i < 200; i++) {
       int target = new Random().nextInt(CalculationHandle.allResult.size());
 
       Integer[] result = CalculationHandle.allResult.get(target);
