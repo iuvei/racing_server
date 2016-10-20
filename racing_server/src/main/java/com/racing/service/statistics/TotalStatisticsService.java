@@ -93,7 +93,7 @@ public class TotalStatisticsService {
 		newRecordResult.setIsFourthUp(result.getIsFourthUp());
 		newRecordResult.setIsFifthUp(result.getIsFifthUp());
 		newRecordResult.setIsComplateCalculation(true);
-		newRecordResult.setComplateCalculationTime(new Date());
+		newRecordResult.setComplateCalculationTime(nowDate);
 		recordResultRepo.updateRecordResultByRacingNum(newRecordResult, recordResult.getRacingNum());
 		
 	}

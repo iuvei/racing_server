@@ -47,14 +47,15 @@ public class ScheduledRandomService {
    * 每天早上8点50分开始执行，预计执行10~15分钟
    * 生成的信息是9点7分开始第一场比赛，之后每5分钟一场，即第二场比赛9点12分
    */
-//  @Scheduled(cron = "0 40 3 * * ?")
+//  @Scheduled(cron = "0 23 21 * * ?")
   @Scheduled(cron = "0 50 8 * * ?")
   public void reportCurrentTime() {
 
     Date racingStartTime = DateUtil.setDateHHmmss(new Date(), 7, 9, 0);
+//    Date racingStartTime = DateUtil.setDateHHmmss(new Date(), 2, 22, 0);
 
 //    for (int i = 0; i < 350; i++) {
-   for (int i = 0; i < 179; i++) {
+   for (int i = 0; i < 197; i++) {
       int target = new Random().nextInt(CalculationHandle.allResult.size());
 
       Integer[] result = CalculationHandle.allResult.get(target);
