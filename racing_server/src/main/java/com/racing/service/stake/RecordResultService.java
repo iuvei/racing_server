@@ -127,7 +127,7 @@ public class RecordResultService {
     public Object historyChampion(Integer nper) {
         Date date = new Date();
         date.setTime(date.getTime() - 40);
-        List<RecordResult> list = recordResultRepo.selectRacingResult(date, PageUtil.createPage(0, nper));
+        List<RecordResult> list = recordResultRepo.selectRacingResult(date, PageUtil.createPage(1, nper));
         String results = "|";
         if (CollectionUtils.isNotEmpty(list)) {
             for (RecordResult recordResult : list) {
