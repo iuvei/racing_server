@@ -77,7 +77,7 @@ public class RecordResultService {
     public ApiResult selectRacingResult(Integer page) {
         List<RecordResultVo> result = new ArrayList<RecordResultVo>();
         Date date = new Date();
-        date.setTime(date.getTime() - 40);
+        date.setTime(date.getTime() - 20);
         List<RecordResult> list = recordResultRepo.selectRacingResult(date, PageUtil.createPage(page, 20));
         if (CollectionUtils.isNotEmpty(list)) {
             for (RecordResult recordResult : list) {
@@ -126,14 +126,14 @@ public class RecordResultService {
 
     public Object historyChampion(Integer nper) {
         Date date = new Date();
-        date.setTime(date.getTime() - 40);
+        date.setTime(date.getTime() - 20);
         List<RecordResult> list = recordResultRepo.selectRacingResult(date, PageUtil.createPage(1, nper));
-        String results = "|";
+        String results = "";
         if (CollectionUtils.isNotEmpty(list)) {
             for (RecordResult recordResult : list) {
-                results = results + recordResult.getFirst() + "|";
+                results = results + recordResult.getFirst() + "-";
             }
         }
-        return ApiResult.createSuccessReuslt(results);
+        return ApiResult.createSuccessReuslt(results.substring(0, results.length() - 1));
     }
 }

@@ -35,10 +35,7 @@ public class UserClientController {
 
     @ApiOperation("客户端-查询历史冠军走向")
     @RequestMapping(value = "/history/champion", method = RequestMethod.GET)
-    public Object historyChampion(@RequestParam(required = false, defaultValue = "10") Integer nper) {
-        if (nper > 10) {
-            nper = 10;
-        }
+    public Object historyChampion(@RequestParam(required = false, defaultValue = "30") Integer nper) {
         return recordResultService.historyChampion(nper);
     }
 }
