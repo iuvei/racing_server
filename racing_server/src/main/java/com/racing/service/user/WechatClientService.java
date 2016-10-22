@@ -1,5 +1,6 @@
 package com.racing.service.user;
 
+import com.racing.constant.DefaultRacteConstant;
 import com.racing.controller.vo.ApiResult;
 import com.racing.model.po.WechatClient;
 import com.racing.model.repo.WechatClientRepo;
@@ -26,30 +27,30 @@ public class WechatClientService {
     }
 
     public Object update(Integer userId, WechatClient wechatClient) {
-        if(compareRate(wechatClient.getAppointStakeRate(),new BigDecimal("9.7"))&&
-            compareRate(wechatClient.getRankingStakeRate(),new BigDecimal("1.94"))&&
-            compareRate(wechatClient.getUpOrDownRate(),new BigDecimal("1.94"))&&
-            compareRate(wechatClient.getFirstAddSecondOddRate(),new BigDecimal("1.63"))&&
-            compareRate(wechatClient.getFirstAddSecondEvenRate(),new BigDecimal("2"))&&
-            compareRate(wechatClient.getFirstAddSecondBigRate(),new BigDecimal("2"))&&
-            compareRate(wechatClient.getFirstAddSecondSmallRate(),new BigDecimal("1.63"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint3StakeRate(),new BigDecimal("41"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint4StakeRate(),new BigDecimal("41"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint5StakeRate(),new BigDecimal("21"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint6StakeRate(),new BigDecimal("21"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint7StakeRate(),new BigDecimal("12"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint8StakeRate(),new BigDecimal("12"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint9StakeRate(),new BigDecimal("10.3"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint10StakeRate(),new BigDecimal("10.3"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint11StakeRate(),new BigDecimal("8.3"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint12StakeRate(),new BigDecimal("10.3"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint13StakeRate(),new BigDecimal("10.3"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint14StakeRate(),new BigDecimal("12"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint15StakeRate(),new BigDecimal("12"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint16StakeRate(),new BigDecimal("21"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint17StakeRate(),new BigDecimal("21"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint18StakeRate(),new BigDecimal("41"))&&
-            compareRate(wechatClient.getFirstAddSecondAppoint19StakeRate(),new BigDecimal("41"))) {
+        if(compareRate(wechatClient.getAppointStakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getAppointStakeRate())&&
+            compareRate(wechatClient.getRankingStakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getRankingStakeRate())&&
+            compareRate(wechatClient.getUpOrDownRate(),DefaultRacteConstant.totalDefaultCalcRate.getUpOrDownRate())&&
+            compareRate(wechatClient.getFirstAddSecondOddRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondOddRate())&&
+            compareRate(wechatClient.getFirstAddSecondEvenRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondEvenRate())&&
+            compareRate(wechatClient.getFirstAddSecondBigRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondBigRate())&&
+            compareRate(wechatClient.getFirstAddSecondSmallRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondSmallRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint3StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint3StakeRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint4StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint4StakeRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint5StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint5StakeRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint6StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint6StakeRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint7StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint7StakeRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint8StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint8StakeRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint9StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint9StakeRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint10StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint10StakeRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint11StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint11StakeRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint12StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint12StakeRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint13StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint13StakeRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint14StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint14StakeRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint15StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint15StakeRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint16StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint16StakeRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint17StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint17StakeRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint18StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint18StakeRate())&&
+            compareRate(wechatClient.getFirstAddSecondAppoint19StakeRate(),DefaultRacteConstant.totalDefaultCalcRate.getFirstAddSecondAppoint19StakeRate())) {
             int result = wechatClientRepo.update(wechatClient);
             if (result == 1) {
                 return ApiResult.createSuccessReuslt();

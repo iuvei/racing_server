@@ -10,9 +10,12 @@ public class DefaultRacteConstant {
 	
 	static{
 		totalDefaultCalcRate = new CalcRate();
-		totalDefaultCalcRate.setAppointStakeRate(new BigDecimal("9.7"));
-		totalDefaultCalcRate.setRankingStakeRate(new BigDecimal("1.94"));
-		totalDefaultCalcRate.setUpOrDownRate(new BigDecimal("1.94"));
+//		totalDefaultCalcRate.setAppointStakeRate(new BigDecimal("9.7"));
+		totalDefaultCalcRate.setAppointStakeRate(new BigDecimal("9.94"));
+//		totalDefaultCalcRate.setRankingStakeRate(new BigDecimal("1.94"));
+		totalDefaultCalcRate.setRankingStakeRate(new BigDecimal("1.988"));
+//		totalDefaultCalcRate.setUpOrDownRate(new BigDecimal("1.94"));
+		totalDefaultCalcRate.setUpOrDownRate(new BigDecimal("1.988"));
 		totalDefaultCalcRate.setFirstAddSecondOddRate(new BigDecimal("1.63"));
 		totalDefaultCalcRate.setFirstAddSecondEvenRate(new BigDecimal("2"));
 		totalDefaultCalcRate.setFirstAddSecondBigRate(new BigDecimal("2"));
