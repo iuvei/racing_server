@@ -1,16 +1,5 @@
 package com.racing.controller.members;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.MembersVo;
 import com.racing.service.member.MembersAccountRecordService;
@@ -18,9 +7,14 @@ import com.racing.service.member.MembersService;
 import com.racing.service.member.MembersStakeService;
 import com.racing.service.user.UserService;
 import com.racing.util.LoginStatusSaveUtil;
-
 import io.swagger.annotations.ApiOperation;
 import jodd.util.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequestMapping("/members")
@@ -54,6 +48,13 @@ public class MembersController {
         	wechatSn = Arrays.asList(wechatSns.split(","));
         }
     	return membersService.selctPointByBatch(userId, wechatSn);
+    }
+
+    @ApiOperation("客户端-查询积分-全部member")
+    @RequestMapping(value = "/point/all", method = RequestMethod.GET)
+    public Object selectPointByAll() {
+        Integer userId = LoginStatusSaveUtil.getUserClientId();
+        return membersService.selctPointByAll(userId);
     }
 
     @ApiOperation("客户端-查询积分-上分")
