@@ -62,7 +62,7 @@ public class UserIncomeController {
     public Object selectByRacing(@RequestParam(required = false) String startDate,
                                  @RequestParam(required = false) String endDate,
                                  @RequestParam(required = false) String racingNum,
-                                 @RequestParam(required = false) Integer page) {
+                                 @RequestParam(required = false, defaultValue = "1") Integer page) {
         Integer userId = LoginStatusSaveUtil.getUserWebId();
         Date sDate = null;
         Date eDate = null;

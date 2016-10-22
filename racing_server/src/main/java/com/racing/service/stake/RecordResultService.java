@@ -123,4 +123,17 @@ public class RecordResultService {
 
         return ApiResult.createErrorReuslt("没开奖");
     }
+
+    public Object historyChampion(Integer nper) {
+        Date date = new Date();
+        date.setTime(date.getTime() - 40);
+        List<RecordResult> list = recordResultRepo.selectRacingResult(date, PageUtil.createPage(0, nper));
+        String results = "|";
+        if (CollectionUtils.isNotEmpty(list)) {
+            for (RecordResult recordResult : list) {
+                results = results + recordResult.getFirst() + "|";
+            }
+        }
+        return ApiResult.createSuccessReuslt(results);
+    }
 }
