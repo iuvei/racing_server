@@ -148,7 +148,7 @@ public class ConfigService {
 	    	return ApiResult.createErrorReuslt("暂无比赛！");
 	    }
 	    long betweenTime = DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), nowDate);
-	    if(betweenTime>=280){//下一场比赛距离当前时间超过290秒，则继续上一场比赛，且停止押注操作
+	    if(betweenTime>=280&&!isManager){//下一场比赛距离当前时间超过290秒，则继续上一场比赛，且停止押注操作,如果是总盘用户，则不执行该逻辑
 	    	nowDate = DateUtil.addSecond(nowDate, -21);//当前时间-10秒
 	    	recordResult = recordResultRepo.getNowNextRecordResult(nowDate);
 	    	result.setStartRacingTime(0L);
@@ -169,16 +169,16 @@ public class ConfigService {
 	    		result.setStage(2);// 计算阶段
 	    		result.setStageName("计算阶段");
 	    	} else if (betweenTime > 20 && betweenTime < 40) {
+	    		result.setResult(RecordResultPOUtil.convertResult(recordResult));//计算出来的比赛结果
 	    		result.setStage(3);// 修改比赛结果阶段
 	    		result.setStageName("操作阶段");
-	    		result.setResult(RecordResultPOUtil.convertResult(recordResult));//计算出来的比赛结果
 	    	} else {
 	    		result.setStage(4);// 停止操作阶段
 	    		result.setStageName("封盘阶段");
 	    	}
 	    	TotalDayCountIncomeWithBLOBs totalDayCountIncomeWithBLOBs = totalDayCountIncomeRepo.getByDay(nowDate);
 	    	if(totalDayCountIncomeWithBLOBs != null){
-	    		result.setTodayIncome(totalDayCountIncomeWithBLOBs.getStakeAmount().subtract(totalDayCountIncomeWithBLOBs.getDeficitAmount()).setScale(2, BigDecimal.ROUND_CEILING));// 今日盈亏，临时死值，需要统计获取
+	    		result.setTodayIncome(totalDayCountIncomeWithBLOBs.getDeficitAmount());// 今日盈亏，临时死值，需要统计获取
 	    	}else{
 	    		result.setTodayIncome(BigDecimal.ZERO);
 	    	}
@@ -203,7 +203,7 @@ public class ConfigService {
 	    	}
 	    	UserDayCountIncomeWithBLOBs userDayCountIncomeWithBLOBs = userDayCountIncomeRepo.getByDay(nowDate, loginId);
 	    	if(userDayCountIncomeWithBLOBs!=null){
-	    		result.setTodayIncome(userDayCountIncomeWithBLOBs.getTotalStakeAmount().subtract(userDayCountIncomeWithBLOBs.getTotalDeficitAmount()).setScale(2, BigDecimal.ROUND_CEILING));// 今日盈亏，临时死值，需要统计获取
+	    		result.setTodayIncome(userDayCountIncomeWithBLOBs.getTotalDeficitAmount());// 今日盈亏，临时死值，需要统计获取
 	    	}else{
 	    		result.setTodayIncome(BigDecimal.ZERO);
 	    	}
