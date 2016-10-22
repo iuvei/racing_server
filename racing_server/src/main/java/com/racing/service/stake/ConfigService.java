@@ -69,6 +69,11 @@ public class ConfigService {
 	      return ApiResult.createErrorReuslt("暂无比赛！");
 	    }
 	    long betweenTime = DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), nowDate);
+	    
+	    if(betweenTime>300){
+	    	return ApiResult.createErrorReuslt("暂无比赛！");
+	    }
+	    result.setResult(null);
 	    if(betweenTime>=280){//下一场比赛距离当前时间超过280秒，则继续上一场比赛，且停止押注操作
 	    	nowDate = DateUtil.addSecond(nowDate, -21);//当前时间-10秒
 	    	recordResult = recordResultRepo.getNowNextRecordResult(nowDate);
@@ -166,6 +171,7 @@ public class ConfigService {
 	    		result.setStage(1);// 下注阶段
 	    		result.setStageName("下注阶段");
 	    	} else if (betweenTime >= 40 && betweenTime <= 60) {
+	    		result.setResult(RecordResultPOUtil.convertResult(recordResult));//计算出来的比赛结果
 	    		result.setStage(2);// 计算阶段
 	    		result.setStageName("计算阶段");
 	    	} else if (betweenTime > 20 && betweenTime < 40) {
