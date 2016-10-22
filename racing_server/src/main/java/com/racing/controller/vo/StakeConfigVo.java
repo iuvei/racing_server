@@ -24,6 +24,8 @@ public class StakeConfigVo {
 
   private BigDecimal todayIncome;
   
+  private BigDecimal totalRacingStakeAmount;
+  
   private StakeVo stakeVo;
 
   public String getRacingNum() {
@@ -104,6 +106,14 @@ public StakeVo getStakeVo() {
 
 public void setStakeVo(StakeVo stakeVo) {
 	this.stakeVo = stakeVo;
+}
+
+public BigDecimal getTotalRacingStakeAmount() {
+	return totalRacingStakeAmount;
+}
+
+public void setTotalRacingStakeAmount(BigDecimal totalRacingStakeAmount) {
+	this.totalRacingStakeAmount = totalRacingStakeAmount;
 }
 
 }

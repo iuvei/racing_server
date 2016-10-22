@@ -13,18 +13,22 @@ import com.racing.controller.vo.StakeConfigVo;
 import com.racing.model.po.RecordResult;
 import com.racing.model.po.TotalAppointStake;
 import com.racing.model.po.TotalDayCountIncomeWithBLOBs;
+import com.racing.model.po.TotalRacingIncome;
 import com.racing.model.po.UserAppointStake;
 import com.racing.model.po.UserDayCountIncomeWithBLOBs;
+import com.racing.model.po.UserRacingIncome;
 import com.racing.model.po.util.TotalStakeConvertUtil;
 import com.racing.model.po.util.UserStakeConvertUtil;
 import com.racing.model.repo.RecordResultRepo;
 import com.racing.model.repo.TotalAppointStakeRepo;
 import com.racing.model.repo.TotalCommonStakeRepo;
 import com.racing.model.repo.TotalDayCountIncomeRepo;
+import com.racing.model.repo.TotalRacingIncomeRepo;
 import com.racing.model.repo.TotalRankingStakeRepo;
 import com.racing.model.repo.UserAppointStakeRepo;
 import com.racing.model.repo.UserCommonStakeRepo;
 import com.racing.model.repo.UserDayCountIncomeRepo;
+import com.racing.model.repo.UserRacingIncomeRepo;
 import com.racing.model.repo.UserRankingStakeRepo;
 import com.racing.model.stake.StakeVo;
 import com.racing.model.stake.util.RecordResultPOUtil;
@@ -60,6 +64,12 @@ public class ConfigService {
 	
 	@Autowired
 	private UserDayCountIncomeRepo userDayCountIncomeRepo;
+	
+	@Autowired
+	private TotalRacingIncomeRepo totalRacingIncomeRepo;
+	
+	@Autowired
+	private UserRacingIncomeRepo userRacingIncomeRepo;
 	
 	public ApiResult getWebStakeConfig(boolean isManager, Integer loginId, boolean isClient) {
 	    StakeConfigVo result = new StakeConfigVo();
@@ -106,6 +116,13 @@ public class ConfigService {
 	    	}else{
 	    		result.setTodayIncome(BigDecimal.ZERO);
 	    	}
+	    	TotalRacingIncome totalRacingIncome = totalRacingIncomeRepo.selectByRacingNum(recordResult.getRacingNum());
+	    	if(totalRacingIncome != null){
+	    		result.setTotalRacingStakeAmount(totalRacingIncome.getStakeAmount());
+	    	}else{
+	    		result.setTotalRacingStakeAmount(BigDecimal.ZERO);
+	    	}
+	    	
 	    }else{//分盘web
 	    	if(isClient){//客户端
 	    		if (betweenTime > 70) {
@@ -125,6 +142,12 @@ public class ConfigService {
 	    		} else {
 	    			result.setStage(4);// 停止操作阶段
 	    			result.setStageName("封盘阶段");
+	    		}
+	    		UserRacingIncome userRacingIncome = userRacingIncomeRepo.selectByRacingNumAndUserId(recordResult.getRacingNum(), loginId);
+	    		if(userRacingIncome!=null){
+	    			result.setTotalRacingStakeAmount(userRacingIncome.getTotalStakeAmount());
+	    		}else{
+	    			result.setTotalRacingStakeAmount(BigDecimal.ZERO);
 	    		}
 	    	}
 	    	UserDayCountIncomeWithBLOBs userDayCountIncomeWithBLOBs = userDayCountIncomeRepo.getByDay(nowDate, loginId);
