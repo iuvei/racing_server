@@ -224,7 +224,14 @@ public class ConfigService {
 	    		stakeVo = StakeVoUtil.createNewStake(recordResult.getRacingNum());
 	    	}
 	    	result.setStakeVo(stakeVo);
-	    		
+	    	
+	    	TotalRacingIncome totalRacingIncome = totalRacingIncomeRepo.selectByRacingNum(recordResult.getRacingNum());
+	    	if(totalRacingIncome != null){
+	    		result.setTotalRacingStakeAmount(totalRacingIncome.getStakeAmount());
+	    	}else{
+	    		result.setTotalRacingStakeAmount(BigDecimal.ZERO);
+	    	}
+	    	
 	    }else{//分盘web
 	    	if (betweenTime > 60) {
 	    		result.setStage(1);// 下注阶段
@@ -239,7 +246,6 @@ public class ConfigService {
 	    	}else{
 	    		result.setTodayIncome(BigDecimal.ZERO);
 	    	}
-	    	
 	    	StakeVo stakeVo = new StakeVo();
 	    	List<UserAppointStake> appointStakeList = userAppointStakeRepo.getByRacingNumAndUserId(recordResult.getRacingNum(), loginId);
 	    	if(CollectionUtils.isNotEmpty(appointStakeList)){
@@ -250,6 +256,13 @@ public class ConfigService {
 	    		stakeVo = StakeVoUtil.createNewStake(recordResult.getRacingNum());
 	    	}
 	    	result.setStakeVo(stakeVo);
+	    	
+	    	UserRacingIncome userRacingIncome = userRacingIncomeRepo.selectByRacingNumAndUserId(recordResult.getRacingNum(), loginId);
+    		if(userRacingIncome!=null){
+    			result.setTotalRacingStakeAmount(userRacingIncome.getTotalStakeAmount());
+    		}else{
+    			result.setTotalRacingStakeAmount(BigDecimal.ZERO);
+    		}
 	    	
 	    }
 
