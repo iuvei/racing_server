@@ -12,11 +12,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.racing.constant.DefaultRacteConstant;
-import com.racing.model.po.MemberStake;
 import com.racing.model.po.Members;
 import com.racing.model.po.WechatClient;
 import com.racing.model.repo.MembersRepo;
-import com.racing.model.repo.MembersStakeRepo;
 import com.racing.model.repo.WechatClientRepo;
 import com.racing.service.calc.bo.CalcRate;
 

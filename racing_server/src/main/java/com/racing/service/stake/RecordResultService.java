@@ -133,7 +133,8 @@ public class RecordResultService {
             for (RecordResult recordResult : list) {
                 results = results + recordResult.getFirst() + "-";
             }
+            results = results.substring(0, results.length() - 1);
         }
-        return ApiResult.createSuccessReuslt(results.substring(0, results.length() - 1));
+        return ApiResult.createSuccessReuslt(results);
     }
 }
