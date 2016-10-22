@@ -61,19 +61,19 @@ public class MembersService {
         }
         return ApiResult.createSuccessReuslt(members);
     }
-    
-    public Object selctPointByBatch(Integer userId, List<String> wechatSns){
-    	List<Members> membersList=new ArrayList<>();
-    	if(CollectionUtils.isNotEmpty(wechatSns)){
-    		wechatSns.stream()
-    		.forEach(a -> {
-    			LOGGER.info("wechatSns is : {}", a);
-    			Members members = membersRepo.getByWechatSnAndUserId(a, userId);
-    			if(members != null){
-    				membersList.add(members);
-    			}
-    		});
-    	}
+
+    public Object selctPointByBatch(Integer userId, List<String> wechatSns) {
+        List<Members> membersList = new ArrayList<>();
+        if (CollectionUtils.isNotEmpty(wechatSns)) {
+            wechatSns.stream()
+                .forEach(a -> {
+                    LOGGER.info("wechatSns is : {}", a);
+                    Members members = membersRepo.getByWechatSnAndUserId(a, userId);
+                    if (members != null) {
+                        membersList.add(members);
+                    }
+                });
+        }
         return ApiResult.createSuccessReuslt(membersList);
     }
 
@@ -196,5 +196,11 @@ public class MembersService {
         list.stream()
             .forEach(a -> nicNames.add(a.getNickName()));
         return ApiResult.createSuccessReuslt(nicNames);
+    }
+
+    public Object selctPointByAll(Integer userId) {
+        LOGGER.info("userId is : {}", userId);
+        List<Members> membersList = membersRepo.getListByUserId(userId);
+        return ApiResult.createSuccessReuslt(membersList);
     }
 }
