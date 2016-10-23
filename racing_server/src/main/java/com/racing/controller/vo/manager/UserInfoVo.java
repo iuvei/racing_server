@@ -23,6 +23,8 @@ public class UserInfoVo {
   private Boolean isHaveClient;
 
   private Boolean isClientExpired;
+  
+  private String clientSn;
 
   public Integer getId() {
     return id;
@@ -103,5 +105,13 @@ public class UserInfoVo {
   public void setIsClientExpired(Boolean isClientExpired) {
     this.isClientExpired = isClientExpired;
   }
+
+public String getClientSn() {
+	return clientSn;
+}
+
+public void setClientSn(String clientSn) {
+	this.clientSn = clientSn;
+}
 
 }
