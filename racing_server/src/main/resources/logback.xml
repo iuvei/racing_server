@@ -1,15 +1,32 @@
 <configuration>
 	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
-                <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-          <level>ALL</level>
-        </filter>
-                <encoder>
-                        <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35}:%line - %msg%n
-                        </Pattern>
-                </encoder>
-        </appender>
-
-        <root>
-                <appender-ref ref="consoleAppender"/>
-        </root>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ALL</level>
+		</filter>
+		<encoder>
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35}:%line - %msg%n
+			</Pattern>
+		</encoder>
+	</appender>
+	<appender name="log_file_appender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ALL</level>
+		</filter>
+		<File>/opt/log/logFile.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>/opt/log/logFile.%d{yyyy-MM-dd_HH}.log
+			</FileNamePattern>
+			<maxHistory>50</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} %-4relative [%thread] %-5level %logger{35}:%line - %msg%n
+			</Pattern>
+		</encoder>
+	</appender>
+	<root>
+		<appender-ref ref="log_file_appender" level="ALL"/>
+	</root>
 </configuration>
