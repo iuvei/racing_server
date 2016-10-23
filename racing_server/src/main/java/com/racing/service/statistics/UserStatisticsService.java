@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.racing.constant.DefaultRacteConstant;
 import com.racing.model.po.RecordResult;
 import com.racing.model.po.User;
 import com.racing.model.po.UserAppointStake;
@@ -72,31 +73,7 @@ public class UserStatisticsService {
 	
 	@PostConstruct
 	public void init() {
-		userDefaultCalcRate = new CalcRate();
-		userDefaultCalcRate.setAppointStakeRate(new BigDecimal("9.7"));
-		userDefaultCalcRate.setRankingStakeRate(new BigDecimal("1.94"));
-		userDefaultCalcRate.setUpOrDownRate(new BigDecimal("1.94"));
-		userDefaultCalcRate.setFirstAddSecondOddRate(new BigDecimal("1.63"));
-		userDefaultCalcRate.setFirstAddSecondEvenRate(new BigDecimal("2"));
-		userDefaultCalcRate.setFirstAddSecondBigRate(new BigDecimal("2"));
-		userDefaultCalcRate.setFirstAddSecondSmallRate(new BigDecimal("1.63"));
-		userDefaultCalcRate.setFirstAddSecondAppoint3StakeRate(new BigDecimal("41"));
-		userDefaultCalcRate.setFirstAddSecondAppoint4StakeRate(new BigDecimal("41"));
-		userDefaultCalcRate.setFirstAddSecondAppoint5StakeRate(new BigDecimal("21"));
-		userDefaultCalcRate.setFirstAddSecondAppoint6StakeRate(new BigDecimal("21"));
-		userDefaultCalcRate.setFirstAddSecondAppoint7StakeRate(new BigDecimal("12"));
-		userDefaultCalcRate.setFirstAddSecondAppoint8StakeRate(new BigDecimal("12"));
-		userDefaultCalcRate.setFirstAddSecondAppoint9StakeRate(new BigDecimal("10.3"));
-		userDefaultCalcRate.setFirstAddSecondAppoint10StakeRate(new BigDecimal("10.3"));
-		userDefaultCalcRate.setFirstAddSecondAppoint11StakeRate(new BigDecimal("8.3"));
-		userDefaultCalcRate.setFirstAddSecondAppoint12StakeRate(new BigDecimal("10.3"));
-		userDefaultCalcRate.setFirstAddSecondAppoint13StakeRate(new BigDecimal("10.3"));
-		userDefaultCalcRate.setFirstAddSecondAppoint14StakeRate(new BigDecimal("12"));
-		userDefaultCalcRate.setFirstAddSecondAppoint15StakeRate(new BigDecimal("12"));
-		userDefaultCalcRate.setFirstAddSecondAppoint16StakeRate(new BigDecimal("21"));
-		userDefaultCalcRate.setFirstAddSecondAppoint17StakeRate(new BigDecimal("21"));
-		userDefaultCalcRate.setFirstAddSecondAppoint18StakeRate(new BigDecimal("41"));
-		userDefaultCalcRate.setFirstAddSecondAppoint19StakeRate(new BigDecimal("41"));
+		userDefaultCalcRate = DefaultRacteConstant.totalDefaultCalcRate;
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
