@@ -84,7 +84,7 @@ public class RecordResultRepo {
 	public List<RecordResult> getRecordResultByAfterTime(Date beforeTime) {
 		RecordResultExample example = new RecordResultExample();
 		example.createCriteria().andStartTimeLessThan(beforeTime);
-		example.setOrderByClause(" start_time DESC limit 0,30");
+		example.setOrderByClause(" start_time DESC limit 0,20");
 
 		List<RecordResult> result = mapper.selectByExample(example);
 
