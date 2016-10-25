@@ -84,8 +84,8 @@ public class ConfigService {
 	    	return ApiResult.createErrorReuslt("暂无比赛！");
 	    }
 	    result.setResult(null);
-	    if(betweenTime>=280){//下一场比赛距离当前时间超过280秒，则继续上一场比赛，且停止押注操作
-	    	nowDate = DateUtil.addSecond(nowDate, -21);//当前时间-10秒
+	    if(betweenTime>278){//下一场比赛距离当前时间超过280秒，则继续上一场比赛，且停止押注操作
+	    	nowDate = DateUtil.addSecond(nowDate, -19);//当前时间-10秒
 	    	recordResult = recordResultRepo.getNowNextRecordResult(nowDate);
 	    	result.setStartRacingTime(0L);
 	    	result.setEndStakeTime(0L);
