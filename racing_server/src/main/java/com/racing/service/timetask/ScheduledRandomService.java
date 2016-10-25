@@ -48,13 +48,13 @@ public class ScheduledRandomService {
    * 生成的信息是9点7分开始第一场比赛，之后每5分钟一场，即第二场比赛9点12分
    */
 //  @Scheduled(cron = "0 50 8 * * ?")
-  @Scheduled(cron = "0 10 7 * * ?")
+  @Scheduled(cron = "0 27 0 * * ?")
   public void reportCurrentTime() {
 
-    Date racingStartTime = DateUtil.setDateHHmmss(new Date(), 7, 22, 0);
+    Date racingStartTime = DateUtil.setDateHHmmss(new Date(), 0, 32, 0);
 
 //    for (int i = 0; i < 350; i++) {
-   for (int i = 0; i < 200; i++) {
+   for (int i = 0; i < 300; i++) {
       int target = new Random().nextInt(CalculationHandle.allResult.size());
 
       Integer[] result = CalculationHandle.allResult.get(target);
