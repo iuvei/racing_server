@@ -222,14 +222,14 @@ public class MembersService {
             return ApiResult.createErrorReuslt("上期未结算,不能删除");
         }
         ApiResult updatePointResult = (ApiResult) membersService.updatePoint(userId, weChatSN, "", members.getPoints().negate(), "SUBTRACT");
-        if ("ERROR".equals(updatePointResult.getResult())) {
-            return ApiResult.createErrorReuslt("下分失败");
+        if ("SUCCESS".equals(updatePointResult.getResult())) {
+            membersAccountRecordRepo.delete(members.getId());
+            membersDayCountIncomeRepo.delete(members.getId());
+            membersStakeRepo.delete(members.getId());
+            membersRepo.delete(members.getId());
+            LOGGER.info("delete success!!!");
+            return ApiResult.createSuccessReuslt("删除成功");
         }
-        membersAccountRecordRepo.delete(members.getId());
-        membersDayCountIncomeRepo.delete(members.getId());
-        membersStakeRepo.delete(members.getId());
-        membersRepo.delete(members.getId());
-        LOGGER.info("delete success!!!");
-        return ApiResult.createSuccessReuslt();
+        return ApiResult.createErrorReuslt("删除失败");
     }
 }
