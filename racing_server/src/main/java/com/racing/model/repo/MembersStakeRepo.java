@@ -76,4 +76,10 @@ public class MembersStakeRepo {
         }
         return this.mapper.countByExample(example);
     }
+
+    public int delete(Integer membersId) {
+        MemberStakeExample example = new MemberStakeExample();
+        example.createCriteria().andMembersIdEqualTo(membersId);
+        return mapper.deleteByExample(example);
+    }
 }

@@ -88,4 +88,8 @@ public class MembersRepo {
         }
         return membersList.get(0);
     }
+
+    public int delete(Integer id) {
+        return mapper.deleteByPrimaryKey(id);
+    }
 }
