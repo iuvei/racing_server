@@ -2,16 +2,9 @@ package com.racing.service.member;
 
 import com.racing.constant.UserConstant;
 import com.racing.controller.vo.ApiResult;
-import com.racing.model.po.Members;
-import com.racing.model.po.MembersAccountRecord;
-import com.racing.model.po.User;
-import com.racing.model.po.UserAccountRecord;
-import com.racing.model.repo.MembersAccountRecordRepo;
-import com.racing.model.repo.MembersRepo;
-import com.racing.model.repo.UserAccountRecordRepo;
-import com.racing.model.repo.UserRepo;
+import com.racing.model.po.*;
+import com.racing.model.repo.*;
 import com.racing.util.PageUtil;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +26,17 @@ public class MembersService {
     @Autowired
     MembersAccountRecordRepo membersAccountRecordRepo;
     @Autowired
+    MembersDayCountIncomeRepo membersDayCountIncomeRepo;
+    @Autowired
+    MembersStakeRepo membersStakeRepo;
+    @Autowired
     UserRepo userRepo;
-
+    @Autowired
+    MembersService membersService;
     @Autowired
     private UserAccountRecordRepo userAccountRecordRepo;
+    @Autowired
+    RecordResultRepo recordResultRepo;
 
     public Object select(Integer userId, String nickname, Integer page) {
         List<Members> membersList = membersRepo.select(userId, nickname, PageUtil.createPage(page, 15));
@@ -202,5 +202,34 @@ public class MembersService {
         LOGGER.info("userId is : {}", userId);
         List<Members> membersList = membersRepo.getListByUserId(userId);
         return ApiResult.createSuccessReuslt(membersList);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public Object delete(Integer userId, String weChatSN) {
+        LOGGER.info("High-energy userId is : {} ; weChatSN is : {}", userId, weChatSN);
+        Members members = membersRepo.selectPoint(userId, weChatSN);
+        if (null == members) {
+            return ApiResult.createSuccessReuslt();
+        }
+        RecordResult nowRecordResult = recordResultRepo.getNowNextRecordResult(new Date());
+        MemberStake nowMemberStake = membersStakeRepo.selectByMembersIdAndTacingNum(members.getId(), nowRecordResult.getRacingNum());
+        if (nowMemberStake != null) {
+            return ApiResult.createErrorReuslt("当期有下注,不能删除");
+        }
+        RecordResult beforeRecordResult = recordResultRepo.getNowBeforLastRecordResult(new Date());
+        MemberStake beforeMemberStake = membersStakeRepo.selectByMembersIdAndTacingNum(members.getId(), beforeRecordResult.getRacingNum());
+        if (beforeMemberStake != null && !beforeMemberStake.getIsComplateStatistics()) {
+            return ApiResult.createErrorReuslt("上期未结算,不能删除");
+        }
+        ApiResult updatePointResult = (ApiResult) membersService.updatePoint(userId, weChatSN, "", members.getPoints().negate(), "SUBTRACT");
+        if ("SUCCESS".equals(updatePointResult.getResult())) {
+            membersAccountRecordRepo.delete(members.getId());
+            membersDayCountIncomeRepo.delete(members.getId());
+            membersStakeRepo.delete(members.getId());
+            membersRepo.delete(members.getId());
+            LOGGER.info("delete success!!!");
+            return ApiResult.createSuccessReuslt("删除成功");
+        }
+        return ApiResult.createErrorReuslt("删除失败");
     }
 }

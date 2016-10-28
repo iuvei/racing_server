@@ -48,4 +48,10 @@ public class MembersAccountRecordRepo {
         List<MembersAccountRecord> list = mapper.selectByExample(example);
         return list;
     }
+
+    public int delete(Integer memberId) {
+        MembersAccountRecordExample example = new MembersAccountRecordExample();
+        example.createCriteria().andMembersIdEqualTo(memberId);
+        return mapper.deleteByExample(example);
+    }
 }

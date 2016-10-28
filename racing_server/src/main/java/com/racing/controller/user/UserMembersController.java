@@ -89,4 +89,11 @@ public class UserMembersController {
         Integer userId = LoginStatusSaveUtil.getUserWebId();
         return membersService.selectNicName(userId, nicName);
     }
+
+    @ApiOperation("删除用户")
+    @RequestMapping(value = "/members/{weChatSN}", method = RequestMethod.DELETE)
+    public Object delete(@PathVariable String weChatSN) {
+        Integer userId = LoginStatusSaveUtil.getUserWebId();
+        return membersService.delete(userId, weChatSN);
+    }
 }
