@@ -9,19 +9,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.racing.controller.vo.ApiResult;
-import com.racing.util.NoLoginException;
 
 @ControllerAdvice
 public class ExceptionController {
 	
 	private static Logger logger = LoggerFactory.getLogger(ExceptionController.class);
-	
-	@ExceptionHandler(NoLoginException.class)  
-	@ResponseStatus(HttpStatus.OK) 
-	@ResponseBody
-	public Object noLoginExceptionHandler(Exception ex){
-		return ApiResult.createNoLoginReuslt();
-	}
 
 	@ExceptionHandler(Exception.class)  
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) 
