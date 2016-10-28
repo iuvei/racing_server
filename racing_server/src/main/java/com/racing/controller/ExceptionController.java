@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.racing.controller.vo.ApiResult;
+import com.racing.util.NoLoginException;
 
 @ControllerAdvice
 public class ExceptionController {
@@ -23,5 +24,12 @@ public class ExceptionController {
 	public Object runtimeExceptionHandler(Exception ex,HttpServletRequest request){
 		logger.error(ex.getMessage(),ex);
 		return ApiResult.createErrorReuslt(ex.getMessage());
+	}
+
+	@ExceptionHandler(NoLoginException.class)  
+	@ResponseStatus(HttpStatus.OK) 
+	@ResponseBody
+	public Object noLoginExceptionHandler(NoLoginException ex,HttpServletRequest request){
+		return ApiResult.createNoLoginReuslt();
 	}
 }

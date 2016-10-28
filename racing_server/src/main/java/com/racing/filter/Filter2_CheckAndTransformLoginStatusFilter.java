@@ -33,6 +33,7 @@ import com.racing.util.EncryptUtil;
 import com.racing.util.JsonUtils;
 import com.racing.util.ListUtil;
 import com.racing.util.LoginStatusSaveUtil;
+import com.racing.util.NoLoginException;
 import com.racing.util.ServeltRequestUtil;
 
 import jodd.util.StringUtil;
@@ -81,8 +82,7 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
 			String requestAccessKey = httpRequest.getHeader(APIRequestHeaderConstant.ACCESSKEY);
 
 			if (StringUtil.isEmpty(requestAccessKey)) {
-				this.setSignErrorResponse(httpResponse);
-				return;
+				throw new NoLoginException();
 			}
 
 			boolean isManager = AccessKeyUtil.checkAccessKeyIsManager(requestAccessKey);
