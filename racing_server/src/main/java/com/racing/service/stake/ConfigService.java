@@ -197,10 +197,10 @@ public class ConfigService {
 	    	if (betweenTime > 60) {
 	    		result.setStage(1);// 下注阶段
 	    		result.setStageName("下注阶段");
-	    	} else if (betweenTime >= 40 && betweenTime <= 60) {
+	    	} else if (betweenTime >= 31 && betweenTime <= 45) {
 	    		result.setStage(2);// 计算阶段
 	    		result.setStageName("计算阶段");
-	    	} else if (betweenTime > 20 && betweenTime < 40) {
+	    	} else if (betweenTime >= 5 && betweenTime <= 30) {
 	    		result.setResult(RecordResultPOUtil.convertResult(recordResult));//计算出来的比赛结果
 	    		result.setStage(3);// 修改比赛结果阶段
 	    		result.setStageName("操作阶段");
