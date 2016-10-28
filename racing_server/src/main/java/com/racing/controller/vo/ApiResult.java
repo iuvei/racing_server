@@ -51,6 +51,7 @@ public class ApiResult {
   public static ApiResult createNoLoginReuslt() {
     ApiResult result = new ApiResult();
     result.setResult(NO_LOGIN);
+    result.setMessage("请重新登录");
     return result;
   }
 

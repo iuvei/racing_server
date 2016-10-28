@@ -88,8 +88,7 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
 			boolean isManager = AccessKeyUtil.checkAccessKeyIsManager(requestAccessKey);
 
 			if (isManagerRquest != isManager) {
-				this.setSignErrorResponse(httpResponse);
-				return;
+				throw new NoLoginException();
 			}
 
 			Integer loginId = null;
@@ -130,13 +129,11 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
 			}
 
 			if (StringUtil.isEmpty(securityKey)) {
-				this.setSignErrorResponse(httpResponse);
-				return;
+				throw new NoLoginException();
 			}
 
 			if (!this.checkSign(httpRequest, requestURI, securityKey)) {
-				this.setSignErrorResponse(httpResponse);
-				return;
+				throw new NoLoginException();
 			} else {
 				if (isManager) {
 					LoginStatusSaveUtil.setManagerLoginInfo(loginId);
@@ -156,27 +153,27 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
 		LOGGER.info("destroy CheckAndTransformLoginStatusFilter!");
 	}
 
-	/**
-	 * 设置错误签名信息
-	 * 
-	 * @param httpResponse
-	 * @throws IOException
-	 */
-	private void setSignErrorResponse(HttpServletResponse httpResponse) throws IOException {
-		httpResponse.setStatus(HttpStatus.OK.value());
-		httpResponse.setContentType("application/json;charset=UTF-8");
-		PrintWriter out = null;  
-	    try {  
-	        out = httpResponse.getWriter();  
-	        out.append(JsonUtils.toJsonHasNullKey(ApiResult.createNoLoginReuslt()));  
-	    } catch (IOException e) {  
-	        e.printStackTrace();  
-	    } finally {  
-	        if (out != null) {  
-	            out.close();  
-	        }  
-	    }  
-	}
+//	/**
+//	 * 设置错误签名信息
+//	 * 
+//	 * @param httpResponse
+//	 * @throws IOException
+//	 */
+//	private void setSignErrorResponse(HttpServletResponse httpResponse) throws IOException {
+//		httpResponse.setStatus(HttpStatus.OK.value());
+//		httpResponse.setContentType("application/json;charset=UTF-8");
+//		PrintWriter out = null;  
+//	    try {  
+//	        out = httpResponse.getWriter();  
+//	        out.append(JsonUtils.toJsonHasNullKey(ApiResult.createNoLoginReuslt()));  
+//	    } catch (IOException e) {  
+//	        e.printStackTrace();  
+//	    } finally {  
+//	        if (out != null) {  
+//	            out.close();  
+//	        }  
+//	    }  
+//	}
 
 	private boolean checkSign(HttpServletRequest httpRequest, String requestURI, String securityKey) {
 		String requestSign = httpRequest.getHeader(APIRequestHeaderConstant.AUTHORIZATION);
