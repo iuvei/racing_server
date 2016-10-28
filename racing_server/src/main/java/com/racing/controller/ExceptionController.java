@@ -1,7 +1,5 @@
 package com.racing.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -21,14 +19,14 @@ public class ExceptionController {
 	@ExceptionHandler(NoLoginException.class)  
 	@ResponseStatus(HttpStatus.OK) 
 	@ResponseBody
-	public Object noLoginExceptionHandler(NoLoginException ex,HttpServletRequest request){
+	public Object noLoginExceptionHandler(Exception ex){
 		return ApiResult.createNoLoginReuslt();
 	}
 
 	@ExceptionHandler(Exception.class)  
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) 
 	@ResponseBody
-	public Object runtimeExceptionHandler(Exception ex,HttpServletRequest request){
+	public Object runtimeExceptionHandler(Exception ex){
 		logger.error(ex.getMessage(),ex);
 		return ApiResult.createErrorReuslt(ex.getMessage());
 	}
