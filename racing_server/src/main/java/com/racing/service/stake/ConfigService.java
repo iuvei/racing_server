@@ -92,11 +92,11 @@ public class ConfigService {
 	    	betweenTime = 10L;
 	    }else{
 	    	result.setStartRacingTime(recordResult.getStartTime().getTime() - nowDate.getTime());
-	    	result.setEndStakeTime(result.getStartRacingTime() - 60 * 1000);
+	    	result.setEndStakeTime(result.getStartRacingTime() - 50 * 1000);
 	    }
 	    result.setRacingNum(recordResult.getRacingNum());
 	    if(isManager){//总盘web
-	    	if (betweenTime > 60) {
+	    	if (betweenTime > 50) {
 	    		result.setStage(1);// 下注阶段
 	    		result.setStageName("下注阶段");
 	    	} else if (betweenTime >= 31 && betweenTime <= 45) {
@@ -136,7 +136,7 @@ public class ConfigService {
 	    			result.setStageName("封盘阶段");
 	    		}
 	    	}else{
-	    		if (betweenTime > 60) {
+	    		if (betweenTime > 50) {
 	    			result.setStage(1);// 下注阶段
 	    			result.setStageName("下注阶段");
 	    		} else {
@@ -188,13 +188,13 @@ public class ConfigService {
 	    	betweenTime = 10L;
 	    }else{
 	    	result.setStartRacingTime(recordResult.getStartTime().getTime() - nowDate.getTime());
-	    	result.setEndStakeTime(result.getStartRacingTime() - 60 * 1000);
+	    	result.setEndStakeTime(result.getStartRacingTime() - 50 * 1000);
 	    }
 	    
 	    result.setRacingNum(recordResult.getRacingNum());
 	    
 	    if(isManager){//总盘web
-	    	if (betweenTime > 60) {
+	    	if (betweenTime > 50) {
 	    		result.setStage(1);// 下注阶段
 	    		result.setStageName("下注阶段");
 	    	} else if (betweenTime >= 31 && betweenTime <= 45) {
@@ -233,7 +233,7 @@ public class ConfigService {
 	    	}
 	    	
 	    }else{//分盘web
-	    	if (betweenTime > 60) {
+	    	if (betweenTime > 50) {
 	    		result.setStage(1);// 下注阶段
 	    		result.setStageName("下注阶段");
 	    	} else {
