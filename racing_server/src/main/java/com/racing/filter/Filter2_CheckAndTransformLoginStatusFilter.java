@@ -1,7 +1,6 @@
 package com.racing.filter;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,21 +18,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import com.racing.constant.APIRequestHeaderConstant;
-import com.racing.controller.vo.ApiResult;
 import com.racing.model.po.Manager;
 import com.racing.model.po.User;
 import com.racing.model.repo.ManagerRepo;
 import com.racing.model.repo.UserRepo;
 import com.racing.util.AccessKeyUtil;
 import com.racing.util.EncryptUtil;
-import com.racing.util.JsonUtils;
 import com.racing.util.ListUtil;
 import com.racing.util.LoginStatusSaveUtil;
-import com.racing.util.NoLoginException;
 import com.racing.util.ServeltRequestUtil;
 
 import jodd.util.StringUtil;
@@ -82,13 +77,15 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
 			String requestAccessKey = httpRequest.getHeader(APIRequestHeaderConstant.ACCESSKEY);
 
 			if (StringUtil.isEmpty(requestAccessKey)) {
-				throw new NoLoginException();
+				this.setSignErrorResponse(httpResponse, httpRequest);
+				return;
 			}
 
 			boolean isManager = AccessKeyUtil.checkAccessKeyIsManager(requestAccessKey);
 
 			if (isManagerRquest != isManager) {
-				throw new NoLoginException();
+				this.setSignErrorResponse(httpResponse, httpRequest);
+				return;
 			}
 
 			Integer loginId = null;
@@ -129,11 +126,13 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
 			}
 
 			if (StringUtil.isEmpty(securityKey)) {
-				throw new NoLoginException();
+				this.setSignErrorResponse(httpResponse, httpRequest);
+				return;
 			}
 
 			if (!this.checkSign(httpRequest, requestURI, securityKey)) {
-				throw new NoLoginException();
+				this.setSignErrorResponse(httpResponse, httpRequest);
+				return;
 			} else {
 				if (isManager) {
 					LoginStatusSaveUtil.setManagerLoginInfo(loginId);
@@ -153,13 +152,13 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
 		LOGGER.info("destroy CheckAndTransformLoginStatusFilter!");
 	}
 
-//	/**
-//	 * 设置错误签名信息
-//	 * 
-//	 * @param httpResponse
-//	 * @throws IOException
-//	 */
-//	private void setSignErrorResponse(HttpServletResponse httpResponse) throws IOException {
+	/**
+	 * 设置错误签名信息
+	 * 
+	 * @param httpResponse
+	 * @throws IOException
+	 */
+	private void setSignErrorResponse(HttpServletResponse httpResponse, HttpServletRequest httpRequest) throws IOException {
 //		httpResponse.setStatus(HttpStatus.OK.value());
 //		httpResponse.setContentType("application/json;charset=UTF-8");
 //		PrintWriter out = null;  
@@ -173,7 +172,14 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
 //	            out.close();  
 //	        }  
 //	    }  
-//	}
+		try {
+			httpRequest.getRequestDispatcher("/nologin").forward(httpRequest,httpResponse);
+		} catch (ServletException e) {
+			LOGGER.error("RequestDispatcher nologin has error", e);
+		}  
+        // 必须加返回，否则报错  
+        return ; 
+	}
 
 	private boolean checkSign(HttpServletRequest httpRequest, String requestURI, String securityKey) {
 		String requestSign = httpRequest.getHeader(APIRequestHeaderConstant.AUTHORIZATION);
