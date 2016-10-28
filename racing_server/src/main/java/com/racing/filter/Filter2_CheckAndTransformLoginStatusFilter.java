@@ -1,6 +1,7 @@
 package com.racing.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -162,9 +163,19 @@ public class Filter2_CheckAndTransformLoginStatusFilter implements Filter {
 	 * @throws IOException
 	 */
 	private void setSignErrorResponse(HttpServletResponse httpResponse) throws IOException {
-		httpResponse.setStatus(HttpStatus.FORBIDDEN.value());
+		httpResponse.setStatus(HttpStatus.OK.value());
 		httpResponse.setContentType("application/json;charset=UTF-8");
-		httpResponse.getWriter().write(JsonUtils.toJsonHasNullKey(ApiResult.createNoLoginReuslt()));
+		PrintWriter out = null;  
+	    try {  
+	        out = httpResponse.getWriter();  
+	        out.append(JsonUtils.toJsonHasNullKey(ApiResult.createNoLoginReuslt()));  
+	    } catch (IOException e) {  
+	        e.printStackTrace();  
+	    } finally {  
+	        if (out != null) {  
+	            out.close();  
+	        }  
+	    }  
 	}
 
 	private boolean checkSign(HttpServletRequest httpRequest, String requestURI, String securityKey) {
