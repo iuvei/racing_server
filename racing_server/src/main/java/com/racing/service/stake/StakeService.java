@@ -221,7 +221,7 @@ public class StakeService {
 		}
 		String racingNum = recordResult.getRacingNum();
 		long betweenTime = DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), operationDate);
-		if (betweenTime <= 60) {// 原本是70秒，此处多加5秒用作缓冲
+		if (betweenTime < 46) {// 原本是70秒，此处多加5秒用作缓冲
 			throw new RuntimeException("当前" + racingNum + "的比赛已过押注时间");
 		}
 

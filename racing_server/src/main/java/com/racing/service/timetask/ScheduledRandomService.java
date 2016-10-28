@@ -104,11 +104,12 @@ public class ScheduledRandomService {
   @Autowired
   private TotalStatisticsService totalStatisticsService;
   
-  /**
+  /**web	：60封盘，45~31计算，30~5修改
+   * client	：70封盘，70~50报盘，45~31计算，30~5修改
    * 计算最优解
-   * 每天9点~23点的1分7秒开始，每5分钟一次（9点7分开始第一场比赛，6分7秒开始计算，即当前比赛倒计时53秒时）
+   * 每天9点~23点的1分7秒开始，每5分钟一次（9点7分开始第一场比赛，6分7秒开始计算，即当前比赛倒计时45秒时）
    */
-  @Scheduled(cron = "7 1/5 0-23 * * ?")
+  @Scheduled(cron = "15 1/5 0-23 * * ?")
   public void invokeDealRecordResultOptimalCalculation() {
 	  totalStatisticsService.dealRecordResultOptimalCalculation();
   }

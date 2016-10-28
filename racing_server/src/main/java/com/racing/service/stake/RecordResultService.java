@@ -33,7 +33,7 @@ public class RecordResultService {
             return ApiResult.createErrorReuslt("未找到" + racingNum + "的比赛信息");
         }
         long betweenTime = DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), nowDate);
-        if (!(betweenTime >= 15 && betweenTime <= 40)) {// 原本是20~40秒可修改，以防万一，缓冲5秒
+        if (!(betweenTime >= 4 && betweenTime <= 30)) {// 原本是30~5秒可修改，以防万一，缓冲1秒
             return ApiResult.createErrorReuslt("当前" + racingNum + "的比赛暂不支持修改比赛结果");
         }
 
