@@ -18,6 +18,13 @@ public class ExceptionController {
 	
 	private static Logger logger = LoggerFactory.getLogger(ExceptionController.class);
 	
+	@ExceptionHandler(NoLoginException.class)  
+	@ResponseStatus(HttpStatus.OK) 
+	@ResponseBody
+	public Object noLoginExceptionHandler(NoLoginException ex,HttpServletRequest request){
+		return ApiResult.createNoLoginReuslt();
+	}
+
 	@ExceptionHandler(Exception.class)  
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) 
 	@ResponseBody
@@ -26,10 +33,4 @@ public class ExceptionController {
 		return ApiResult.createErrorReuslt(ex.getMessage());
 	}
 
-	@ExceptionHandler(NoLoginException.class)  
-	@ResponseStatus(HttpStatus.OK) 
-	@ResponseBody
-	public Object noLoginExceptionHandler(NoLoginException ex,HttpServletRequest request){
-		return ApiResult.createNoLoginReuslt();
-	}
 }
