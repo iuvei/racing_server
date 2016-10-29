@@ -76,12 +76,14 @@ public class ConfigService {
 	    Date nowDate = DateUtil.setDateMillisecondZero(new Date());
 	    RecordResult recordResult = recordResultRepo.getNowNextRecordResult(nowDate);
 	    if (recordResult == null) {
-	      return ApiResult.createErrorReuslt("暂无比赛！");
+//	      return ApiResult.createErrorReuslt("暂无比赛！");
+	    	return ApiResult.createSuccessReuslt(this.createNoRacing(isManager, isClient, false, loginId));
 	    }
 	    long betweenTime = DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), nowDate);
 	    
 	    if(betweenTime>300){
-	    	return ApiResult.createErrorReuslt("暂无比赛！");
+//	    	return ApiResult.createErrorReuslt("暂无比赛！");
+	    	return ApiResult.createSuccessReuslt(this.createNoRacing(isManager, isClient, false, loginId));
 	    }
 	    result.setResult(null);
 	    if(betweenTime>278){//下一场比赛距离当前时间超过280秒，则继续上一场比赛，且停止押注操作
@@ -173,11 +175,12 @@ public class ConfigService {
 	    Date nowDate = DateUtil.setDateMillisecondZero(new Date());
 	    RecordResult recordResult = recordResultRepo.getNowNextRecordResult(nowDate);
 	    if (recordResult == null) {
-	    	return ApiResult.createErrorReuslt("暂无比赛！");
+	    	return ApiResult.createSuccessReuslt(this.createNoRacing(isManager, false, true, loginId));
 	    }
 	    long betweenTime = DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), nowDate);
 	    if(betweenTime>300){
-	    	return ApiResult.createErrorReuslt("暂无比赛！");
+//	    	return ApiResult.createErrorReuslt("暂无比赛！");
+	    	return ApiResult.createSuccessReuslt(this.createNoRacing(isManager, false, true, loginId));
 	    }
 	    result.setResult(null);
 	    if(betweenTime>=280&&!isManager){//下一场比赛距离当前时间超过290秒，则继续上一场比赛，且停止押注操作,如果是总盘用户，则不执行该逻辑
@@ -275,4 +278,45 @@ public class ConfigService {
 
 	    return ApiResult.createSuccessReuslt(result);
 	  }
+	
+	private StakeConfigVo createNoRacing(boolean isManager, boolean isClient, boolean isHaveStakeInfo, Integer loginId){
+		Date nowDate = new Date();
+		
+		StakeConfigVo result = new StakeConfigVo();
+		result.setRacingNum("");
+		result.setEndStakeTime(0L);
+		result.setStartRacingTime(0L);
+		if(isClient){
+			result.setStage(3);
+		}else{
+			result.setStage(4);
+		}
+		result.setStageName("封盘阶段");
+		RecordResult preRecordResult = recordResultRepo.getNowBeforLastRecordResult(nowDate);
+	    if (preRecordResult != null) {
+	      result.setPreRacingNum(preRecordResult.getRacingNum());
+	      result.setPreResult(RecordResultPOUtil.convertResult(preRecordResult));
+	    }
+		if(isHaveStakeInfo){
+			result.setStakeVo(StakeVoUtil.createNewStake(""));
+		}
+		result.setTotalRacingStakeAmount(BigDecimal.ZERO);
+		if(isManager){
+			TotalDayCountIncomeWithBLOBs totalDayCountIncomeWithBLOBs = totalDayCountIncomeRepo.getByDay(nowDate);
+	    	if(totalDayCountIncomeWithBLOBs != null){
+	    		result.setTodayIncome(totalDayCountIncomeWithBLOBs.getStakeAmount().subtract(totalDayCountIncomeWithBLOBs.getDeficitAmount()).setScale(2, BigDecimal.ROUND_CEILING));// 今日盈亏，临时死值，需要统计获取
+	    	}else{
+	    		result.setTodayIncome(BigDecimal.ZERO);
+	    	}
+		}else{
+			UserDayCountIncomeWithBLOBs userDayCountIncomeWithBLOBs = userDayCountIncomeRepo.getByDay(nowDate, loginId);
+	    	if(userDayCountIncomeWithBLOBs!=null){
+	    		result.setTodayIncome(userDayCountIncomeWithBLOBs.getTotalDeficitAmount());// 今日盈亏，临时死值，需要统计获取
+	    	}else{
+	    		result.setTodayIncome(BigDecimal.ZERO);
+	    	}
+		}
+		
+		return result;
+	}
 }
