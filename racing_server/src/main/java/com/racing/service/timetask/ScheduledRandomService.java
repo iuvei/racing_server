@@ -48,7 +48,7 @@ public class ScheduledRandomService {
    * 生成的信息是9点7分开始第一场比赛，之后每5分钟一场，即第二场比赛9点12分
    */
 //  @Scheduled(cron = "0 50 8 * * ?")
-  @Scheduled(cron = "0 13 10 * * ?")
+  @Scheduled(cron = "0 50 8 * * ?")
   public void reportCurrentTime() {
 
     Date racingStartTime = DateUtil.setDateHHmmss(new Date(), 9, 7, 0);
