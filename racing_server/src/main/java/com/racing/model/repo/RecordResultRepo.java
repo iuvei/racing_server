@@ -72,7 +72,7 @@ public class RecordResultRepo {
 	 */
 	public RecordResult getNowBeforLastRecordResult(Date nowDate) {
 		RecordResultExample example = new RecordResultExample();
-		example.createCriteria().andStartTimeLessThanOrEqualTo(nowDate);
+		example.createCriteria().andStartTimeLessThan(nowDate);
 		example.setOrderByClause(" start_time DESC limit 0,1");
 		List<RecordResult> result = mapper.selectByExample(example);
 		if (CollectionUtils.isNotEmpty(result)) {
