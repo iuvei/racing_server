@@ -67,8 +67,13 @@ public class MemberStatisticsService {
 	public BigDecimal dealMemberIncome(Integer[] recordResult, String racingNum, Integer memberId, CalcRate calcRate){
 		
 		MemberStakeWithBLOBs stakeWithBLOBs = membersStakeRepo.getStakeInfoByMembersIdAndTacingNum(memberId, racingNum);
-		if(stakeWithBLOBs == null||stakeWithBLOBs.getTotalStakeAmount().compareTo(BigDecimal.ZERO)==0){
+		if(stakeWithBLOBs == null){
 			return BigDecimal.ZERO;
+		}else if(stakeWithBLOBs.getTotalStakeAmount().compareTo(BigDecimal.ZERO)==0){
+			MemberStakeWithBLOBs memberStake = new MemberStakeWithBLOBs();
+			memberStake.setMembersId(memberId);
+			memberStake.setIsComplateStatistics(true);
+			membersStakeRepo.updateIncome(memberStake);
 		}
 		
 		StakeVo stakeVo = MemberStakeConvertUtil.convertUserStakeJsonToBean(stakeWithBLOBs);
