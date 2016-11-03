@@ -1,5 +1,6 @@
 package com.racing.controller.user;
 
+import com.racing.controller.vo.ApiResult;
 import com.racing.service.manager.UserDayCountIncomeService;
 import com.racing.service.manager.UserRacingIncomeService;
 import com.racing.service.member.MembersAccountRecordService;
@@ -94,6 +95,12 @@ public class UserMembersController {
     @RequestMapping(value = "/members/{weChatSN}", method = RequestMethod.PUT)
     public Object delete(@PathVariable String weChatSN) {
         Integer userId = LoginStatusSaveUtil.getUserWebId();
+        if(userId == null){
+        	userId = LoginStatusSaveUtil.getUserClientId();
+        	if(userId == null){
+        		return ApiResult.createNoLoginReuslt();
+        	}
+        }
         return membersService.delete(userId, weChatSN);
     }
 }
