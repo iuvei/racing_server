@@ -29,7 +29,7 @@ public class MembersDayCountIncomeRepo {
 
     public void updateIncome(MembersDayCountIncome record) {
         if (this.getByMemberIdAndDay(record.getMembersId(), record.getDay()) == null) {
-            record.setDeficitAmount(record.getIncomeAmount().subtract(record.getIncomeAmount()));
+            record.setDeficitAmount(record.getIncomeAmount().subtract(record.getStakeAmount()));
             mapper.insertSelective(record);
         } else {
             mapper.updateIncome(record);
