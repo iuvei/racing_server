@@ -4,6 +4,7 @@ import com.racing.constant.UserConstant;
 import com.racing.controller.vo.ApiResult;
 import com.racing.model.po.*;
 import com.racing.model.repo.*;
+import com.racing.util.DateUtil;
 import com.racing.util.PageUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -212,14 +213,18 @@ public class MembersService {
             return ApiResult.createSuccessReuslt();
         }
         RecordResult nowRecordResult = recordResultRepo.getNowNextRecordResult(new Date());
-        MemberStake nowMemberStake = membersStakeRepo.selectByMembersIdAndTacingNum(members.getId(), nowRecordResult.getRacingNum());
-        if (nowMemberStake != null) {
-            return ApiResult.createErrorReuslt("当期有下注,不能删除");
+        if(nowRecordResult != null){
+        	MemberStake nowMemberStake = membersStakeRepo.selectByMembersIdAndTacingNum(members.getId(), nowRecordResult.getRacingNum());
+        	if (nowMemberStake != null) {
+        		return ApiResult.createErrorReuslt("当期有下注,不能删除");
+        	}
         }
         RecordResult beforeRecordResult = recordResultRepo.getNowBeforLastRecordResult(new Date());
-        MemberStake beforeMemberStake = membersStakeRepo.selectByMembersIdAndTacingNum(members.getId(), beforeRecordResult.getRacingNum());
-        if (beforeMemberStake != null && !beforeMemberStake.getIsComplateStatistics()) {
-            return ApiResult.createErrorReuslt("上期未结算,不能删除");
+        if(beforeRecordResult != null && DateUtil.secondBetweenTwoDate(beforeRecordResult.getStartTime(), new Date())<10){
+        	MemberStake beforeMemberStake = membersStakeRepo.selectByMembersIdAndTacingNum(members.getId(), beforeRecordResult.getRacingNum());
+        	if (beforeMemberStake != null && !beforeMemberStake.getIsComplateStatistics()) {
+        		return ApiResult.createErrorReuslt("上期未结算,不能删除");
+        	}
         }
         ApiResult updatePointResult = (ApiResult) membersService.updatePoint(userId, weChatSN, "", members.getPoints().negate(), "SUBTRACT");
         if ("SUCCESS".equals(updatePointResult.getResult())) {
