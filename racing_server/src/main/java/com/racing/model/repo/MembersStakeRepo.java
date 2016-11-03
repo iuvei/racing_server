@@ -48,6 +48,9 @@ public class MembersStakeRepo {
     public void updateIncome(MemberStakeWithBLOBs record) {
         mapper.updateIncome(record);
     }
+    public void updateStake(MemberStakeWithBLOBs record) {
+    	mapper.updateStake(record);
+    }
 
     public List<MemberStake> getStakeInfoByMembersIdAndDateAndRacingNum(Integer membersId,
                                                                         Date sDate, Date eDate,

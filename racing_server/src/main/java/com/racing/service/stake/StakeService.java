@@ -29,6 +29,7 @@ import com.racing.model.po.UserCommonStake;
 import com.racing.model.po.UserRacingIncome;
 import com.racing.model.po.UserRankingStake;
 import com.racing.model.po.UserStakeWithBLOBs;
+import com.racing.model.po.util.MemberStakeConvertUtil;
 import com.racing.model.repo.MembersAccountRecordRepo;
 import com.racing.model.repo.MembersRepo;
 import com.racing.model.repo.MembersStakeRepo;
@@ -410,20 +411,42 @@ public class StakeService {
 			}
 			membersRepo.updatePoints(members.getId(), totalStakeAmount.negate());// 更新玩家的剩余积分
 
-			MemberStakeWithBLOBs memberStake = new MemberStakeWithBLOBs();
-			memberStake.setCreateTime(operationDate);
-			memberStake.setMembersId(members.getId());
-			memberStake.setRacingNum(stakeVo.getRacingNum());
-			memberStake.setTotalDeficitAmount(BigDecimal.ZERO);
-			memberStake.setTotalIncomeAmount(BigDecimal.ZERO);
-			memberStake.setTotalStakeAmount(totalStakeAmount);
-			memberStake.setTotalStakeCount(totalStakeCount);
-
-			memberStake.setAppointStake(JsonUtils.toJsonHasNullKey(stakeVo.getAppointStakeList()));
-			memberStake.setCommonStake(JsonUtils.toJsonHasNullKey(stakeVo.getCommonStake()));
-			memberStake.setRankingStake(JsonUtils.toJsonHasNullKey(stakeVo.getRankingStakeList()));
-
-			membersStakeRepo.addNew(memberStake);
+			MemberStakeWithBLOBs oldMemberStake = membersStakeRepo.getStakeInfoByMembersIdAndTacingNum(members.getId(), stakeVo.getRacingNum());
+			if(oldMemberStake == null){
+				MemberStakeWithBLOBs memberStake = new MemberStakeWithBLOBs();
+				memberStake.setCreateTime(operationDate);
+				memberStake.setMembersId(members.getId());
+				memberStake.setRacingNum(stakeVo.getRacingNum());
+				memberStake.setTotalDeficitAmount(BigDecimal.ZERO);
+				memberStake.setTotalIncomeAmount(BigDecimal.ZERO);
+				memberStake.setTotalStakeAmount(totalStakeAmount);
+				memberStake.setTotalStakeCount(totalStakeCount);
+				
+				memberStake.setAppointStake(JsonUtils.toJsonHasNullKey(stakeVo.getAppointStakeList()));
+				memberStake.setCommonStake(JsonUtils.toJsonHasNullKey(stakeVo.getCommonStake()));
+				memberStake.setRankingStake(JsonUtils.toJsonHasNullKey(stakeVo.getRankingStakeList()));
+				
+				membersStakeRepo.addNew(memberStake);
+			}else{
+				MemberStakeWithBLOBs memberStake = new MemberStakeWithBLOBs();
+				memberStake.setCreateTime(operationDate);
+				memberStake.setMembersId(members.getId());
+				memberStake.setRacingNum(stakeVo.getRacingNum());
+				memberStake.setTotalIncomeAmount(BigDecimal.ZERO);
+				memberStake.setTotalStakeAmount(totalStakeAmount);
+				memberStake.setTotalStakeCount(totalStakeCount);
+				
+				StakeVo oldStake = MemberStakeConvertUtil.convertUserStakeJsonToBean(oldMemberStake);
+				
+				StakeVo newStake = StakeVoUtil.stakeAdd(oldStake, stakeVo);
+				
+				memberStake.setAppointStake(JsonUtils.toJsonHasNullKey(newStake.getAppointStakeList()));
+				memberStake.setCommonStake(JsonUtils.toJsonHasNullKey(newStake.getCommonStake()));
+				memberStake.setRankingStake(JsonUtils.toJsonHasNullKey(newStake.getRankingStakeList()));
+				
+				membersStakeRepo.updateStake(memberStake);
+				
+			}
 			MembersAccountRecord accountRecord = new MembersAccountRecord();
 			accountRecord.setMembersId(members.getId());
 			accountRecord.setOperationPoints(totalStakeAmount.negate());

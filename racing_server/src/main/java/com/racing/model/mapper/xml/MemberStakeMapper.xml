@@ -31,6 +31,23 @@ racing_num = #{record.racingNum}
 and
 members_id = #{record.membersId}
   </update>
+
+  <update id="updateStake">
+  UPDATE member_stake
+SET
+ total_stake_amount  = total_stake_amount + #{record.totalStakeAmount},
+ total_income_amount  = total_income_amount + #{record.totalIncomeAmount},
+ total_deficit_amount  = total_income_amount - total_stake_amount,
+ total_stake_count  = total_stake_count + #{record.totalStakeCount},
+ appoint_stake = #{appointStake},
+ common_stake = #{commonStake},
+ ranking_stake = #{rankingStake},
+ is_complate_statistics = #{record.isComplateStatistics}
+WHERE  
+racing_num = #{record.racingNum}
+and
+members_id = #{record.membersId}
+  </update>
   
   <sql id="Example_Where_Clause" >
     <where >

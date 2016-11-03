@@ -91,7 +91,7 @@ public class UserMembersController {
     }
 
     @ApiOperation("删除用户")
-    @RequestMapping(value = "/members/{weChatSN}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/members/{weChatSN}", method = RequestMethod.PUT)
     public Object delete(@PathVariable String weChatSN) {
         Integer userId = LoginStatusSaveUtil.getUserWebId();
         return membersService.delete(userId, weChatSN);
