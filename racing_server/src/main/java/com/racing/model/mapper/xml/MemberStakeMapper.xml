@@ -39,9 +39,9 @@ SET
  total_income_amount  = total_income_amount + #{record.totalIncomeAmount},
  total_deficit_amount  = total_income_amount - total_stake_amount,
  total_stake_count  = total_stake_count + #{record.totalStakeCount},
- appoint_stake = #{appointStake},
- common_stake = #{commonStake},
- ranking_stake = #{rankingStake},
+ appoint_stake = #{record.appointStake},
+ common_stake = #{record.commonStake},
+ ranking_stake = #{record.rankingStake},
  is_complate_statistics = #{record.isComplateStatistics}
 WHERE  
 racing_num = #{record.racingNum}
