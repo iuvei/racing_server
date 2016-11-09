@@ -195,25 +195,25 @@ public class StakeVoUtil {
     	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecondBig());
     	  totalStakeCount++;
       } else {
-    	  commonStake.setFirstSecond19(BigDecimal.ZERO);
+    	  commonStake.setFirstSecondBig(BigDecimal.ZERO);
       }
       if (commonStake.getFirstSecondSmall() != null && commonStake.getFirstSecondSmall().compareTo(BigDecimal.ZERO) > 0) {
     	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecondSmall());
     	  totalStakeCount++;
       } else {
-    	  commonStake.setFirstSecond19(BigDecimal.ZERO);
+    	  commonStake.setFirstSecondSmall(BigDecimal.ZERO);
       }
       if (commonStake.getFirstSecondOdd() != null && commonStake.getFirstSecondOdd().compareTo(BigDecimal.ZERO) > 0) {
     	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecondOdd());
     	  totalStakeCount++;
       } else {
-    	  commonStake.setFirstSecond19(BigDecimal.ZERO);
+    	  commonStake.setFirstSecondOdd(BigDecimal.ZERO);
       }
       if (commonStake.getFirstSecondEven() != null && commonStake.getFirstSecondEven().compareTo(BigDecimal.ZERO) > 0) {
     	  totalStakeAmount = totalStakeAmount.add(commonStake.getFirstSecondEven());
     	  totalStakeCount++;
       } else {
-    	  commonStake.setFirstSecond19(BigDecimal.ZERO);
+    	  commonStake.setFirstSecondEven(BigDecimal.ZERO);
       }
     }
 
