@@ -78,11 +78,20 @@ public class UserStatisticsService {
 	
 	@Transactional(rollbackFor = Exception.class)
 	public void dealUserIncome(Integer userId){
+		Date nowDate = new Date();
 		User user = userRepo.selectById(userId);
 		if(user == null){
 			return;
 		}
 		RecordResult recordResult = recordResultRepo.getNowBeforLastRecordResult(new Date());
+		if(recordResult == null){
+			return;
+		}else {
+			long betweenTime = DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), nowDate);
+			if(betweenTime>300){
+				return;
+			}
+		}
 		Integer[] racingResult = RecordResultPOUtil.convertResult(recordResult);
 		
 		String racingNum = recordResult.getRacingNum();
@@ -123,8 +132,6 @@ public class UserStatisticsService {
 		userRacingIncomeRepo.updateIncome(racingIncome);
 		
 		UserRacingIncome newRacingIncome = userRacingIncomeRepo.selectByRacingNumAndUserId(racingNum, userId);
-		
-		Date nowDate = new Date();
 		
 		UserDayCountIncomeWithBLOBs oldDayCountIncome = userDayCountIncomeRepo.getByDay(nowDate, userId);
 		StakeVo oldDayStakeVo = UserStakeConvertUtil.convertUserDayStakeJsonToBean(oldDayCountIncome);

@@ -100,9 +100,15 @@ public class TotalStatisticsService {
 
 	@Transactional(rollbackFor = Exception.class)
 	public void dealTotalIncome(){
+		Date nowDate = new Date();
 		RecordResult recordResult = recordResultRepo.getNowBeforLastRecordResult(new Date());
-		if(recordResult.getIsComplateStatistics()){
+		if(recordResult == null || recordResult.getIsComplateStatistics()){
 			return;
+		}else {
+			long betweenTime = DateUtil.secondBetweenTwoDate(recordResult.getStartTime(), nowDate);
+			if(betweenTime>300){
+				return;
+			}
 		}
 		Integer[] racingResult = RecordResultPOUtil.convertResult(recordResult);
 		
@@ -118,7 +124,6 @@ public class TotalStatisticsService {
 		racingIncome.setStakeCount(0);
 		totalRacingIncomeRepo.updateRacingIncome(racingIncome);
 		
-		Date nowDate = new Date();
 		
 		TotalDayCountIncomeWithBLOBs oldDayCountIncomeWithBLOBs = totalDayCountIncomeRepo.getByDay(nowDate);
 		StakeVo oldStakeVo = TotalDayStakeConvertUtil.commontStakPoToVo(oldDayCountIncomeWithBLOBs);

@@ -109,7 +109,7 @@ public class ScheduledRandomService {
    * 计算最优解
    * 每天9点~23点的1分7秒开始，每5分钟一次（9点7分开始第一场比赛，6分7秒开始计算，即当前比赛倒计时45秒时）
    */
-  @Scheduled(cron = "15 1/5 0-23 * * ?")
+  @Scheduled(cron = "15 1/5 9-23 * * ?")
   public void invokeDealRecordResultOptimalCalculation() {
 	  totalStatisticsService.dealRecordResultOptimalCalculation();
   }
@@ -118,7 +118,7 @@ public class ScheduledRandomService {
    * 统计总盘的按期号盈亏和押注（取当前时间的上一场比赛，进行统计）
    * 每天9点~23点7分5秒开始，没五分钟一次（9点7分开始第一场比赛，7分5秒开始统计上一场比赛结果，即新一轮比赛倒计时295秒时）
    */
-  @Scheduled(cron = "5 2/5 0-23 * * ?")
+  @Scheduled(cron = "5 2/5 9-23 * * ?")
   public void invokeDealTotalIncome(){
 	  totalStatisticsService.dealTotalIncome();
   }
@@ -133,7 +133,7 @@ public class ScheduledRandomService {
    * 统计分盘的按期号盈亏和押注（取当前时间的上一场比赛，进行统计）
    * 每天9点~23点7分10秒开始，每五分钟一次（9点7分开始第一场比赛，7分10秒开始统计上一场比赛结果，即新一轮比赛倒计时290秒时）
    */
-  @Scheduled(cron = "10 2/5 0-23 * * ?")
+  @Scheduled(cron = "10 2/5 9-23 * * ?")
   public void invokeDealUserIncome(){
 	  List<User> userList = userRepo.selectUser();
 	  for(User user : userList){
