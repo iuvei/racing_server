@@ -131,7 +131,7 @@ public class RecordResultService {
         String results = "";
         if (CollectionUtils.isNotEmpty(list)) {
             for (RecordResult recordResult : list) {
-                results = results + recordResult.getFirst() + "-";
+                results = recordResult.getFirst() + "-" + results;
             }
             results = results.substring(0, results.length() - 1);
         }
