@@ -63,7 +63,7 @@ public class RecordResultService {
 
         recordResult.setFirstAddSecond(racingResult[0] + racingResult[1]);
         recordResult.setIsFirstSecondBig((racingResult[0] + racingResult[1]) > 11);
-        recordResult.setIsFirstSecondOdd((racingResult[0] + racingResult[1]) % 2 == 0);
+        recordResult.setIsFirstSecondOdd((racingResult[0] + racingResult[1]) % 2 != 0);
         recordResult.setIsFirstUp(racingResult[0] > racingResult[9]);
         recordResult.setIsSecondUp(racingResult[1] > racingResult[8]);
         recordResult.setIsThirdUp(racingResult[2] > racingResult[7]);
