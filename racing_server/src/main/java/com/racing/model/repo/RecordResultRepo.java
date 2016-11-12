@@ -122,4 +122,12 @@ public class RecordResultRepo {
 		int result = mapper.countByExample(example);
 		return result;
 	}
+	
+	public List<RecordResult> selectRacingResultByDateAndSize(Date startDate, Date endDate){
+		RecordResultExample example = new RecordResultExample();
+		example.createCriteria().andStartTimeGreaterThanOrEqualTo(startDate).andStartTimeLessThanOrEqualTo(endDate);
+		example.setOrderByClause(" id desc ");
+		List<RecordResult> result = mapper.selectByExample(example);
+		return result;
+	}
 }

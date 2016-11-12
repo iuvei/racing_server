@@ -1,5 +1,16 @@
 package com.racing.service.stake;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.racing.controller.vo.ApiResult;
 import com.racing.controller.vo.RecordResultVo;
 import com.racing.model.po.RecordResult;
@@ -10,11 +21,6 @@ import com.racing.model.repo.UserRepo;
 import com.racing.model.stake.util.RecordResultPOUtil;
 import com.racing.util.DateUtil;
 import com.racing.util.PageUtil;
-import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.*;
 
 @Service
 public class RecordResultService {
@@ -124,10 +130,11 @@ public class RecordResultService {
         return ApiResult.createErrorReuslt("没开奖");
     }
 
-    public Object historyChampion(Integer nper) {
+    public Object historyChampion(Integer nper) throws ParseException {
         Date date = new Date();
-        date.setTime(date.getTime() - 20);
-        List<RecordResult> list = recordResultRepo.selectRacingResult(date, PageUtil.createPage(1, nper));
+        date = DateUtil.addSecond(date, -15);
+//        List<RecordResult> list = recordResultRepo.selectRacingResult(date, PageUtil.createPage(1, nper));
+        List<RecordResult> list = recordResultRepo.selectRacingResultByDateAndSize(DateUtil.getBeginOfDay(date), date);
         String results = "";
         if (CollectionUtils.isNotEmpty(list)) {
             for (RecordResult recordResult : list) {

@@ -1,5 +1,6 @@
 package com.racing.controller.user;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,7 @@ public class UserClientController {
 
     @ApiOperation("客户端-查询历史冠军走向")
     @RequestMapping(value = "/history/champion", method = RequestMethod.GET)
-    public Object historyChampion(@RequestParam(required = false, defaultValue = "30") Integer nper) {
+    public Object historyChampion(@RequestParam(required = false, defaultValue = "30") Integer nper) throws ParseException {
         return recordResultService.historyChampion(nper);
     }
 
