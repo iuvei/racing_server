@@ -237,4 +237,50 @@ public class MembersService {
         }
         return ApiResult.createErrorReuslt("删除失败");
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public Object updatePointByMemberId(Integer userId, Integer memberId,
+                                        BigDecimal updatePoints, String type) {
+        if (updatePoints.compareTo(BigDecimal.ZERO) < 0) {
+            return ApiResult.createErrorReuslt("不能在网站下分");
+        }
+        User user = userRepo.selectById(userId);
+            if (user.getUserPoints().subtract(updatePoints).compareTo(BigDecimal.ZERO) < 0) {
+                return ApiResult.createErrorReuslt("分盘当前积分不足，无法上分");
+            }
+        Members members = membersRepo.getById(memberId);
+        if (members == null) {
+            return ApiResult.createErrorReuslt("用户不存在");
+        } else if(userId.equals(members.getUserId())){
+            return ApiResult.createErrorReuslt("此玩家不属于该分盘");
+        }else {
+            userRepo.updatePoint(userId, updatePoints.negate(), updatePoints);
+
+            members.setPoints(members.getPoints().add(updatePoints));
+            membersRepo.updateMember(members);
+            members = membersRepo.getById(memberId);
+            MembersAccountRecord membersAccountRecord = new MembersAccountRecord();
+            membersAccountRecord.setMembersId(members.getId());
+            membersAccountRecord.setOperationPoints(updatePoints);
+            membersAccountRecord.setOperationTime(new Date());
+            membersAccountRecord.setType(type);
+            membersAccountRecord.setResultPoints(members.getPoints());
+            membersAccountRecordRepo.add(membersAccountRecord);
+
+            UserAccountRecord userAccountRecord = new UserAccountRecord();
+            userAccountRecord.setUserId(userId);
+            userAccountRecord.setType(UserConstant.ACCOUNT_RECORD_TYPE_USER_ADD);
+            user = userRepo.selectById(userId);
+            userAccountRecord.setOperationTotalPoints(BigDecimal.ZERO);
+            userAccountRecord.setResultTotalPoints(user.getTotalPoints());
+            userAccountRecord.setOperationUserPoints(updatePoints.negate());
+            userAccountRecord.setResultUserPoints(user.getUserPoints());
+            userAccountRecord.setOperationMembersPoints(updatePoints);
+            userAccountRecord.setResultMembersPoints(user.getMembersPoints());
+            userAccountRecord.setOperationTime(new Date());
+            userAccountRecordRepo.insert(userAccountRecord);
+
+            return ApiResult.createSuccessReuslt(members);
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.racing.controller.user;
 
 import com.racing.controller.vo.ApiResult;
+import com.racing.controller.vo.MembersVo;
 import com.racing.service.manager.UserDayCountIncomeService;
 import com.racing.service.manager.UserRacingIncomeService;
 import com.racing.service.member.MembersAccountRecordService;
@@ -102,5 +103,17 @@ public class UserMembersController {
         	}
         }
         return membersService.delete(userId, weChatSN);
+    }
+
+    @ApiOperation("客户端-查询积分-上分-通过id")
+    @RequestMapping(value = "/members/{memberId}/point/add", method = RequestMethod.PUT)
+    public Object addPointByMemberId(@PathVariable Integer memberId,
+                                     @RequestBody MembersVo membersVo) {
+        Integer userId = LoginStatusSaveUtil.getUserWebId();
+        if (userId == null) {
+            return ApiResult.createErrorReuslt("先登录");
+        }
+        return membersService.updatePointByMemberId(userId, memberId,
+            membersVo.getUpdatePoints(), "ADD");
     }
 }
