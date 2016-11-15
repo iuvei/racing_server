@@ -251,7 +251,7 @@ public class MembersService {
         Members members = membersRepo.getById(memberId);
         if (members == null) {
             return ApiResult.createErrorReuslt("用户不存在");
-        } else if(userId.equals(members.getUserId())){
+        } else if(!userId.equals(members.getUserId())){
             return ApiResult.createErrorReuslt("此玩家不属于该分盘");
         }else {
             userRepo.updatePoint(userId, updatePoints.negate(), updatePoints);
